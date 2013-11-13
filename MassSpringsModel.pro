@@ -11,3 +11,5 @@ HEADERS += \
 
 FORMS += \
     scenewindow.ui
+
+LIBS += -lglut

@@ -2,6 +2,7 @@
 #define SCENEGLWIDGET_H
 
 #include <QGLWidget>
+#include <QTimer>
 
 class SceneGLWidget : public QGLWidget
 {
@@ -13,6 +14,8 @@ public:
     void paintGL();
     void resizeGL(int w, int h);
 
+private:
+    QTimer _timer;
 
 };
 

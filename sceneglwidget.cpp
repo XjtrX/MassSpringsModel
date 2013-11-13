@@ -39,7 +39,7 @@ void SceneGLWidget::resizeGL(int w, int h)
 {
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
-    return;
+    //return;
     glLoadIdentity();
     gluPerspective(45, (float)w/h, 0.01, 100.0);
     glMatrixMode(GL_MODELVIEW);

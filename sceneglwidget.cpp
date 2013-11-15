@@ -46,3 +46,26 @@ void SceneGLWidget::resizeGL(int w, int h)
     glLoadIdentity();
     gluLookAt(0,0,5, 0,0,0, 0,1,0);
 }
+
+void SceneGLWidget::mousePressEvent(QMouseEvent *ev)
+{
+    emit MousePress();
+}
+
+void SceneGLWidget::mouseMoveEvent(QMouseEvent *ev)
+{
+    this->x = ev->x();
+    this->y = ev->y();
+    emit MouseMove();
+}
+
+void SceneGLWidget::mouseReleaseEvent(QMouseEvent *ev)
+{
+    emit MouseRelease();
+}
+
+
+void SceneGLWidget::leaveEvent(QEvent *)
+{
+    emit Leave();
+}

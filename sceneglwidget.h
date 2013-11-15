@@ -3,6 +3,7 @@
 
 #include <QGLWidget>
 #include <QTimer>
+#include <QMouseEvent>
 
 class SceneGLWidget : public QGLWidget
 {
@@ -13,6 +14,19 @@ public:
     void initializeGL();
     void paintGL();
     void resizeGL(int w, int h);
+
+    void mousePressEvent(QMouseEvent *ev);
+    void mouseMoveEvent(QMouseEvent *ev);
+    void mouseReleaseEvent(QMouseEvent *ev);
+    void leaveEvent(QEvent *);
+
+    int x, y;
+
+signals:
+    void MousePress();
+    void MouseMove();
+    void MouseRelease();
+    void Leave();
 
 private:
     QTimer _timer;

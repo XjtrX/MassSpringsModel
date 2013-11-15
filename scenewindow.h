@@ -2,6 +2,7 @@
 #define SCENEWINDOW_H
 
 #include <QMainWindow>
+#include "sceneglwidget.h"
 
 namespace Ui {
 class SceneWindow;
@@ -15,6 +16,12 @@ public:
     explicit SceneWindow(QWidget *parent = 0);
     ~SceneWindow();
     
+private slots:
+    void MouseMove();
+    void MousePress();
+    void MouseRelease();
+    void Leave();
+
 private:
     Ui::SceneWindow *ui;
 };

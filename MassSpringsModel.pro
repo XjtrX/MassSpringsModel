@@ -7,7 +7,10 @@ SOURCES += \
 
 HEADERS += \
     scenewindow.h \
-    sceneglwidget.h
+    sceneglwidget.h \
+    Point2D.h \
+    RotationHolder.h \
+    Point3D.h
 
 FORMS += \
     scenewindow.ui

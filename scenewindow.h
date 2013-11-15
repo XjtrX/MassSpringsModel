@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include "sceneglwidget.h"
 
+#include "Point2D.h"
+
 namespace Ui {
 class SceneWindow;
 }
@@ -23,6 +25,8 @@ private slots:
     void LeaveSlot();
 
 private:
+    int _mousePressed;
+    Point2D<int> _prevMousePos;
     Ui::SceneWindow *ui;
 };
 

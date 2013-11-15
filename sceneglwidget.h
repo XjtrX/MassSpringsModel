@@ -3,8 +3,12 @@
 
 #include <QGLWidget>
 #include <QTimer>
+
 #include <QMouseEvent>
 #include <QEvent>
+
+#include "Point3D.h"
+#include "RotationHolder.h"
 
 class SceneGLWidget : public QGLWidget
 {
@@ -16,13 +20,11 @@ public:
     void paintGL();
     void resizeGL(int w, int h);
 
+private:
     void mousePressEvent(QMouseEvent *ev);
     void mouseMoveEvent(QMouseEvent *ev);
     void mouseReleaseEvent(QMouseEvent *ev);
     void leaveEvent(QEvent *);
-
-    int x();
-    int y();
 
 signals:
     void MousePressSignal();
@@ -30,11 +32,22 @@ signals:
     void MouseReleaseSignal();
     void LeaveSignal();
 
-private:
-    QTimer _timer;
-    int _x;
-    int _y;
+public:
+    void Rotate(int x, int y, int z);
 
+private:
+    void UpdateViewPoint();
+
+public:
+    int mousePosX();
+    int mousePosY();
+
+private:
+//    QTimer _timer;
+    int _mousePosX;
+    int _mousePosY;
+    RotationHolder<int> _rotation;
+    Point3D<int> _transition;
 };
 
 #endif // SCENEGLWIDGET_H

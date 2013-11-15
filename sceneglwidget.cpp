@@ -8,8 +8,6 @@ using namespace std;
 SceneGLWidget::SceneGLWidget(QWidget *parent) :
     QGLWidget(parent)
 {
-//    connect(&_timer, SIGNAL(timeout()), this, SLOT(updateGL()));
-//    _timer.start(16);
 }
 
 void SceneGLWidget::initializeGL()
@@ -23,17 +21,12 @@ void SceneGLWidget::initializeGL()
 void SceneGLWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-//    glRotatef(0.5, 1, 1, 1);
     glColor3f(1, 0.6, 0);
-//    glutSolidTeapot(0.6);
-    glBegin(GL_TRIANGLES);
-        glColor3f(1, 0, 0);
-        glVertex3f(-0.5, -0.5, 0);
-        glColor3f(0, 1, 0);
-        glVertex3f( 0.5, -0.5, 0);
-        glColor3f(0, 0, 1);
-        glVertex3f( 0.5,  0.5, 0);
+    glBegin(GL_QUADS);
+        DrawRectangle(Point3D<float>(0, 0, 0), Point3D<float>(1, 0, 0)
+                    , Point3D<float>(1, -1, 0.5), Point3D<float>(0, -1, 0.5));
+        DrawRectangle(Point3D<float>(-1, 1, 0.5), Point3D<float>(0, 1, 0.5)
+                    , Point3D<float>(0, 0, 0), Point3D<float>(-1, 0, 0));
     glEnd();
 }
 
@@ -41,13 +34,9 @@ void SceneGLWidget::resizeGL(int w, int h)
 {
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
-    //return;
     glLoadIdentity();
     gluPerspective(45, (float)w/h, 0.01, 100.0);
     UpdateViewPoint();
-//    glMatrixMode(GL_MODELVIEW);
-//    glLoadIdentity();
-//    gluLookAt(0,0,5, 0,0,0, 0,1,0);
 }
 
 void SceneGLWidget::mousePressEvent(QMouseEvent *ev)
@@ -84,7 +73,25 @@ void SceneGLWidget::UpdateViewPoint()
               , _transition.getX()/10
               , _transition.getY()/10
               , _transition.getZ()/10
-              , -sin(_rotation.getZ()*PI/180), cos(_rotation.getZ()*PI/180), 0);
+                , -sin(_rotation.getZ()*PI/180), cos(_rotation.getZ()*PI/180), 0);
+}
+
+void SceneGLWidget::DrawRectangle(Point3D<float> a, Point3D<float> b
+                                , Point3D<float> c, Point3D<float> d)
+{
+//front
+    glVertex3f(a.getX(), a.getY(), a.getZ());
+    glVertex3f(b.getX(), b.getY(), b.getZ());
+    glVertex3f(c.getX(), c.getY(), c.getZ());
+    glVertex3f(d.getX(), d.getY(), d.getZ());
+/*
+    glVertex3f(center.getX() + mainPoint.getX()/2, center.getY() + mainPoint.getY()/2, center.getZ() - mainPoint.getZ()/2);
+    glVertex3f(center.getX() - mainPoint.getX()/2, center.getY() + mainPoint.getY()/2, center.getZ() - mainPoint.getZ()/2);
+    glVertex3f(center.getX() - mainPoint.getX()/2, center.getY() - mainPoint.getY()/2, center.getZ() - mainPoint.getZ()/2);
+    glVertex3f(center.getX() + mainPoint.getX()/2, center.getY() - mainPoint.getY()/2, center.getZ() - mainPoint.getZ()/2);
+*/
+// rd ld lu ru
+
 }
 
 int SceneGLWidget::mousePosX()

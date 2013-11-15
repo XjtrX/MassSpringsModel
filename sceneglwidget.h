@@ -2,7 +2,6 @@
 #define SCENEGLWIDGET_H
 
 #include <QGLWidget>
-#include <QTimer>
 
 #include <QMouseEvent>
 #include <QEvent>
@@ -37,13 +36,14 @@ public:
 
 private:
     void UpdateViewPoint();
+    void DrawRectangle(Point3D<float> a, Point3D<float> b
+                     , Point3D<float> c, Point3D<float> d);
 
 public:
     int mousePosX();
     int mousePosY();
 
 private:
-//    QTimer _timer;
     int _mousePosX;
     int _mousePosY;
     RotationHolder<int> _rotation;

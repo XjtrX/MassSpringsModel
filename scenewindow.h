@@ -17,10 +17,10 @@ public:
     ~SceneWindow();
     
 private slots:
-    void MouseMove();
-    void MousePress();
-    void MouseRelease();
-    void Leave();
+    void MouseMoveSlot();
+    void MousePressSlot();
+    void MouseReleaseSlot();
+    void LeaveSlot();
 
 private:
     Ui::SceneWindow *ui;

@@ -4,6 +4,7 @@
 #include <QGLWidget>
 #include <QTimer>
 #include <QMouseEvent>
+#include <QEvent>
 
 class SceneGLWidget : public QGLWidget
 {
@@ -20,16 +21,19 @@ public:
     void mouseReleaseEvent(QMouseEvent *ev);
     void leaveEvent(QEvent *);
 
-    int x, y;
+    int x();
+    int y();
 
 signals:
-    void MousePress();
-    void MouseMove();
-    void MouseRelease();
-    void Leave();
+    void MousePressSignal();
+    void MouseMoveSignal();
+    void MouseReleaseSignal();
+    void LeaveSignal();
 
 private:
     QTimer _timer;
+    int _x;
+    int _y;
 
 };
 

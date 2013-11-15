@@ -9,10 +9,10 @@ SceneWindow::SceneWindow(QWidget *parent) :
     ui(new Ui::SceneWindow)
 {
     ui->setupUi(this);
-    connect(ui->widget, SIGNAL(MousePress()), this, SLOT(MousePress()));
-    connect(ui->widget, SIGNAL(MouseMove()), this, SLOT(MouseMove()));
-    connect(ui->widget, SIGNAL(MouseRelease()), this, SLOT(MouseRelease()));
-    connect(ui->widget, SIGNAL(Leave()), this, SLOT(Leave()));
+    connect(ui->widget, SIGNAL(MouseMoveSignal()), this, SLOT(MouseMoveSlot()));
+    connect(ui->widget, SIGNAL(MousePressSignal()), this, SLOT(MousePressSlot()));
+    connect(ui->widget, SIGNAL(MouseReleaseSignal()), this, SLOT(MouseReleaseSlot()));
+    connect(ui->widget, SIGNAL(LeaveSignal()), this, SLOT(LeaveSlot()));
 }
 
 SceneWindow::~SceneWindow()
@@ -20,23 +20,28 @@ SceneWindow::~SceneWindow()
     delete ui;
 }
 
-void SceneWindow::MouseMove()
+void SceneWindow::MouseMoveSlot()
 {
-    cout << this->ui->widget->x << " " << this->ui->widget->y << endl;
+    cout << this->ui->widget->x() - this->ui->widget->width() / 2 << " "
+         << this->ui->widget->y() - this->ui->widget->height() / 2 << endl;
+    cout.flush();
 }
 
-void SceneWindow::MousePress()
+void SceneWindow::MousePressSlot()
 {
     cout << "Mouse Pressed\n";
+    cout.flush();
 }
 
-void SceneWindow::MouseRelease()
+void SceneWindow::MouseReleaseSlot()
 {
     cout << "Mouse Release\n";
+    cout.flush();
 }
 
 
-void SceneWindow::Leave()
+void SceneWindow::LeaveSlot()
 {
     cout << "Leave\n";
+    cout.flush();
 }

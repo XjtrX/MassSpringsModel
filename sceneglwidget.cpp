@@ -49,23 +49,33 @@ void SceneGLWidget::resizeGL(int w, int h)
 
 void SceneGLWidget::mousePressEvent(QMouseEvent *ev)
 {
-    emit MousePress();
+    emit MousePressSignal();
 }
 
 void SceneGLWidget::mouseMoveEvent(QMouseEvent *ev)
 {
-    this->x = ev->x();
-    this->y = ev->y();
-    emit MouseMove();
+    this->_x = ev->x();
+    this->_y = ev->y();
+    emit MouseMoveSignal();
 }
 
 void SceneGLWidget::mouseReleaseEvent(QMouseEvent *ev)
 {
-    emit MouseRelease();
+    emit MouseReleaseSignal();
 }
 
 
 void SceneGLWidget::leaveEvent(QEvent *)
 {
-    emit Leave();
+    emit LeaveSignal();
+}
+
+int SceneGLWidget::x()
+{
+    return _x;
+}
+
+int SceneGLWidget::y()
+{
+    return _y;
 }

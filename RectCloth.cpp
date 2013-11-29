@@ -17,11 +17,11 @@ RectCloth::RectCloth(int colls, int rows, int width, int height)
             _mass[r * colls + c] = Mass(Point3D<float>(1.0 * width * c / colls, 1.0 * height * r / rows), 1.0, 0);
             if (c > 0)
             {
-                _sprigs[i++] = Spring(&_mass[r * colls + c - 1], &_mass[r * colls + c], sW, sMW, 1000);
+                _sprigs[i++] = Spring(&_mass[r * colls + c - 1], &_mass[r * colls + c], sW, sMW, 1);
             }
             if (r > 0)
             {
-                _sprigs[i++] = Spring(&_mass[r * colls + c], &_mass[(r - 1) * colls + c], sH, sMH, 1000);
+                _sprigs[i++] = Spring(&_mass[r * colls + c], &_mass[(r - 1) * colls + c], sH, sMH, 1);
             }
 
 //

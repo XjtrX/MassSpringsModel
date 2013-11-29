@@ -7,13 +7,13 @@ using namespace std;
 
 SceneGLWidget::SceneGLWidget(QWidget *parent)
     : QGLWidget(parent)
-    , _rectCloth(30, 30, 3, 3)
+    , _rectCloth(30, 30, 1, 1)
 {
     connect(&_timer, SIGNAL(timeout()), this, SLOT(UpdateScene()));
-    _timer.start(16);
+    _timer.start(200);
 
-    //_rectCloth._mass[0].setStatic(1);
-    //_rectCloth._mass[_rectCloth._mass.size() - 1].setStatic(1);
+    _rectCloth._mass[0].setStatic(1);
+    _rectCloth._mass[_rectCloth._mass.size() - 1].setStatic(1);
 }
 
 void SceneGLWidget::initializeGL()
@@ -96,7 +96,7 @@ void SceneGLWidget::UpdateScene()
     }
     for (int i = 0; i < mL; i++)
     {
-        _rectCloth._mass[i].ApplyForce(0, 0, 1);
+        _rectCloth._mass[i].ApplyForce(0, 0, -0.1);
         _rectCloth._mass[i].Move(0.0016);
     }
     this->repaint();

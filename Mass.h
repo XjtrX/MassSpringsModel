@@ -58,7 +58,7 @@ public:
         Point3D<float> temp = _position;
         _position += _position;
         _position -= _prevPosition;
-        _position += _appliedForce / _massVolume * deltaTime * deltaTime;
+        _position += _appliedForce * deltaTime * deltaTime / _massVolume / 2;
         _prevPosition = temp;
         _appliedForce.set(0, 0, 0);
     }

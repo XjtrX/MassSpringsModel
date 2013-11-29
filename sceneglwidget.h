@@ -6,8 +6,11 @@
 #include <QMouseEvent>
 #include <QEvent>
 
+#include <QTimer>
+
 #include "Point3D.h"
 #include "RotationHolder.h"
+#include "RectCloth.h"
 
 class SceneGLWidget : public QGLWidget
 {
@@ -36,8 +39,8 @@ public:
 
 private:
     void UpdateViewPoint();
-    void DrawRectangle(Point3D<float> a, Point3D<float> b
-                     , Point3D<float> c, Point3D<float> d);
+private slots:
+    void UpdateScene();
 
 public:
     int mousePosX();
@@ -48,6 +51,8 @@ private:
     int _mousePosY;
     RotationHolder<int> _rotation;
     Point3D<int> _transition;
+    RectCloth _rectCloth;
+    QTimer _timer;
 };
 
 #endif // SCENEGLWIDGET_H

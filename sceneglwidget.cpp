@@ -5,9 +5,15 @@
 using namespace std;
 #define PI 3.14159265
 
-SceneGLWidget::SceneGLWidget(QWidget *parent) :
-    QGLWidget(parent)
+SceneGLWidget::SceneGLWidget(QWidget *parent)
+    : QGLWidget(parent)
+    , _rectCloth(30, 30, 3, 3)
 {
+    connect(&_timer, SIGNAL(timeout()), this, SLOT(UpdateScene()));
+    _timer.start(16);
+
+    //_rectCloth._mass[0].setStatic(1);
+    //_rectCloth._mass[_rectCloth._mass.size() - 1].setStatic(1);
 }
 
 void SceneGLWidget::initializeGL()
@@ -22,11 +28,15 @@ void SceneGLWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glColor3f(1, 0.6, 0);
-    glBegin(GL_QUADS);
-        DrawRectangle(Point3D<float>(0, 0, 0), Point3D<float>(1, 0, 0)
-                    , Point3D<float>(1, -1, 0.5), Point3D<float>(0, -1, 0.5));
-        DrawRectangle(Point3D<float>(-1, 1, 0.5), Point3D<float>(0, 1, 0.5)
-                    , Point3D<float>(0, 0, 0), Point3D<float>(-1, 0, 0));
+    glLineWidth(1.5);
+    glBegin(GL_LINES);
+    for (uint i = 0; i < _rectCloth._sprigs.size(); i++)
+    {
+        Point3D<float> p = _rectCloth._sprigs[i].getMassA()->getPosition();
+        glVertex3f(p.getX(), p.getY(), p.getZ());
+        p = _rectCloth._sprigs[i].getMassB()->getPosition();
+        glVertex3f(p.getX(), p.getY(), p.getZ());
+    }
     glEnd();
 }
 
@@ -53,7 +63,7 @@ void SceneGLWidget::mouseMoveEvent(QMouseEvent *ev)
     emit MouseMoveSignal();
 }
 
-void SceneGLWidget::mouseReleaseEvent(QMouseEvent *ev)
+void SceneGLWidget::mouseReleaseEvent(QMouseEvent *)
 {
     emit MouseReleaseSignal();
 }
@@ -76,22 +86,20 @@ void SceneGLWidget::UpdateViewPoint()
                 , -sin(_rotation.getZ()*PI/180), cos(_rotation.getZ()*PI/180), 0);
 }
 
-void SceneGLWidget::DrawRectangle(Point3D<float> a, Point3D<float> b
-                                , Point3D<float> c, Point3D<float> d)
+void SceneGLWidget::UpdateScene()
 {
-//front
-    glVertex3f(a.getX(), a.getY(), a.getZ());
-    glVertex3f(b.getX(), b.getY(), b.getZ());
-    glVertex3f(c.getX(), c.getY(), c.getZ());
-    glVertex3f(d.getX(), d.getY(), d.getZ());
-/*
-    glVertex3f(center.getX() + mainPoint.getX()/2, center.getY() + mainPoint.getY()/2, center.getZ() - mainPoint.getZ()/2);
-    glVertex3f(center.getX() - mainPoint.getX()/2, center.getY() + mainPoint.getY()/2, center.getZ() - mainPoint.getZ()/2);
-    glVertex3f(center.getX() - mainPoint.getX()/2, center.getY() - mainPoint.getY()/2, center.getZ() - mainPoint.getZ()/2);
-    glVertex3f(center.getX() + mainPoint.getX()/2, center.getY() - mainPoint.getY()/2, center.getZ() - mainPoint.getZ()/2);
-*/
-// rd ld lu ru
-
+    int sL = _rectCloth._sprigs.size();
+    int mL = _rectCloth._mass.size();
+    for (int i = 0; i < sL; i++)
+    {
+        _rectCloth._sprigs[i].Recalculate();
+    }
+    for (int i = 0; i < mL; i++)
+    {
+        _rectCloth._mass[i].ApplyForce(0, 0, 1);
+        _rectCloth._mass[i].Move(0.0016);
+    }
+    this->repaint();
 }
 
 int SceneGLWidget::mousePosX()

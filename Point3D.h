@@ -34,7 +34,21 @@ public:
         }
         return *this;
     }
+    void Plus(const Point3D& other)
+    {
+        this->_x += other._x;
+        this->_y += other._y;
+        this->_z += other._z;
+    }
 
+    void Minus(const Point3D& other)
+    {
+        this->_x -= other._x;
+        this->_y -= other._y;
+        this->_z -= other._z;
+    }
+
+/*
     Point3D<float>& operator +=(const Point3D& other)
     {
         this->_x += other._x;
@@ -57,7 +71,7 @@ public:
     {
         this->_x *= f;
         this->_y *= f;
-        this->_z += f;
+        this->_z *= f;
 
         return *this;
     }
@@ -70,7 +84,7 @@ public:
 
         return *this;
     }
-
+*/
     A getX()
     {
         return _x;

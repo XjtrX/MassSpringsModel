@@ -3,9 +3,12 @@
 
 #include "Point3D.h"
 
-class Mass
+#include <iostream>
+using namespace std;
+
+class Mass_old
 {
-private:
+public:
     Point3D<float> _prevPosition;
     Point3D<float> _position;
     float _massVolume;
@@ -25,7 +28,7 @@ public:
         _massVolume = massVolume;
         _static = st;
     }
-
+/*
     Mass(const Mass& other)
     {
         this->_prevPosition = other._prevPosition;
@@ -48,7 +51,7 @@ public:
 
         return *this;
     }
-
+*/
     void Move(float deltaTime)
     {
         if (_static)
@@ -56,9 +59,13 @@ public:
             return;
         }
         Point3D<float> temp = _position;
-        _position += _position;
-        _position -= _prevPosition;
-        _position += _appliedForce * deltaTime * deltaTime / _massVolume / 2;
+        _position.Plus(_position);
+        _position.Minus(_prevPosition);
+        _position.Plus(_appliedForce);
+//        _position += _position;
+//        _position -= _prevPosition;
+//        _position += _appliedForce;// * deltaTime * deltaTime / _massVolume / 2;
+        //cout << _appliedForce.getX() <<" " << _appliedForce.getY() << " " << _appliedForce.getZ() << endl;
         _prevPosition = temp;
         _appliedForce.set(0, 0, 0);
     }
@@ -90,9 +97,11 @@ public:
 
     void ApplyForce(float fX, float fY, float fZ)
     {
+
         _appliedForce.PlusX(fX);
         _appliedForce.PlusY(fY);
         _appliedForce.PlusZ(fZ);
+        //cout << _appliedForce.getX() <<" " << _appliedForce.getY() << " " << _appliedForce.getZ() << endl;
     }
 };
 

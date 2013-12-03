@@ -10,10 +10,11 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     , _rectCloth(30, 30, 1, 1)
 {
     connect(&_timer, SIGNAL(timeout()), this, SLOT(UpdateScene()));
-    _timer.start(200);
+    _timer.start(1000);
 
-    _rectCloth._mass[0].setStatic(1);
-    _rectCloth._mass[_rectCloth._mass.size() - 1].setStatic(1);
+//    _rectCloth._masses[0].setStatic(1);
+//    _rectCloth._masses[29].setStatic(1);
+//    _rectCloth._mass[_rectCloth._mass.size() - 1].setStatic(1);
 }
 
 void SceneGLWidget::initializeGL()
@@ -30,13 +31,15 @@ void SceneGLWidget::paintGL()
     glColor3f(1, 0.6, 0);
     glLineWidth(1.5);
     glBegin(GL_LINES);
-    for (uint i = 0; i < _rectCloth._sprigs.size(); i++)
+    /*
+    for (uint i = 0; i < _rectCloth._springsCount; i++)
     {
-        Point3D<float> p = _rectCloth._sprigs[i].getMassA()->getPosition();
+        Point3D<float> p = _rectCloth._springs[i].getMassA()->getPosition();
         glVertex3f(p.getX(), p.getY(), p.getZ());
-        p = _rectCloth._sprigs[i].getMassB()->getPosition();
+        p = _rectCloth._springs[i].getMassB()->getPosition();
         glVertex3f(p.getX(), p.getY(), p.getZ());
     }
+    */
     glEnd();
 }
 
@@ -88,17 +91,19 @@ void SceneGLWidget::UpdateViewPoint()
 
 void SceneGLWidget::UpdateScene()
 {
-    int sL = _rectCloth._sprigs.size();
-    int mL = _rectCloth._mass.size();
+    /*
+    int sL = _rectCloth._springsCount;
+    int mL = _rectCloth._massesCount;
     for (int i = 0; i < sL; i++)
     {
-        _rectCloth._sprigs[i].Recalculate();
+        _rectCloth._springs[i].Recalculate();
     }
     for (int i = 0; i < mL; i++)
     {
-        _rectCloth._mass[i].ApplyForce(0, 0, -0.1);
-        _rectCloth._mass[i].Move(0.0016);
+        _rectCloth._masses[i].ApplyForce(0, -0.1, 0);
+        _rectCloth._masses[i].Move(0.016);
     }
+    */
     this->repaint();
 }
 

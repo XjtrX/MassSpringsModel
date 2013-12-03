@@ -1,8 +1,8 @@
 #include "scenewindow.h"
 #include "ui_scenewindow.h"
 
-#include "iostream"
-using namespace std;
+//#include "iostream"
+//using namespace std;
 
 SceneWindow::SceneWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -30,8 +30,8 @@ void SceneWindow::MouseMoveSlot()
     int y = mPY - _prevMousePos.getY();
     _prevMousePos.setX(mPX);
     _prevMousePos.setY(mPY);
-    cout << x << " " << y << endl;
-    cout.flush();
+    //cout << x << " " << y << endl;
+    //cout.flush();
     if (_mousePressed)
     {
         this->ui->widget->Rotate(-y, -x, 0);
@@ -44,20 +44,20 @@ void SceneWindow::MousePressSlot()
     _mousePressed = 1;
     _prevMousePos.setX(this->ui->widget->mousePosX());
     _prevMousePos.setY(this->ui->widget->mousePosY());
-    cout << "Mouse Pressed\n";
-    cout.flush();
+    //cout << "Mouse Pressed\n";
+    //cout.flush();
 }
 
 void SceneWindow::MouseReleaseSlot()
 {
     _mousePressed = 0;
-    cout << "Mouse Release\n";
-    cout.flush();
+    //cout << "Mouse Release\n";
+    //cout.flush();
 }
 
 
 void SceneWindow::LeaveSlot()
 {
-    cout << "Leave\n";
-    cout.flush();
+    //cout << "Leave\n";
+    //cout.flush();
 }

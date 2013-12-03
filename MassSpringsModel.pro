@@ -12,9 +12,11 @@ HEADERS += \
     Point2D.h \
     RotationHolder.h \
     Point3D.h \
-    Mass.h \
-    Spring.h \
-    RectCloth.h
+    RectCloth.h \
+    Mass_old.h \
+    Spring_old.h \
+    Particle.h \
+    Spring.h
 
 FORMS += \
     scenewindow.ui

@@ -1,21 +1,20 @@
 #ifndef RECTCLOTH_H
 #define RECTCLOTH_H
 
-#include "Mass.h"
+#include "Particle.h"
 #include "Spring.h"
-
-#include <vector>
-using namespace std;
 
 class RectCloth
 {
     friend void paintGL();
 public:
-    RectCloth(int col, int row, int width, int height);
+    RectCloth(int cols, int rows, int width, int height);
     ~RectCloth();
 public:
-    vector<Mass> _mass;
-    vector<Spring> _sprigs;
+    int _particlesCount;
+    int _springsCount;
+    Particle* _particles;
+    Spring* _springs;
 };
 
 #endif // RECTCLOTH_H

@@ -87,7 +87,8 @@ void SceneGLWidget::UpdateViewPoint()
               , _transition.getX()/100
               , _transition.getY()/100
               , _transition.getZ()/100
-                , -sin(_rotation.getZ()*PI/180), cos(_rotation.getZ()*PI/180), 0);
+                //, -sin(_rotation.getZ()*PI/180), cos(_rotation.getZ()*PI/180), 0);
+              , 0, 1, 0);
 }
 
 void SceneGLWidget::UpdateScene()

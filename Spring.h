@@ -35,7 +35,6 @@ public:
     {
         Point3D<float> pA = _particleA->getPosition();
         Point3D<float> pB = _particleB->getPosition();
-/*
         Point3D<float> dist = pB;
         dist.Minus(pA);
 
@@ -51,7 +50,7 @@ public:
         _particleA->ApplyForce(-fX, -fY, -fZ);
         _particleB->ApplyForce( fX,  fY,  fZ);
         return 0;
-*/
+/*
         float dX = pB._x - pA._x;
         float dY = pB._y - pA._y;
         float dZ = pB._z - pA._z;
@@ -65,6 +64,7 @@ public:
         _particleA->ApplyForce(-fX, -fY, 0);
         _particleB->ApplyForce( fX,  fY, 0);
         return 0;
+*/
     }
 
     Particle* getParticleA()

@@ -10,6 +10,7 @@ class RectCloth
 public:
     RectCloth(int cols, int rows, int width, int height);
     ~RectCloth();
+    void Collide();
 public:
     int _particlesCount;
     int _springsCount;

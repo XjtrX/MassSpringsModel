@@ -2,19 +2,20 @@
 #include <GL/glut.h>
 
 #include <math.h>
+#include <iostream>
 using namespace std;
 #define PI 3.14159265
 
 SceneGLWidget::SceneGLWidget(QWidget *parent)
     : QGLWidget(parent)
-    , _rectCloth(30, 30, 1, 1)
+    , _rectCloth(30, 30, 30, 30)
 {
     connect(&_timer, SIGNAL(timeout()), this, SLOT(UpdateScene()));
-    _timer.start(1000);
+    _timer.start(1000 / 24);
 
-//    _rectCloth._masses[0].setStatic(1);
-//    _rectCloth._masses[29].setStatic(1);
-//    _rectCloth._mass[_rectCloth._mass.size() - 1].setStatic(1);
+    _rectCloth._particles[870].setStatic(1);
+    _rectCloth._particles[899].setStatic(1);
+//    _rectCloth._particles[_rectCloth._mass.size() - 1].setStatic(1);
 }
 
 void SceneGLWidget::initializeGL()
@@ -31,15 +32,15 @@ void SceneGLWidget::paintGL()
     glColor3f(1, 0.6, 0);
     glLineWidth(1.5);
     glBegin(GL_LINES);
-    /*
-    for (uint i = 0; i < _rectCloth._springsCount; i++)
+
+    for (int i = 0; i < _rectCloth._springsCount; i++)
     {
-        Point3D<float> p = _rectCloth._springs[i].getMassA()->getPosition();
+        Point3D<float> p = _rectCloth._springs[i].getParticleA()->getPosition();
         glVertex3f(p.getX(), p.getY(), p.getZ());
-        p = _rectCloth._springs[i].getMassB()->getPosition();
+        p = _rectCloth._springs[i].getParticleB()->getPosition();
         glVertex3f(p.getX(), p.getY(), p.getZ());
     }
-    */
+
     glEnd();
 }
 
@@ -80,30 +81,29 @@ void SceneGLWidget::UpdateViewPoint()
 {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    gluLookAt(  _transition.getX()/10 + (5 * sin(_rotation.getY()*PI/180))
-              , _transition.getY()/10 - (5 * cos(_rotation.getY()*PI/180) * sin(_rotation.getX()*PI/180))
-              , _transition.getZ()/10 + (5 * cos(_rotation.getX()*PI/180) * cos(_rotation.getY()*PI/180))
-              , _transition.getX()/10
-              , _transition.getY()/10
-              , _transition.getZ()/10
+    gluLookAt(  _transition.getX()/100 + (50 * sin(_rotation.getY()*PI/180))
+              , _transition.getY()/100 - (50 * cos(_rotation.getY()*PI/180) * sin(_rotation.getX()*PI/180))
+              , _transition.getZ()/100 + (50 * cos(_rotation.getX()*PI/180) * cos(_rotation.getY()*PI/180))
+              , _transition.getX()/100
+              , _transition.getY()/100
+              , _transition.getZ()/100
                 , -sin(_rotation.getZ()*PI/180), cos(_rotation.getZ()*PI/180), 0);
 }
 
 void SceneGLWidget::UpdateScene()
 {
-    /*
     int sL = _rectCloth._springsCount;
-    int mL = _rectCloth._massesCount;
+    int mL = _rectCloth._particlesCount;
     for (int i = 0; i < sL; i++)
     {
         _rectCloth._springs[i].Recalculate();
     }
     for (int i = 0; i < mL; i++)
     {
-        _rectCloth._masses[i].ApplyForce(0, -0.1, 0);
-        _rectCloth._masses[i].Move(0.016);
+        _rectCloth._particles[i].ApplyForce(0, -0.001, 0);
+        _rectCloth._particles[i].Move(0.016);
     }
-    */
+
     this->repaint();
 }
 

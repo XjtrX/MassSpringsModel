@@ -122,22 +122,22 @@ public:
         _z = z;
     }
 
-    void PlusX(A x)
+    void PlusX(const A& x)
     {
         _x += x;
     }
 
-    void PlusY(A y)
+    void PlusY(const A& y)
     {
         _y += y;
     }
 
-    void PlusZ(A z)
+    void PlusZ(const A& z)
     {
         _z += z;
     }
 
-protected:
+public:
     A _x;
     A _y;
     A _z;

@@ -24,7 +24,12 @@ public:
         _static = st;
     }
 
-    void Move(float timeStep)
+    ~Particle()
+    {
+
+    }
+
+    void Verlet()
     {
         if (_static)
         {
@@ -35,8 +40,16 @@ public:
         Point3D<float> temp = _position;
         _position.Plus(_position);
         _position.Minus(_prevPosition);
-        _position.Plus(_appliedForce);
+        //_position.Plus(_appliedForce);
         _prevPosition = temp;
+        //_appliedForce.set(0, 0, 0);
+    }
+
+    void Accelerate(float timeStep)
+    {
+        _position.PlusX(_appliedForce.getX() * timeStep * timeStep / 2);
+        _position.PlusY(_appliedForce.getY() * timeStep * timeStep / 2);
+        _position.PlusZ(_appliedForce.getZ() * timeStep * timeStep / 2);
         _appliedForce.set(0, 0, 0);
     }
 
@@ -65,11 +78,6 @@ public:
     void setStatic(int st)
     {
         _static = st;
-    }
-
-    ~Particle()
-    {
-
     }
 };
 

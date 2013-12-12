@@ -8,13 +8,15 @@ using namespace std;
 
 SceneGLWidget::SceneGLWidget(QWidget *parent)
     : QGLWidget(parent)
-    , _rectCloth(30, 30, 30, 30)
+    , _rectCloth(10, 10, 30, 30, 300)
 {
     connect(&_timer, SIGNAL(timeout()), this, SLOT(UpdateScene()));
     _timer.start(1000 / 24);
 
-    _rectCloth._particles[870].setStatic(1);
-    _rectCloth._particles[899].setStatic(1);
+    //_rectCloth._particles[870].setStatic(1);
+    //_rectCloth._particles[899].setStatic(1);
+    _rectCloth._particles[90].setStatic(1);
+    _rectCloth._particles[99].setStatic(1);
 //    _rectCloth._particles[_rectCloth._mass.size() - 1].setStatic(1);
 }
 
@@ -31,17 +33,7 @@ void SceneGLWidget::paintGL()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glColor3f(1, 0.6, 0);
     glLineWidth(1.5);
-    glBegin(GL_LINES);
-
-    for (int i = 0; i < _rectCloth._springsCount; i++)
-    {
-        Point3D<float> p = _rectCloth._springs[i].getParticleA()->getPosition();
-        glVertex3f(p.getX(), p.getY(), p.getZ());
-        p = _rectCloth._springs[i].getParticleB()->getPosition();
-        glVertex3f(p.getX(), p.getY(), p.getZ());
-    }
-
-    glEnd();
+    _rectCloth.Draw();
 }
 
 void SceneGLWidget::resizeGL(int w, int h)
@@ -87,8 +79,8 @@ void SceneGLWidget::UpdateViewPoint()
               , _transition.getX()/100
               , _transition.getY()/100
               , _transition.getZ()/100
-                //, -sin(_rotation.getZ()*PI/180), cos(_rotation.getZ()*PI/180), 0);
-              , 0, 1, 0);
+              , -sin(_rotation.getZ()*PI/180), cos(_rotation.getZ()*PI/180), 0);
+              //, 0, 1, 0);
 }
 
 void SceneGLWidget::UpdateScene()
@@ -101,8 +93,9 @@ void SceneGLWidget::UpdateScene()
     }
     for (int i = 0; i < mL; i++)
     {
-        _rectCloth._particles[i].ApplyForce(0, -0.001, 0);
-        _rectCloth._particles[i].Move(0.016);
+        _rectCloth._particles[i].ApplyForce(0, -9.8, 0);
+        _rectCloth._particles[i].Verlet();
+        _rectCloth._particles[i].Accelerate(1.0 / 24);
     }
 
     this->repaint();

@@ -1,7 +1,7 @@
 #ifndef SPRING_H
 #define SPRING_H
 
-#include "Particle.h"
+#include "Model/ModelSamples/Particle.h"
 
 #include <math.h>
 using namespace std;
@@ -11,6 +11,8 @@ private:
     Particle* _particleA;
     Particle* _particleB;
     float _nLentght;
+    float _stiffness;
+//    float _maxLength;
 
 public:
     Spring()
@@ -20,7 +22,7 @@ public:
         _nLentght = 0;
     }
 
-    Spring(Particle* particleA, Particle* particleB, float nLength)
+    Spring(Particle* particleA, Particle* particleB, float stifness, float nLength = 0)
         :_particleA(particleA),
           _particleB(particleB)
     {
@@ -29,6 +31,7 @@ public:
         float dY = particleB->getPosition().getY() - particleA->getPosition().getY();
         float dZ = particleB->getPosition().getZ() - particleA->getPosition().getZ();
         _nLentght = sqrt(dX * dX + dY * dY + dZ * dZ);
+        _stiffness = stifness;
     }
 
     int Recalculate()
@@ -43,28 +46,13 @@ public:
 
         float diff = _nLentght - distLen;
 
-        float fX = diff * dist.getX() / distLen * 0.1;
-        float fY = diff * dist.getY() / distLen * 0.1;
-        float fZ = diff * dist.getZ() / distLen * 0.1;
+        float fX = diff * dist.getX() / distLen * _stiffness;
+        float fY = diff * dist.getY() / distLen * _stiffness;
+        float fZ = diff * dist.getZ() / distLen * _stiffness;
 
         _particleA->ApplyForce(-fX, -fY, -fZ);
         _particleB->ApplyForce( fX,  fY,  fZ);
         return 0;
-/*
-        float dX = pB._x - pA._x;
-        float dY = pB._y - pA._y;
-        float dZ = pB._z - pA._z;
-
-        float distLen = sqrt(dX * dX + dY * dY);
-        float diff = _nLentght - distLen;
-
-        float fX = dX * diff / distLen * 0.5;
-        float fY = dY * diff / distLen * 0.5;
-
-        _particleA->ApplyForce(-fX, -fY, 0);
-        _particleB->ApplyForce( fX,  fY, 0);
-        return 0;
-*/
     }
 
     Particle* getParticleA()

@@ -10,7 +10,8 @@
 
 #include "Point3D.h"
 #include "RotationHolder.h"
-#include "RectCloth.h"
+#include "Model/SpringsObjects/RectCloth.h"
+#include "Model/Scene/Scene.h"
 
 class SceneGLWidget : public QGLWidget
 {

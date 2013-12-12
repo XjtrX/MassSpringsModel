@@ -8,15 +8,19 @@ using namespace std;
 
 SceneGLWidget::SceneGLWidget(QWidget *parent)
     : QGLWidget(parent)
-    , _rectCloth(10, 10, 30, 30, 300)
+    //, _rectCloth(10, 10, 30, 30, 300)
 {
     connect(&_timer, SIGNAL(timeout()), this, SLOT(UpdateScene()));
     _timer.start(1000 / 24);
-
+    RectCloth* rC = new RectCloth(10, 10, 30, 30, 300);
+    rC->_particles[90].setStatic(1);
+    rC->_particles[99].setStatic(1);
+    SpringsObject* sO = rC;
+    this->_scene._springsObjects.push_back(sO);
     //_rectCloth._particles[870].setStatic(1);
     //_rectCloth._particles[899].setStatic(1);
-    _rectCloth._particles[90].setStatic(1);
-    _rectCloth._particles[99].setStatic(1);
+    //_rectCloth._particles[90].setStatic(1);
+    //_rectCloth._particles[99].setStatic(1);
 //    _rectCloth._particles[_rectCloth._mass.size() - 1].setStatic(1);
 }
 
@@ -33,7 +37,8 @@ void SceneGLWidget::paintGL()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glColor3f(1, 0.6, 0);
     glLineWidth(1.5);
-    _rectCloth.Draw();
+    //_rectCloth.Draw();
+    _scene.Draw();
 }
 
 void SceneGLWidget::resizeGL(int w, int h)
@@ -85,19 +90,16 @@ void SceneGLWidget::UpdateViewPoint()
 
 void SceneGLWidget::UpdateScene()
 {
-    int sL = _rectCloth._springsCount;
-    int mL = _rectCloth._particlesCount;
-    for (int i = 0; i < sL; i++)
-    {
-        _rectCloth._springs[i].Recalculate();
-    }
-    for (int i = 0; i < mL; i++)
-    {
-        _rectCloth._particles[i].ApplyForce(0, -9.8, 0);
-        _rectCloth._particles[i].Verlet();
-        _rectCloth._particles[i].Accelerate(1.0 / 24);
-    }
-
+    /*
+    _rectCloth.RecalculateSprings();
+    _rectCloth.ApplyForce(0, -9.8, 0);
+    _rectCloth.Move();
+    _rectCloth.Accelerate(1.0 / 24);
+    */
+    _scene.RecalculateSprings();
+    _scene.ApplyForce(0, -9.8, 0);
+    _scene.Move();
+    _scene.Accelerate(1.0 / 24);
     this->repaint();
 }
 

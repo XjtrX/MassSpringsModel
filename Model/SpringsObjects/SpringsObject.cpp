@@ -27,3 +27,48 @@ void SpringsObject::Draw()
 
      glEnd();
 }
+
+void SpringsObject::RecalculateSprings()
+{
+    for (int i = 0; i < _springsCount; i++)
+    {
+        _springs[i].Recalculate();
+    }
+}
+
+void SpringsObject::ApplyForce(const float &fX, const float &fY, const float &fZ)
+{
+    for (int i = 0; i < _particlesCount; i++)
+    {
+        _particles[i].ApplyForce(fX, fY ,fZ);
+    }
+}
+
+void SpringsObject::Accelerate(float timeStep)
+{
+    for (int i = 0; i < _particlesCount; i++)
+    {
+        _particles[i].Accelerate(timeStep);
+    }
+}
+
+void SpringsObject::Move()
+{
+    for (int i = 0; i < _particlesCount; i++)
+    {
+        _particles[i].Move();
+    }
+}
+
+
+void SpringsObject::Collusion()
+{
+    for (int i =0; i < _particlesCount; i++)
+    {
+        Particle a = _particles[i];
+        for (int j = i + 1; j < _particlesCount; j++)
+        {
+
+        }
+    }
+}

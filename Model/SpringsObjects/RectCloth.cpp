@@ -45,15 +45,3 @@ RectCloth::RectCloth(int cols, int rows, int width, int height, float stiffnes)
 RectCloth::~RectCloth()
 {
 }
-
-void RectCloth::Collide()
-{
-    for (int i =0; i < _particlesCount; i++)
-    {
-        Particle a = _particles[i];
-        for (int j = i + 1; j < _particlesCount; j++)
-        {
-
-        }
-    }
-}

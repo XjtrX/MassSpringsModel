@@ -6,7 +6,8 @@ SOURCES += \
     Model/SpringsObjects/RectCloth.cpp \
     Model/SpringsObjects/SpringsObject.cpp \
     Model/Scene/Scene.cpp \
-    Model/SpringsObjects/Cube.cpp
+    Model/SpringsObjects/Cube.cpp \
+    Model/ModelSamples/Particle.cpp
 
 HEADERS += \
     scenewindow.h \
@@ -19,7 +20,8 @@ HEADERS += \
     Point2D.h \
     Model/Scene/Scene.h \
     Model/SpringsObjects/Cube.h \
-    Model/ModelSamples/Particle.h
+    Model/ModelSamples/Particle.h \
+    Model/VerletObject.h
 
 FORMS += \
     scenewindow.ui

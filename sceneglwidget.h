@@ -52,7 +52,8 @@ private:
     int _mousePosY;
     RotationHolder<int> _rotation;
     Point3D<int> _transition;
-    RectCloth _rectCloth;
+    //RectCloth _rectCloth;
+    Scene _scene;
     QTimer _timer;
 };
 

@@ -1,7 +1,7 @@
 #ifndef SPRINGSOBJECT_H
 #define SPRINGSOBJECT_H
 
-#include "Model/VerletObject.h"
+#include "Model/Interfaces/VerletObject.h"
 #include "Model/ModelSamples/Spring.h"
 
 #include <vector>

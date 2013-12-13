@@ -1,7 +1,7 @@
 #ifndef SCENE_H
 #define SCENE_H
 
-#include "Model/VerletObject.h"
+#include "Model/Interfaces/VerletObject.h"
 #include "Model/SpringsObjects/SpringsObject.h"
 
 #include <vector>

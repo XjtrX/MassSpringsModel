@@ -7,7 +7,8 @@ SOURCES += \
     Model/SpringsObjects/SpringsObject.cpp \
     Model/Scene/Scene.cpp \
     Model/SpringsObjects/Cube.cpp \
-    Model/ModelSamples/Particle.cpp
+    Model/ModelSamples/Particle.cpp \
+    Model/ModelSamples/Spring.cpp
 
 HEADERS += \
     scenewindow.h \
@@ -21,7 +22,8 @@ HEADERS += \
     Model/Scene/Scene.h \
     Model/SpringsObjects/Cube.h \
     Model/ModelSamples/Particle.h \
-    Model/VerletObject.h
+    Model/Interfaces/ElasticObject.h \
+    Model/Interfaces/VerletObject.h
 
 FORMS += \
     scenewindow.ui

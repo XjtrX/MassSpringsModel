@@ -1,7 +1,7 @@
 #ifndef PARTICLE_H
 #define PARTICLE_H
 
-#include "Model/VerletObject.h"
+#include "Model/Interfaces/VerletObject.h"
 
 #include <Point3D.h>
 class Particle: public VerletObject

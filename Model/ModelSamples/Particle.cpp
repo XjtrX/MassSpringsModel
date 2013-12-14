@@ -20,6 +20,7 @@ void Particle::Move()
 {
     if (_static)
     {
+        _position = _prevPosition;
         _appliedForce.set(0, 0, 0);
         return;
     }
@@ -55,6 +56,10 @@ void Particle::ApplyForce(const float &fX, const float &fY, const float &fZ)
     _appliedForce.PlusX(fX);
     _appliedForce.PlusY(fY);
     _appliedForce.PlusZ(fZ);
+}
+
+void Particle::Collusion()
+{
 }
 
 int Particle::isStatic()

@@ -3,7 +3,7 @@
 
 class ElasticObject
 {
-    void Recalculate();
+    virtual int Recalculate() = 0;
 };
 
 #endif // ELASTICOBJECT_H

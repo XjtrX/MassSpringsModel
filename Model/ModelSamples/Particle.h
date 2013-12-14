@@ -22,6 +22,7 @@ public:
     Point3D<float> getPrevPosition();
     Point3D<float> getPosition();
     void ApplyForce(const float& fX, const float& fY, const float& fZ);
+    void Collusion();
 
     int isStatic();
 

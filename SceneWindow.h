@@ -2,9 +2,9 @@
 #define SCENEWINDOW_H
 
 #include <QMainWindow>
-#include "sceneglwidget.h"
+#include "SceneGlWidget.h"
 
-#include "Point2D.h"
+#include "3DMath/Point2D.h"
 
 namespace Ui {
 class SceneWindow;

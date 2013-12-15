@@ -21,6 +21,12 @@ void Scene::Draw()
     {
         _springsObjects.at(i)->Draw();
     }
+
+    l = _triangleObstacles.size();
+    for (int i = 0; i < l; i++)
+    {
+        _triangleObstacles.at(i)->Draw();
+    }
 }
 
 void Scene::RecalculateSprings()

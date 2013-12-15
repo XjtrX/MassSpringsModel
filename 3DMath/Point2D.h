@@ -18,7 +18,7 @@ public:
         this->_y = p._y;
     }
 
-    ~Point2D()
+    virtual ~Point2D()
     {
 
     }

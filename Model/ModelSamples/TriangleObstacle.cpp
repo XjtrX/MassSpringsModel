@@ -1,19 +1,34 @@
 #include "TriangleObstacle.h"
 #include <GL/glut.h>
+#include "3DMath/MathRotation.h"
 
-TriangleObstacle::TriangleObstacle(Point3D<float> p1, Point3D<float> p2, Point3D<float> p3)
+TriangleObstacle::TriangleObstacle(float width, float height
+                                   , Point3D<float> rotHold
+                                   , const Point3D<float> &translation)
+
 {
+    _rotMatr = RotationMatrix(rotHold.getX(), rotHold.getY(), rotHold.getZ());
+    _points[0].set(0, 0, 0);
+    _points[1].set(width, 0, 0);
+    _points[2].set(0, height, 0);
+
+    _translation = translation;
+
+    _rotPoints[0] = RotateAndTranslatePoint(_points[0], _rotMatr, _translation);
+    _rotPoints[1] = RotateAndTranslatePoint(_points[1], _rotMatr, _translation);
+    _rotPoints[2] = RotateAndTranslatePoint(_points[2], _rotMatr, _translation);
 }
 
 TriangleObstacle::~TriangleObstacle()
 {
+    delete _rotMatr;
 }
 
 void TriangleObstacle::Draw()
 {
     glBegin(GL_TRIANGLES);
-    glVertex3f(_points[0].getX(), _points[0].getY(), _points[0].getZ());
-    glVertex3f(_points[1].getX(), _points[1].getY(), _points[1].getZ());
-    glVertex3f(_points[2].getX(), _points[2].getY(), _points[2].getZ());
+    glVertex3f(_rotPoints[0].getX(), _rotPoints[0].getY(), _rotPoints[0].getZ());
+    glVertex3f(_rotPoints[1].getX(), _rotPoints[1].getY(), _rotPoints[1].getZ());
+    glVertex3f(_rotPoints[2].getX(), _rotPoints[2].getY(), _rotPoints[2].getZ());
     glEnd();
 }

@@ -1,10 +1,13 @@
-#include "sceneglwidget.h"
+#include "SceneGlWidget.h"
 #include <GL/glut.h>
 
 #include <math.h>
 #include <iostream>
 using namespace std;
 #define PI 3.14159265
+
+#include "Model/SpringsObjects/RectCloth.h"
+#include "Model/ModelSamples/TriangleObstacle.h"
 
 SceneGLWidget::SceneGLWidget(QWidget *parent)
     : QGLWidget(parent)
@@ -17,6 +20,10 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     rC->_particles[99].setStatic(1);
     SpringsObject* sO = rC;
     this->_scene._springsObjects.push_back(sO);
+
+    TriangleObstacle* tO = new TriangleObstacle(1, 1, Point3D<float>(45.0, 0.0, 0.0)
+                                                , Point3D<float>());
+    this->_scene._triangleObstacles.push_back(tO);
     //_rectCloth._particles[870].setStatic(1);
     //_rectCloth._particles[899].setStatic(1);
     //_rectCloth._particles[90].setStatic(1);
@@ -78,6 +85,7 @@ void SceneGLWidget::UpdateViewPoint()
 {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+
     gluLookAt(  _transition.getX()/100 + (50 * sin(_rotation.getY()*PI/180))
               , _transition.getY()/100 - (50 * cos(_rotation.getY()*PI/180) * sin(_rotation.getX()*PI/180))
               , _transition.getZ()/100 + (50 * cos(_rotation.getX()*PI/180) * cos(_rotation.getY()*PI/180))

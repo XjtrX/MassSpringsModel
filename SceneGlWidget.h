@@ -8,9 +8,8 @@
 
 #include <QTimer>
 
-#include "Point3D.h"
-#include "RotationHolder.h"
-#include "Model/SpringsObjects/RectCloth.h"
+#include "3DMath/Point3D.h"
+#include "3DMath/RotationHolder.h"
 #include "Model/Scene/Scene.h"
 
 class SceneGLWidget : public QGLWidget
@@ -52,7 +51,6 @@ private:
     int _mousePosY;
     RotationHolder<int> _rotation;
     Point3D<int> _transition;
-    //RectCloth _rectCloth;
     Scene _scene;
     QTimer _timer;
 };

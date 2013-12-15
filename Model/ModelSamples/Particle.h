@@ -3,7 +3,7 @@
 
 #include "Model/Interfaces/VerletObject.h"
 
-#include <Point3D.h>
+#include "3DMath/Point3D.h"
 class Particle: public VerletObject
 {
 public:

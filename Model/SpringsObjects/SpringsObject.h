@@ -11,7 +11,7 @@ class SpringsObject: public VerletObject
 {
 public:
     SpringsObject(int particlesCount, int springsCount);
-    ~SpringsObject();
+    virtual ~SpringsObject();
     void Draw();
 
     void RecalculateSprings();

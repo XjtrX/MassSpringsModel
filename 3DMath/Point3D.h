@@ -34,39 +34,25 @@ public:
         }
         return *this;
     }
-    void Plus(const Point3D& other)
+
+    Point3D& operator +=(const Point3D& other)
     {
         this->_x += other._x;
         this->_y += other._y;
         this->_z += other._z;
+
+        return *this;
     }
 
-    void Minus(const Point3D& other)
+    Point3D& operator -=(const Point3D& other)
     {
         this->_x -= other._x;
         this->_y -= other._y;
         this->_z -= other._z;
-    }
 
+        return *this;
+    }
 /*
-    Point3D<float>& operator +=(const Point3D& other)
-    {
-        this->_x += other._x;
-        this->_y += other._y;
-        this->_z += other._z;
-
-        return *this;
-    }
-
-    Point3D<float>& operator -=(const Point3D& other)
-    {
-        this->_x -= other._x;
-        this->_y -= other._y;
-        this->_z -= other._z;
-
-        return *this;
-    }
-
     Point3D& operator *(const float& f)
     {
         this->_x *= f;

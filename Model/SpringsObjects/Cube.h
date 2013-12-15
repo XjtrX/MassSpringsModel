@@ -4,12 +4,12 @@
 #include <vector>
 using namespace std;
 
-#include "ModelSamples/Spring.h"
+#include "Model/ModelSamples/Spring.h"
 class Cube
 {
 public:
     Cube();
-    ~Cube();
+    virtual ~Cube();
 public:
     int _particlesCount;
     int _springsCount;

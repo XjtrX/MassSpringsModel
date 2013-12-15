@@ -1,4 +1,4 @@
-#include "scenewindow.h"
+#include "SceneWindow.h"
 #include "ui_scenewindow.h"
 
 //#include "iostream"

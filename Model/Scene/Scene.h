@@ -3,6 +3,7 @@
 
 #include "Model/Interfaces/VerletObject.h"
 #include "Model/SpringsObjects/SpringsObject.h"
+#include "Model/ModelSamples/TriangleObstacle.h"
 
 #include <vector>
 using namespace std;
@@ -22,6 +23,7 @@ public:
     void Collusion();
 public:
     vector<SpringsObject*> _springsObjects;
+    vector<TriangleObstacle*> _triangleObstacles;
 };
 
 #endif // SCENE_H

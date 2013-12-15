@@ -26,8 +26,10 @@ void Particle::Move()
     }
 
     Point3D<float> temp = _position;
-    _position.Plus(_position);
-    _position.Minus(_prevPosition);
+    //_position.Plus(_position);
+    _position += _position;
+    //_position.Minus(_prevPosition);
+    _position -= _prevPosition;
     //_position.Plus(_appliedForce);
     _prevPosition = temp;
     //_appliedForce.set(0, 0, 0);

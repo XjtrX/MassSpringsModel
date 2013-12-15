@@ -29,7 +29,7 @@ int Spring::Recalculate()
     Point3D<float> pA = _particleA->getPosition();
     Point3D<float> pB = _particleB->getPosition();
     Point3D<float> dist = pB;
-    dist.Minus(pA);
+    dist -= pA;
 
     float distLen = sqrt(dist.getX() * dist.getX() + dist.getY() * dist.getY()
                          + dist.getZ() * dist.getZ());

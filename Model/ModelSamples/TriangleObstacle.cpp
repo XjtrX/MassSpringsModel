@@ -7,16 +7,17 @@ TriangleObstacle::TriangleObstacle(float width, float height
                                    , const Point3D<float> &translation)
 
 {
-    _rotMatr = RotationMatrix(rotHold.getX(), rotHold.getY(), rotHold.getZ());
+    MathRotation m;
+    _rotMatr = m.RotationMatrix(rotHold.getX(), rotHold.getY(), rotHold.getZ());
     _points[0].set(0, 0, 0);
     _points[1].set(width, 0, 0);
     _points[2].set(0, height, 0);
 
     _translation = translation;
 
-    _rotPoints[0] = RotateAndTranslatePoint(_points[0], _rotMatr, _translation);
-    _rotPoints[1] = RotateAndTranslatePoint(_points[1], _rotMatr, _translation);
-    _rotPoints[2] = RotateAndTranslatePoint(_points[2], _rotMatr, _translation);
+    _rotPoints[0] = m.RotateAndTranslatePoint(_points[0], _rotMatr, _translation);
+    _rotPoints[1] = m.RotateAndTranslatePoint(_points[1], _rotMatr, _translation);
+    _rotPoints[2] = m.RotateAndTranslatePoint(_points[2], _rotMatr, _translation);
 }
 
 TriangleObstacle::~TriangleObstacle()

@@ -8,6 +8,7 @@ using namespace std;
 
 #include "Model/SpringsObjects/RectCloth.h"
 #include "Model/ModelSamples/TriangleObstacle.h"
+#include "3DMath/MathRotation.h"
 
 SceneGLWidget::SceneGLWidget(QWidget *parent)
     : QGLWidget(parent)
@@ -22,7 +23,7 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     this->_scene._springsObjects.push_back(sO);
 
     TriangleObstacle* tO = new TriangleObstacle(1, 1, Point3D<float>(45.0, 0.0, 0.0)
-                                                , Point3D<float>());
+                                                , Point3D<float>(0, 0 , 0));
     this->_scene._triangleObstacles.push_back(tO);
     //_rectCloth._particles[870].setStatic(1);
     //_rectCloth._particles[899].setStatic(1);
@@ -85,15 +86,24 @@ void SceneGLWidget::UpdateViewPoint()
 {
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+    MathRotation m;
+    float* rotMatr = m.RotationMatrix(-1 * _rotation.getX()
+                                    , -1 * _rotation.getY()
+                                    , _rotation.getZ());
 
-    gluLookAt(  _transition.getX()/100 + (50 * sin(_rotation.getY()*PI/180))
-              , _transition.getY()/100 - (50 * cos(_rotation.getY()*PI/180) * sin(_rotation.getX()*PI/180))
-              , _transition.getZ()/100 + (50 * cos(_rotation.getX()*PI/180) * cos(_rotation.getY()*PI/180))
-              , _transition.getX()/100
-              , _transition.getY()/100
-              , _transition.getZ()/100
-              , -sin(_rotation.getZ()*PI/180), cos(_rotation.getZ()*PI/180), 0);
-              //, 0, 1, 0);
+    Point3D<float> eye;
+    eye.set(0, 0, 50);
+    eye = m.RotatePoint(eye, rotMatr);
+    Point3D<float> center;
+    center.set(0, 0, 0);
+    center = m.RotatePoint(center, rotMatr);
+    Point3D<float> up;
+    up.set(0, 1, 0);
+    up = m.RotatePoint(up, rotMatr);
+    gluLookAt(eye.getX(), eye.getY(), eye.getZ()
+              , center.getX(), center.getY(), center.getZ()
+              , up.getX(), up.getY(), up.getZ());
+    delete[] rotMatr;
 }
 
 void SceneGLWidget::UpdateScene()
@@ -128,5 +138,5 @@ void SceneGLWidget::Rotate(int x, int y, int z)
     _rotation.PlusY(y);
     _rotation.PlusZ(z);
     UpdateViewPoint();
-    this->repaint();
+    //this->repaint();
 }

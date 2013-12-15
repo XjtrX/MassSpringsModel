@@ -8,7 +8,10 @@ using namespace std;
 
 #include "3DMath/Point3D.h"
 
-float* rotX(const float &x)
+class MathRotation
+{
+public:
+static float* rotX(const float &x)
 {
     float* rotX = new float[9];
 
@@ -29,7 +32,7 @@ float* rotX(const float &x)
     return rotX;
 }
 
-float* rotY(const float &y)
+static float* rotY(const float &y)
 {
     float* rotY = new float[9];
 
@@ -50,7 +53,7 @@ float* rotY(const float &y)
     return rotY;
 }
 
-float* rotZ(const float &z)
+static float* rotZ(const float &z)
 {
     float* rotZ = new float[9];
 
@@ -71,7 +74,7 @@ float* rotZ(const float &z)
     return rotZ;
 }
 
-float* MultRotMatr(const float* m1, const float* m2)
+static float* MultRotMatr(const float* m1, const float* m2)
 {
     float* res = new float[9];
     for (int i = 0; i < 3; i++)
@@ -89,7 +92,7 @@ float* MultRotMatr(const float* m1, const float* m2)
     return res;
 }
 
-Point3D<float>& RotatePoint(Point3D<float> &p, const float *rotMart)
+static Point3D<float>& RotatePoint(Point3D<float> &p, const float *rotMart)
 {
     Point3D<float>* res = new Point3D<float>();
     res->setX(p.getX() * rotMart[0] + p.getY() * rotMart[1] + p.getZ() * rotMart[2]);
@@ -98,7 +101,7 @@ Point3D<float>& RotatePoint(Point3D<float> &p, const float *rotMart)
     return *res;
 }
 
-Point3D<float>& RotateAndTranslatePoint(Point3D<float> &p, const float *rotMart
+static Point3D<float>& RotateAndTranslatePoint(Point3D<float> &p, const float *rotMart
                                         , Point3D<float> &tr)
 {
     Point3D<float>* res = new Point3D<float>();
@@ -108,7 +111,7 @@ Point3D<float>& RotateAndTranslatePoint(Point3D<float> &p, const float *rotMart
     return *res;
 }
 
-float* RotationMatrix(const float &x, const float &y, const float &z)
+static float* RotationMatrix(const float &x, const float &y, const float &z)
 {
     float* rX = rotX(x);
     float* rY = rotY(y);
@@ -124,5 +127,5 @@ float* RotationMatrix(const float &x, const float &y, const float &z)
 
     return rXYZ;
 }
-
+};
 #endif // MATHROTATION_H

@@ -12,24 +12,23 @@ using namespace std;
 
 SceneGLWidget::SceneGLWidget(QWidget *parent)
     : QGLWidget(parent)
-    //, _rectCloth(10, 10, 30, 30, 300)
 {
     connect(&_timer, SIGNAL(timeout()), this, SLOT(UpdateScene()));
     _timer.start(1000 / 24);
-    RectCloth* rC = new RectCloth(10, 10, 30, 30, 300);
+    RectCloth* rC = new RectCloth(  10, 10, 30, 30
+                                  , 1, 1
+                                  , Point3D<float>(90, 0, 0)
+                                  , Point3D<float>(-15, 0, 0));
     rC->_particles[90].setStatic(1);
     rC->_particles[99].setStatic(1);
+    rC->_particles[0].setStatic(1);
+    rC->_particles[9].setStatic(1);
     SpringsObject* sO = rC;
     this->_scene._springsObjects.push_back(sO);
 
     TriangleObstacle* tO = new TriangleObstacle(1, 1, Point3D<float>(45.0, 0.0, 0.0)
                                                 , Point3D<float>(0, 0 , 0));
     this->_scene._triangleObstacles.push_back(tO);
-    //_rectCloth._particles[870].setStatic(1);
-    //_rectCloth._particles[899].setStatic(1);
-    //_rectCloth._particles[90].setStatic(1);
-    //_rectCloth._particles[99].setStatic(1);
-//    _rectCloth._particles[_rectCloth._mass.size() - 1].setStatic(1);
 }
 
 void SceneGLWidget::initializeGL()
@@ -45,7 +44,6 @@ void SceneGLWidget::paintGL()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glColor3f(1, 0.6, 0);
     glLineWidth(1.5);
-    //_rectCloth.Draw();
     _scene.Draw();
 }
 
@@ -115,7 +113,7 @@ void SceneGLWidget::UpdateScene()
     _rectCloth.Accelerate(1.0 / 24);
     */
     _scene.RecalculateSprings();
-    _scene.ApplyForce(0, -9.8, 0);
+    _scene.ApplyAcceleration(0, -9.8, 0);
     _scene.Move();
     _scene.Accelerate(1.0 / 24);
     this->repaint();
@@ -131,12 +129,10 @@ int SceneGLWidget::mousePosY()
     return _mousePosY;
 }
 
-
 void SceneGLWidget::Rotate(int x, int y, int z)
 {
     _rotation.PlusX(x);
     _rotation.PlusY(y);
     _rotation.PlusZ(z);
     UpdateViewPoint();
-    //this->repaint();
 }

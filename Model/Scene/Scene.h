@@ -18,6 +18,7 @@ public:
     void RecalculateSprings();
 
     void ApplyForce(const float &fX, const float &fY, const float &fZ);
+    void ApplyAcceleration(const float &fX, const float &fY, const float &fZ);
     void Accelerate(float timeStep);
     void Move();
     void Collusion();

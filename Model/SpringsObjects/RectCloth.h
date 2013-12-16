@@ -6,7 +6,9 @@ class RectCloth: public SpringsObject
 {
     friend void paintGL();
 public:
-    RectCloth(int cols, int rows, int width, int height, float stiffness);
+    RectCloth(int cols, int rows, int width, int height
+              , float massVolume, float stiffness
+              , Point3D<float> rotation, Point3D<float> translation);
     virtual ~RectCloth();
 };
 

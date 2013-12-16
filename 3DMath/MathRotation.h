@@ -101,7 +101,7 @@ static Point3D<float>& RotatePoint(Point3D<float> &p, const float *rotMart)
     return *res;
 }
 
-static Point3D<float>& RotateAndTranslatePoint(Point3D<float> &p, const float *rotMart
+static Point3D<float>& RotateAndTranslatePoint(Point3D<float> p, const float *rotMart
                                         , Point3D<float> &tr)
 {
     Point3D<float>* res = new Point3D<float>();

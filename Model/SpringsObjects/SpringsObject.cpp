@@ -44,6 +44,14 @@ void SpringsObject::ApplyForce(const float &fX, const float &fY, const float &fZ
     }
 }
 
+void SpringsObject::ApplyAcceleration(const float &fX, const float &fY, const float &fZ)
+{
+    for (int i = 0; i < _particlesCount; i++)
+    {
+        _particles[i].ApplyAcceleration(fX, fY ,fZ);
+    }
+}
+
 void SpringsObject::Accelerate(float timeStep)
 {
     for (int i = 0; i < _particlesCount; i++)

@@ -47,6 +47,15 @@ void Scene::ApplyForce(const float &fX, const float &fY, const float &fZ)
     }
 }
 
+void Scene::ApplyAcceleration(const float &fX, const float &fY, const float &fZ)
+{
+    int l = _springsObjects.size();
+    for (int i = 0; i < l; i++)
+    {
+        _springsObjects.at(i)->ApplyAcceleration(fX, fY, fZ);
+    }
+}
+
 void Scene::Accelerate(float timeStep)
 {
     int l = _springsObjects.size();

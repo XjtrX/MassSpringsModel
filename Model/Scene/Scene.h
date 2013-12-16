@@ -12,7 +12,7 @@ class Scene: public VerletObject
 {
 public:
     Scene();
-    ~Scene();
+    virtual ~Scene();
     void Draw();
 
     void RecalculateSprings();
@@ -25,6 +25,7 @@ public:
 public:
     vector<SpringsObject*> _springsObjects;
     vector<TriangleObstacle*> _triangleObstacles;
+    vector<Particle*> _particles;
 };
 
 #endif // SCENE_H

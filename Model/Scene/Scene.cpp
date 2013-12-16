@@ -12,6 +12,20 @@ Scene::~Scene()
         SpringsObject* sO = _springsObjects.at(i);
         delete sO;
     }
+
+    l = _triangleObstacles.size();
+    for (int i = 0; i < l; i++)
+    {
+        TriangleObstacle* tO = _triangleObstacles.at(i);
+        delete tO;
+    }
+
+    l = _particles.size();
+    for (int i = 0; i < l; i++)
+    {
+        Particle* p = _particles.at(i);
+        delete p;
+    }
 }
 
 void Scene::Draw()
@@ -26,6 +40,12 @@ void Scene::Draw()
     for (int i = 0; i < l; i++)
     {
         _triangleObstacles.at(i)->Draw();
+    }
+
+    l = _particles.size();
+    for (int i = 0; i < l; i++)
+    {
+        _particles.at(i)->Draw();
     }
 }
 

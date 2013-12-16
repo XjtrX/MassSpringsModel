@@ -1,6 +1,7 @@
 #ifndef DRAWABLEOBJECT_H
 #define DRAWABLEOBJECT_H
 
+#include <GL/glut.h>
 class DrawableObject
 {
     virtual void Draw() = 0;

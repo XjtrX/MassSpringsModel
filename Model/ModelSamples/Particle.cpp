@@ -4,13 +4,14 @@ Particle::Particle()
 {
 }
 
-Particle::Particle(Point3D<float> initialPosition, float massVolume, int st)
+Particle::Particle(Point3D<float> initialPosition, float massVolume, int st, float borderRadius)
 {
     _prevPosition = initialPosition;
     _position = initialPosition;
     _appliedForce.set(0, 0, 0);
     _massVolume = massVolume;
     _static = st;
+    _borderRadius = borderRadius;
 }
 
 Particle::~Particle()
@@ -71,6 +72,17 @@ void Particle::ApplyAcceleration(const float &fX, const float &fY, const float &
 
 void Particle::Collusion()
 {
+}
+
+void Particle::Draw()
+{
+    GLUquadricObj* Sphere;
+    Sphere = gluNewQuadric();
+    glPushMatrix();
+        glTranslatef(_position.getX(), _position.getY(), _position.getZ());
+        gluSphere(Sphere, _borderRadius, 10, 10);
+    glPopMatrix();
+    gluDeleteQuadric(Sphere);
 }
 
 int Particle::isStatic()

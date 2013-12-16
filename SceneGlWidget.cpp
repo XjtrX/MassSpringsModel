@@ -15,6 +15,8 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
 {
     connect(&_timer, SIGNAL(timeout()), this, SLOT(UpdateScene()));
     _timer.start(1000 / 24);
+
+
     RectCloth* rC = new RectCloth(  10, 10, 30, 30
                                   , 1, 1
                                   , Point3D<float>(90, 0, 0)
@@ -26,9 +28,14 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     SpringsObject* sO = rC;
     this->_scene._springsObjects.push_back(sO);
 
+
     TriangleObstacle* tO = new TriangleObstacle(1, 1, Point3D<float>(45.0, 0.0, 0.0)
                                                 , Point3D<float>(0, 0 , 0));
     this->_scene._triangleObstacles.push_back(tO);
+
+
+    Particle* p = new Particle(Point3D<float>(3, 10, -2), 0.01, 1, 2);
+    this->_scene._particles.push_back(p);
 }
 
 void SceneGLWidget::initializeGL()

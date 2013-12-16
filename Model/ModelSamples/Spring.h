@@ -2,11 +2,13 @@
 #define SPRING_H
 
 #include "Model/Interfaces/ElasticObject.h"
+#include "Model/Interfaces/DrawableObject.h"
+
 #include "Model/ModelSamples/Particle.h"
 
 #include <math.h>
 using namespace std;
-class Spring: public ElasticObject
+class Spring: public ElasticObject, public DrawableObject
 {
 private:
     Particle* _particleA;
@@ -22,6 +24,8 @@ public:
     ~Spring();
 
     int Recalculate();
+
+    void Draw();
 
     Particle* getParticleA();
     Particle* getParticleB();

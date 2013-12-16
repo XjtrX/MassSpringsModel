@@ -45,6 +45,14 @@ int Spring::Recalculate()
     return 0;
 }
 
+void Spring::Draw()
+{
+     Point3D<float> p = this->_particleA->getPosition();
+     glVertex3f(p.getX(), p.getY(), p.getZ());
+     p = _particleB->getPosition();
+     glVertex3f(p.getX(), p.getY(), p.getZ());
+}
+
 Particle *Spring::getParticleA()
 {
     return _particleA;

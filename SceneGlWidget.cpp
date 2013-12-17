@@ -21,21 +21,19 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
                                   , 1, 1
                                   , Point3D<float>(90, 0, 0)
                                   , Point3D<float>(-15, 0, 0));
-    rC->_particles[90].setStatic(1);
-    rC->_particles[99].setStatic(1);
-    rC->_particles[0].setStatic(1);
-    rC->_particles[9].setStatic(1);
+    rC->_particles[90]->setStatic(1);
+    rC->_particles[99]->setStatic(1);
+    rC->_particles[0]->setStatic(1);
+    rC->_particles[9]->setStatic(1);
     SpringsObject* sO = rC;
-    this->_scene._springsObjects.push_back(sO);
-
+    _scene.AddSprongsObject(sO);
 
     TriangleObstacle* tO = new TriangleObstacle(1, 1, Point3D<float>(45.0, 0.0, 0.0)
                                                 , Point3D<float>(0, 0 , 0));
-    this->_scene._triangleObstacles.push_back(tO);
-
+    _scene.AddTriangleObstacle(tO);
 
     Particle* p = new Particle(Point3D<float>(3, 10, -2), 0.01, 1, 2);
-    this->_scene._particles.push_back(p);
+    _scene.AddParticle(p);
 }
 
 void SceneGLWidget::initializeGL()

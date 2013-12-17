@@ -27,24 +27,24 @@ RectCloth::RectCloth(int cols, int rows, int width, int height
     {
         for (int c = 0; c < cols; c++)
         {
-            _particles[r * cols + c] = Particle(
+            _particles[r * cols + c] = new Particle(
                         m.RotateAndTranslatePoint(Point3D<float>(1.0 * width * c / cols, 1.0 * height * r / rows)
                                                              , rotMatr, translation), massOfParticle);
             if (c > 0)
             {
-                _springs[i++] = Spring(&_particles[r * cols + c - 1], &_particles[r * cols + c]
+                _springs[i++] = new Spring(_particles[r * cols + c - 1], _particles[r * cols + c]
                         , stiffnes, sW);
             }
             if (r > 0)
             {
-                _springs[i++] = Spring(&_particles[r * cols + c], &_particles[(r - 1) * cols + c]
+                _springs[i++] = new Spring(_particles[r * cols + c], _particles[(r - 1) * cols + c]
                         , stiffnes, sH);
             }
             if (c > 0 && r > 0)
             {
-                _springs[i++] = Spring(&_particles[r * cols + c], &_particles[(r - 1) * cols + c - 1]
+                _springs[i++] = new Spring(_particles[r * cols + c], _particles[(r - 1) * cols + c - 1]
                         , stiffnes);
-                _springs[i++] = Spring(&_particles[r * cols + c - 1], &_particles[(r - 1) * cols + c]
+                _springs[i++] = new Spring(_particles[r * cols + c - 1], _particles[(r - 1) * cols + c]
                         , stiffnes);
             }
         }

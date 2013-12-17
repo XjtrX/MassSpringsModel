@@ -17,10 +17,10 @@ public:
 
     Particle();
     Particle(Point3D<float> initialPosition, float massVolume, int st = 0, float borderRadius = 1);
-    ~Particle();
+    virtual ~Particle();
 
     void Move();
-    void Accelerate(float timeStep);
+    void Accelerate(const float &timeStep);
     Point3D<float> getPrevPosition();
     Point3D<float> getPosition();
     void ApplyForce(const float& fX, const float& fY, const float& fZ);

@@ -1,9 +1,8 @@
 #include <QApplication>
 //#include <QtGui/QApplication>
-#include "scenewindow.h"
+#include "SceneWindow.h"
 #include <GL/glut.h>
 
-#include "Point3D.h"
 #include <iostream>
 using namespace std;
 

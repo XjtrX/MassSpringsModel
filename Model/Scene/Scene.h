@@ -19,13 +19,19 @@ public:
 
     void ApplyForce(const float &fX, const float &fY, const float &fZ);
     void ApplyAcceleration(const float &fX, const float &fY, const float &fZ);
-    void Accelerate(float timeStep);
+    void Accelerate(const float &timeStep);
     void Move();
     void Collusion();
-public:
+
+    void AddSprongsObject(SpringsObject* springsObject);
+    void AddTriangleObstacle(TriangleObstacle* triangleObstacle);
+    void AddParticle(Particle* particle);
+private:
+    vector<Particle*> _particles;
+    vector<Particle*> _freeParticles;
+    vector<Spring*> _springs;
     vector<SpringsObject*> _springsObjects;
     vector<TriangleObstacle*> _triangleObstacles;
-    vector<Particle*> _particles;
 };
 
 #endif // SCENE_H

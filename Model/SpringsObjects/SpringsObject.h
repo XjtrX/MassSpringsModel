@@ -18,15 +18,15 @@ public:
 
     void ApplyForce(const float &fX, const float &fY, const float &fZ);
     void ApplyAcceleration(const float &fX, const float &fY, const float &fZ);
-    void Accelerate(float timeStep);
+    void Accelerate(const float &timeStep);
     void Move();
     void Collusion();
 //protected:
 public:
     int _particlesCount;
     int _springsCount;
-    vector<Particle> _particles;
-    vector<Spring> _springs;
+    vector<Particle*> _particles;
+    vector<Spring*> _springs;
 };
 
 #endif // SPRINGSOBJECT_H

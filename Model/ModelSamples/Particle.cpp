@@ -37,7 +37,7 @@ void Particle::Move()
     //_appliedForce.set(0, 0, 0);
 }
 
-void Particle::Accelerate(float timeStep)
+void Particle::Accelerate(const float &timeStep)
 {
     float koeff = timeStep * timeStep / 2 / _massVolume;
     _position.PlusX(_appliedForce.getX() * koeff);

@@ -119,8 +119,8 @@ void SceneGLWidget::UpdateScene()
     */
     _scene.RecalculateSprings();
     _scene.ApplyAcceleration(0, -9.8, 0);
-    _scene.Move();
     _scene.Accelerate(1.0 / 24);
+    _scene.Move();
     this->repaint();
 }
 

@@ -36,13 +36,6 @@ Scene::~Scene()
 
 void Scene::Draw()
 {
-    /*
-    int l = _springsObjects.size();
-    for (int i = 0; i < l; i++)
-    {
-        _springsObjects.at(i)->Draw();
-    }
-    */
     int l = _triangleObstacles.size();
     for (int i = 0; i < l; i++)
     {
@@ -55,6 +48,13 @@ void Scene::Draw()
         _freeParticles.at(i)->Draw();
     }
 
+    l = _springsObjects.size();
+    for (int i = 0; i < l; i++)
+    {
+        _springsObjects.at(i)->Draw();
+    }
+
+    /*
     glBegin(GL_LINES);
     l = _springs.size();
     for (int i = 0; i < l; i++)
@@ -62,6 +62,7 @@ void Scene::Draw()
         _springs.at(i)->Draw();
     }
     glEnd();
+    */
 }
 
 void Scene::RecalculateSprings()
@@ -87,13 +88,6 @@ void Scene::ApplyForce(const float &fX, const float &fY, const float &fZ)
     {
         _particles.at(i)->ApplyForce(fX, fY, fZ);
     }
-    /*
-    int l = _springsObjects.size();
-    for (int i = 0; i < l; i++)
-    {
-        _springsObjects.at(i)->ApplyForce(fX, fY, fZ);
-    }
-    */
 }
 
 void Scene::ApplyAcceleration(const float &fX, const float &fY, const float &fZ)
@@ -103,13 +97,6 @@ void Scene::ApplyAcceleration(const float &fX, const float &fY, const float &fZ)
     {
         _particles.at(i)->ApplyAcceleration(fX, fY, fZ);
     }
-    /*
-    int l = _springsObjects.size();
-    for (int i = 0; i < l; i++)
-    {
-        _springsObjects.at(i)->ApplyAcceleration(fX, fY, fZ);
-    }
-    */
 }
 
 void Scene::Accelerate(const float &timeStep)
@@ -119,13 +106,6 @@ void Scene::Accelerate(const float &timeStep)
     {
         _particles.at(i)->Accelerate(timeStep);
     }
-    /*
-    int l = _springsObjects.size();
-    for (int i = 0; i < l; i++)
-    {
-        _springsObjects.at(i)->Accelerate(timeStep);
-    }
-    */
 }
 
 void Scene::Move()
@@ -135,13 +115,6 @@ void Scene::Move()
     {
         _particles.at(i)->Move();
     }
-    /*
-    int l = _springsObjects.size();
-    for (int i = 0; i < l; i++)
-    {
-        _springsObjects.at(i)->Move();
-    }
-    */
 }
 
 void Scene::Collide(int flag)

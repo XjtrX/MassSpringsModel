@@ -35,6 +35,8 @@ public:
     void setStatic(int st);
 
     float getBorderRadius();
+
+    float getMassVolume();
 };
 
 #endif // PARTICLE_H

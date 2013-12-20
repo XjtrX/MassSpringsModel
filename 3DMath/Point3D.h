@@ -52,6 +52,16 @@ public:
 
         return *this;
     }
+
+    Point3D& operator *=(const float coeff)
+    {
+        this->_x *= coeff;
+        this->_y *= coeff;
+        this->_z *= coeff;
+
+        return *this;
+    }
+
 /*
     Point3D& operator *(const float& f)
     {

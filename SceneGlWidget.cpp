@@ -28,21 +28,51 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     SpringsObject* sO = rC;
     _scene.AddSprongsObject(sO);
 
+    /*
+    rC = new RectCloth(  10, 10, 30, 30
+                                  , 1, 1, 1.44
+                                  , Point3D<float>(90, 0, 0)
+                                  , Point3D<float>(-15, 8, 15));
+    rC->_particles[90]->setStatic(1);
+    rC->_particles[99]->setStatic(1);
+    //rC->_particles[0]->setStatic(1);
+    //rC->_particles[9]->setStatic(1);
+    sO = rC;
+    _scene.AddSprongsObject(sO);
+    */
+
     TriangleObstacle* tO = new TriangleObstacle(1, 1, Point3D<float>(45.0, 0.0, 0.0)
                                                 , Point3D<float>(0, 0 , 0));
     _scene.AddTriangleObstacle(tO);
 
-    Particle* p = new Particle(Point3D<float>(0, 5, 0), 0.01, 2, 0);
+
+    Particle* p = new Particle(Point3D<float>(0, 15, 4), 1, 2, 0);
     _scene.AddParticle(p);
+
+    p = new Particle(Point3D<float>(-5, 15, 4), 1, 2, 0);
+    _scene.AddParticle(p);
+
+    p = new Particle(Point3D<float>(5, 15, 4), 1, 2, 0);
+    _scene.AddParticle(p);
+
+    p = new Particle(Point3D<float>(0, 15, -4), 1, 2, 0);
+    _scene.AddParticle(p);
+
+    p = new Particle(Point3D<float>(-5, 15, -4), 1, 2, 0);
+    _scene.AddParticle(p);
+
+    p = new Particle(Point3D<float>(5, 15, -4), 1, 2, 0);
+    _scene.AddParticle(p);
+
 }
 
 void SceneGLWidget::initializeGL()
 {
     glClearColor(0.2, 0.2, 0.2, 1);
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_LIGHT0);
-    glEnable(GL_LIGHTING);
-    glEnable(GL_COLOR_MATERIAL);
+    //glEnable(GL_LIGHT0);
+    //glEnable(GL_LIGHTING);
+    //glEnable(GL_COLOR_MATERIAL);
 }
 void SceneGLWidget::paintGL()
 {
@@ -117,12 +147,14 @@ void SceneGLWidget::UpdateScene()
     _rectCloth.Move();
     _rectCloth.Accelerate(1.0 / 24);
     */
-    _scene.RecalculateSprings();
     _scene.ApplyAcceleration(0, -9.8, 0);
+    _scene.RecalculateSprings();
     _scene.Accelerate(1.0 / 24);
     _scene.Collide(false);
     _scene.Move();
     _scene.Collide(true);
+    //_scene.RecalculateSprings();
+    //_scene.Accelerate(1.0 / 24);
     this->repaint();
 }
 

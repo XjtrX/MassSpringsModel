@@ -164,27 +164,24 @@ void Scene::Collide(int flag)
 
             if (length < target)
             {
-                Point3D<float> v1 = p1->Position();
-                v1 -= p1->PrevPosition();
-
-                Point3D<float> v2 = p2->Position();
-                v2 -= p2->PrevPosition();
-
                 float factor = (length - target) / length;
 
-                /*
-                p1->getPosition().PlusX(-1 * dist.getX() * factor / 2);
-                p1->getPosition().PlusY(-1 * dist.getY() * factor / 2);
-                p1->getPosition().PlusZ(-1 * dist.getZ() * factor / 2);
-
-                p2->getPosition().PlusX(     dist.getX() * factor / 2);
-                p2->getPosition().PlusY(     dist.getY() * factor / 2);
-                p2->getPosition().PlusZ(     dist.getZ() * factor / 2);
-                */
+                if (!p1->isStatic())
+                {
                 p1->Position().MinusCorresp(dist, factor / 2);
-                p2->Position().PlusCorresp(dist, factor / 2);
+                }
+                if (!p2->isStatic())
+                {
+                    p2->Position().PlusCorresp(dist, factor / 2);
+                }
                 if (flag)
                 {
+                    Point3D<float> v1 = p1->Position();
+                    v1 -= p1->PrevPosition();
+
+                    Point3D<float> v2 = p2->Position();
+                    v2 -= p2->PrevPosition();
+
                     float f1 = (0.05 * (   dist.getX() * v1.getX()
                                          + dist.getY() * v1.getY()
                                          + dist.getZ() * v1.getZ())
@@ -200,11 +197,17 @@ void Scene::Collide(int flag)
                     v2.PlusCorresp(p1->Position(), f1);
                     v2.MinusCorresp(p1->Position(), f2);
 
-                    p1->PrevPosition() = p1->Position();
-                    p1->PrevPosition().MinusCorresp(v1, 1);
+                    if (!p1->isStatic())
+                    {
+                        p1->PrevPosition() = p1->Position();
+                        p1->PrevPosition().MinusCorresp(v1, 1);
+                    }
 
-                    p2->PrevPosition() = p2->Position();
-                    p2->PrevPosition().MinusCorresp(v2, 1);
+                    if (!p2->isStatic())
+                    {
+                        p2->PrevPosition() = p2->Position();
+                        p2->PrevPosition().MinusCorresp(v2, 1);
+                    }
                 }
             }
         }

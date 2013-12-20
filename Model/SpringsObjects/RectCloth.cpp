@@ -14,9 +14,9 @@ RectCloth::RectCloth(int cols, int rows, int width, int height
 
     float massOfParticle = massVolume / _particlesCount;
 
-    float sW = 1.0 * width / cols;
+    float sW = 1.0 * width / (cols - 1);
 //    float sMW = sW * 2;
-    float sH = 1.0 * height / rows;
+    float sH = 1.0 * height / (rows - 1);
 //    float sMH = sH * 2;
     MathRotation m;
     float* rotMatr = m.RotationMatrix(rotation.getX()

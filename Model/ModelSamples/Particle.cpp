@@ -100,3 +100,8 @@ float Particle::getBorderRadius()
 {
     return _borderRadius;
 }
+
+float Particle::getMassVolume()
+{
+    return _massVolume;
+}

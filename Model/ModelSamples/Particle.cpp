@@ -4,7 +4,8 @@ Particle::Particle()
 {
 }
 
-Particle::Particle(Point3D<float> initialPosition, float massVolume, int st, float borderRadius)
+Particle::Particle(Point3D<float> initialPosition, float massVolume, float borderRadius
+                   , int st)
 {
     _prevPosition = initialPosition;
     _position = initialPosition;
@@ -46,12 +47,12 @@ void Particle::Accelerate(const float &timeStep)
     _appliedForce.set(0, 0, 0);
 }
 
-Point3D<float> Particle::getPrevPosition()
+Point3D<float>& Particle::PrevPosition()
 {
     return _prevPosition;
 }
 
-Point3D<float> Particle::getPosition()
+Point3D<float>& Particle::Position()
 {
     return _position;
 }
@@ -70,7 +71,7 @@ void Particle::ApplyAcceleration(const float &fX, const float &fY, const float &
     _appliedForce.PlusZ(fZ * _massVolume);
 }
 
-void Particle::Collusion()
+void Particle::Collide(int flag)
 {
 }
 
@@ -93,4 +94,9 @@ int Particle::isStatic()
 void Particle::setStatic(int st)
 {
     _static = st;
+}
+
+float Particle::getBorderRadius()
+{
+    return _borderRadius;
 }

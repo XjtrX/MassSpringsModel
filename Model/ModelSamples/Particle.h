@@ -16,22 +16,25 @@ public:
     float _borderRadius;
 
     Particle();
-    Particle(Point3D<float> initialPosition, float massVolume, int st = 0, float borderRadius = 1);
+    Particle(Point3D<float> initialPosition, float massVolume, float borderRadius = 1
+            , int st = 0);
     virtual ~Particle();
 
     void Move();
     void Accelerate(const float &timeStep);
-    Point3D<float> getPrevPosition();
-    Point3D<float> getPosition();
+    Point3D<float>& PrevPosition();
+    Point3D<float>& Position();
     void ApplyForce(const float& fX, const float& fY, const float& fZ);
     void ApplyAcceleration(const float &fX, const float &fY, const float &fZ);
-    void Collusion();
+    void Collide(int flag);
 
     void Draw();
 
     int isStatic();
 
     void setStatic(int st);
+
+    float getBorderRadius();
 };
 
 #endif // PARTICLE_H

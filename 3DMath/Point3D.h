@@ -123,6 +123,25 @@ public:
         _z += z;
     }
 
+    void PlusCorresp(const Point3D& other, float coeff)
+    {
+        this->_x += other._x * coeff;
+        this->_y += other._y * coeff;
+        this->_z += other._z * coeff;
+    }
+
+    void MinusCorresp(const Point3D& other, float coeff)
+    {
+        this->_x -= other._x * coeff;
+        this->_y -= other._y * coeff;
+        this->_z -= other._z * coeff;
+    }
+
+    A getSquaredLength()
+    {
+        return _x * _x + _y * _y + _z * _z;
+    }
+
 public:
     A _x;
     A _y;

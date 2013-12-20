@@ -17,9 +17,9 @@ void SpringsObject::Draw()
 
      for (int i = 0; i < this->_springsCount; i++)
      {
-         Point3D<float> p = this->_springs[i]->getParticleA()->getPosition();
+         Point3D<float> p = this->_springs[i]->getParticleA()->Position();
          glVertex3f(p.getX(), p.getY(), p.getZ());
-         p = this->_springs[i]->getParticleB()->getPosition();
+         p = this->_springs[i]->getParticleB()->Position();
          glVertex3f(p.getX(), p.getY(), p.getZ());
      }
 
@@ -66,15 +66,6 @@ void SpringsObject::Move()
     }
 }
 
-
-void SpringsObject::Collusion()
+void SpringsObject::Collide(int flag)
 {
-    for (int i =0; i < _particlesCount; i++)
-    {
-        Particle* a = _particles[i];
-        for (int j = i + 1; j < _particlesCount; j++)
-        {
-
-        }
-    }
 }

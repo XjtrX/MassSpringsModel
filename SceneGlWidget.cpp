@@ -18,9 +18,9 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
 
 
     RectCloth* rC = new RectCloth(  10, 10, 30, 30
-                                  , 1, 1
+                                  , 1, 1, 1
                                   , Point3D<float>(90, 0, 0)
-                                  , Point3D<float>(-15, 0, 0));
+                                  , Point3D<float>(-15, 0, 15));
     rC->_particles[90]->setStatic(1);
     rC->_particles[99]->setStatic(1);
     rC->_particles[0]->setStatic(1);
@@ -32,7 +32,7 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
                                                 , Point3D<float>(0, 0 , 0));
     _scene.AddTriangleObstacle(tO);
 
-    Particle* p = new Particle(Point3D<float>(3, 10, -2), 0.01, 1, 2);
+    Particle* p = new Particle(Point3D<float>(0, 5, 0), 0.01, 2, 0);
     _scene.AddParticle(p);
 }
 
@@ -120,7 +120,9 @@ void SceneGLWidget::UpdateScene()
     _scene.RecalculateSprings();
     _scene.ApplyAcceleration(0, -9.8, 0);
     _scene.Accelerate(1.0 / 24);
+    _scene.Collide(false);
     _scene.Move();
+    _scene.Collide(true);
     this->repaint();
 }
 

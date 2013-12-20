@@ -21,7 +21,7 @@ public:
     void ApplyAcceleration(const float &fX, const float &fY, const float &fZ);
     void Accelerate(const float &timeStep);
     void Move();
-    void Collusion();
+    void Collide(int flag);
 
     void AddSprongsObject(SpringsObject* springsObject);
     void AddTriangleObstacle(TriangleObstacle* triangleObstacle);

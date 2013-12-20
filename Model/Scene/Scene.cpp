@@ -144,15 +144,71 @@ void Scene::Move()
     */
 }
 
-void Scene::Collusion()
+void Scene::Collide(int flag)
 {
-    /*
-    int l = _springsObjects.size();
+    int l = _particles.size();
     for (int i = 0; i < l; i++)
     {
-        _springsObjects.at(i).Collusion();
+        Particle* p1 = _particles.at(i);
+        for (int j = i + 1; j < l; j++)
+        {
+            Particle* p2 = _particles.at(j);
+
+            Point3D<float> dist = p1->Position();
+            dist -= p2->Position();
+
+            float sLength = dist.getSquaredLength();
+            float length = sqrt(sLength);
+
+            float target = p1->getBorderRadius() + p2->getBorderRadius();
+
+            if (length < target)
+            {
+                Point3D<float> v1 = p1->Position();
+                v1 -= p1->PrevPosition();
+
+                Point3D<float> v2 = p2->Position();
+                v2 -= p2->PrevPosition();
+
+                float factor = (length - target) / length;
+
+                /*
+                p1->getPosition().PlusX(-1 * dist.getX() * factor / 2);
+                p1->getPosition().PlusY(-1 * dist.getY() * factor / 2);
+                p1->getPosition().PlusZ(-1 * dist.getZ() * factor / 2);
+
+                p2->getPosition().PlusX(     dist.getX() * factor / 2);
+                p2->getPosition().PlusY(     dist.getY() * factor / 2);
+                p2->getPosition().PlusZ(     dist.getZ() * factor / 2);
+                */
+                p1->Position().MinusCorresp(dist, factor / 2);
+                p2->Position().PlusCorresp(dist, factor / 2);
+                if (flag)
+                {
+                    float f1 = (0.05 * (   dist.getX() * v1.getX()
+                                         + dist.getY() * v1.getY()
+                                         + dist.getZ() * v1.getZ())
+                                / sLength);
+                    float f2 = (0.05 * (   dist.getX() * v2.getX()
+                                         + dist.getY() * v2.getY()
+                                         + dist.getZ() * v2.getZ())
+                                / sLength);
+
+                    v1.PlusCorresp(p1->Position(), f2);
+                    v1.MinusCorresp(p1->Position(), f1);
+
+                    v2.PlusCorresp(p1->Position(), f1);
+                    v2.MinusCorresp(p1->Position(), f2);
+
+                    p1->PrevPosition() = p1->Position();
+                    p1->PrevPosition().MinusCorresp(v1, 1);
+
+                    p2->PrevPosition() = p2->Position();
+                    p2->PrevPosition().MinusCorresp(v2, 1);
+                }
+            }
+        }
     }
-    */
 }
 
 void Scene::AddSprongsObject(SpringsObject *springsObject)

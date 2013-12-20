@@ -13,9 +13,9 @@ Spring::Spring(Particle *particleA, Particle *particleB
       _particleB(particleB)
 {
     _nLentght = nLength;
-    float dX = particleB->getPosition().getX() - particleA->getPosition().getX();
-    float dY = particleB->getPosition().getY() - particleA->getPosition().getY();
-    float dZ = particleB->getPosition().getZ() - particleA->getPosition().getZ();
+    float dX = particleB->Position().getX() - particleA->Position().getX();
+    float dY = particleB->Position().getY() - particleA->Position().getY();
+    float dZ = particleB->Position().getZ() - particleA->Position().getZ();
     _nLentght = sqrt(dX * dX + dY * dY + dZ * dZ);
     _stiffness = stifness;
 }
@@ -26,13 +26,12 @@ Spring::~Spring()
 
 int Spring::Recalculate()
 {
-    Point3D<float> pA = _particleA->getPosition();
-    Point3D<float> pB = _particleB->getPosition();
+    Point3D<float> pA = _particleA->Position();
+    Point3D<float> pB = _particleB->Position();
     Point3D<float> dist = pB;
     dist -= pA;
 
-    float distLen = sqrt(dist.getX() * dist.getX() + dist.getY() * dist.getY()
-                         + dist.getZ() * dist.getZ());
+    float distLen = sqrt(dist.getSquaredLength());
 
     float diff = _nLentght - distLen;
 
@@ -47,9 +46,9 @@ int Spring::Recalculate()
 
 void Spring::Draw()
 {
-     Point3D<float> p = this->_particleA->getPosition();
+     Point3D<float> p = this->_particleA->Position();
      glVertex3f(p.getX(), p.getY(), p.getZ());
-     p = _particleB->getPosition();
+     p = _particleB->Position();
      glVertex3f(p.getX(), p.getY(), p.getZ());
 }
 

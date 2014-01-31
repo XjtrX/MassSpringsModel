@@ -10,7 +10,9 @@ SOURCES += \
     Model/ModelSamples/Particle.cpp \
     Model/ModelSamples/Spring.cpp \
     Model/SpringsObjects/VerletSpringsObject.cpp \
-    Model/SpringsObjects/RectVerletCloth.cpp
+    Model/SpringsObjects/RectVerletCloth.cpp \
+    3DMath/ParticleState.cpp \
+    3DMath/ParticlePosition.cpp
 HEADERS += \
     Model/ModelSamples/Spring.h \
     Model/Scene/Scene.h \
@@ -28,9 +30,11 @@ HEADERS += \
     Model/Interfaces/RungeKuttaObject.h \
     Model/ModelSamples/VerletParticle.h \
     Model/ModelSamples/RungeKuttaParticle.h \
-    Model/ModelSamples/Particle.h \
     Model/SpringsObjects/VerletSpringsObject.h \
-    Model/SpringsObjects/RectVerletCloth.h
+    Model/SpringsObjects/RectVerletCloth.h \
+    Model/ModelSamples/Unresolved/Particle.h \
+    3DMath/ParticleState.h \
+    3DMath/ParticlePosition.h
 
 FORMS += \
     scenewindow.ui

@@ -5,6 +5,11 @@ template<class A>
 class Point3D
 {
 public:
+    A _x;
+    A _y;
+    A _z;
+
+public:
     Point3D(A x = 0, A y = 0, A z = 0)
     {
         _x = x;
@@ -151,11 +156,6 @@ public:
     {
         return _x * _x + _y * _y + _z * _z;
     }
-
-public:
-    A _x;
-    A _y;
-    A _z;
 };
 
 #endif // POINT3D_H

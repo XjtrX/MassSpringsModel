@@ -29,8 +29,11 @@ RectVerletCloth::RectVerletCloth(int cols, int rows, int width, int height
         for (int c = 0; c < cols; c++)
         {
             _particles[r * cols + c] = new VerletParticle(
-                        m.RotateAndTranslatePoint(Point3D<float>(1.0 * width * c / cols, 1.0 * height * r / rows)
-                                                             , rotMatr, translation), massOfVerletParticle, borderRadius);
+                        ParticlePosition(
+                            m.RotateAndTranslatePoint(
+                                Point3D<float>(1.0 * width * c / cols, 1.0 * height * r / rows)
+                                , rotMatr, translation))
+                        , massOfVerletParticle, borderRadius);
             if (c > 0)
             {
                 _springs[i++] = new Spring(_particles[r * cols + c - 1], _particles[r * cols + c]

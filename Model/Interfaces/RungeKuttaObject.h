@@ -7,7 +7,6 @@ class RungeKuttaObject
     virtual void ComputeK2() = 0;
     virtual void ComputeK3() = 0;
     virtual void ComputeK4() = 0;
-    virtual void ComputeSum() = 0;
 };
 
 #endif // RUNGEKUTTAOBJECT_H

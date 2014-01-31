@@ -17,9 +17,9 @@ void VerletSpringsObject::Draw()
 
      for (int i = 0; i < this->_springsCount; i++)
      {
-         Point3D<float> p = this->_springs[i]->getParticleA()->Position();
+         Point3D<float> p = this->_springs[i]->getParticleA()->getPosition();
          glVertex3f(p.getX(), p.getY(), p.getZ());
-         p = this->_springs[i]->getParticleB()->Position();
+         p = this->_springs[i]->getParticleB()->getPosition();
          glVertex3f(p.getX(), p.getY(), p.getZ());
      }
 

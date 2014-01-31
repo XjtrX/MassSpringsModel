@@ -34,13 +34,19 @@ signals:
     void MouseReleaseSignal();
     void LeaveSignal();
 
+public slots:
+    void UpdateScene();
+
+    void StartSimulation();
+    void StopSimulation();
+    void NextIteration();
+
 public:
     void Rotate(int x, int y, int z);
+    int getSimulationStatus();
 
 private:
     void UpdateViewPoint();
-private slots:
-    void UpdateScene();
 
 public:
     int mousePosX();
@@ -52,6 +58,7 @@ private:
     RotationHolder<int> _rotation;
     Point3D<int> _transition;
     Scene _scene;
+    float _timeInterval;
     QTimer _timer;
 };
 

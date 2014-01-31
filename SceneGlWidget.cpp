@@ -10,11 +10,15 @@ using namespace std;
 #include "Model/ModelSamples/TriangleObstacle.h"
 #include "3DMath/MathRotation.h"
 
+#include <ctime>
+using namespace std;
+
 SceneGLWidget::SceneGLWidget(QWidget *parent)
     : QGLWidget(parent)
 {
+    _timeInterval = 1.0 / 24;
     connect(&_timer, SIGNAL(timeout()), this, SLOT(UpdateScene()));
-    _timer.start(1000 / 24);
+    //_timer.start(_timeInterval * 1000);
 
 
     RectCloth* rC = new RectCloth(  10, 10, 30, 30
@@ -45,7 +49,7 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
                                                 , Point3D<float>(0, 0 , 0));
     _scene.AddTriangleObstacle(tO);
 
-
+    /*
     Particle* p = new Particle(Point3D<float>(0, 15, 4), 1, 2, 0);
     _scene.AddParticle(p);
 
@@ -63,6 +67,7 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
 
     p = new Particle(Point3D<float>(5, 15, -4), 1, 2, 0);
     _scene.AddParticle(p);
+    */
 
 }
 
@@ -141,6 +146,9 @@ void SceneGLWidget::UpdateViewPoint()
 
 void SceneGLWidget::UpdateScene()
 {
+//    clock_t t1, t2;
+//    t1 = clock();
+
     /*
     _rectCloth.RecalculateSprings();
     _rectCloth.ApplyForce(0, -9.8, 0);
@@ -149,13 +157,17 @@ void SceneGLWidget::UpdateScene()
     */
     _scene.ApplyAcceleration(0, -9.8, 0);
     _scene.RecalculateSprings();
-    _scene.Accelerate(1.0 / 24);
+    _scene.Accelerate(_timeInterval);
     _scene.Collide(false);
     _scene.Move();
     _scene.Collide(true);
     //_scene.RecalculateSprings();
     //_scene.Accelerate(1.0 / 24);
     this->repaint();
+
+//    t2 = clock();
+//    double difference = (t2 - t1) / (double)(CLOCKS_PER_SEC / 1000);
+//    cout << "difference " << difference << endl;
 }
 
 int SceneGLWidget::mousePosX()
@@ -174,4 +186,28 @@ void SceneGLWidget::Rotate(int x, int y, int z)
     _rotation.PlusY(y);
     _rotation.PlusZ(z);
     UpdateViewPoint();
+}
+
+int SceneGLWidget::getSimulationStatus()
+{
+    return _timer.isActive();
+}
+
+
+void SceneGLWidget::StartSimulation()
+{
+    _timer.start(_timeInterval * 1000);
+}
+
+void SceneGLWidget::StopSimulation()
+{
+    _timer.stop();
+}
+
+void SceneGLWidget::NextIteration()
+{
+    if (0 == _timer.isActive())
+    {
+        this->UpdateScene();
+    }
 }

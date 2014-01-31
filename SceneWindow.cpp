@@ -14,6 +14,10 @@ SceneWindow::SceneWindow(QWidget *parent) :
     connect(ui->widget, SIGNAL(MouseReleaseSignal()), this, SLOT(MouseReleaseSlot()));
     connect(ui->widget, SIGNAL(LeaveSignal()), this, SLOT(LeaveSlot()));
 
+    connect(this, SIGNAL(StartSimulation()), ui->widget, SLOT(StartSimulation()));
+    connect(this, SIGNAL(StopSimulation()), ui->widget, SLOT(StopSimulation()));
+    connect(this, SIGNAL(NextIteration()),  ui->widget, SLOT(NextIteration()));
+
     _mousePressed = 0;
 }
 
@@ -35,6 +39,10 @@ void SceneWindow::MouseMoveSlot()
     if (_mousePressed)
     {
         this->ui->widget->Rotate(-y, -x, 0);
+        if (0 == ui->widget->getSimulationStatus())
+        {
+            ui->widget->repaint();
+        }
 //    this->ui->widget->Rotate(0, y, 0);
     }
 }
@@ -60,4 +68,19 @@ void SceneWindow::LeaveSlot()
 {
     //cout << "Leave\n";
     //cout.flush();
+}
+
+void SceneWindow::on_pB_Start_released()
+{
+    emit StartSimulation();
+}
+
+void SceneWindow::on_pB_Stop_released()
+{
+    emit StopSimulation();
+}
+
+void SceneWindow::on_pB_Next_pressed()
+{
+    emit NextIteration();
 }

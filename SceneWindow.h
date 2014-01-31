@@ -24,6 +24,17 @@ private slots:
     void MouseReleaseSlot();
     void LeaveSlot();
 
+    void on_pB_Start_released();
+
+    void on_pB_Stop_released();
+
+    void on_pB_Next_pressed();
+
+signals:
+    void StartSimulation();
+    void StopSimulation();
+    void NextIteration();
+
 private:
     int _mousePressed;
     Point2D<int> _prevMousePos;

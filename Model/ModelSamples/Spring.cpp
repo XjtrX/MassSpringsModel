@@ -2,20 +2,19 @@
 
 Spring::Spring()
 {
-    //_particleA = nullptr;
-    //_particleB = nullptr;
+    //_VerletParticleA = nullptr;
+    //_VerletParticleB = nullptr;
     _nLentght = 0;
 }
 
 Spring::Spring(Particle *particleA, Particle *particleB
-               , float stifness, float nLength)
-    : _particleA(particleA),
-      _particleB(particleB)
+               , const float stifness, const float nLength)
+    : _particleA(particleA), _particleB(particleB)
 {
     _nLentght = nLength;
-    float dX = particleB->Position().getX() - particleA->Position().getX();
-    float dY = particleB->Position().getY() - particleA->Position().getY();
-    float dZ = particleB->Position().getZ() - particleA->Position().getZ();
+    float dX = _particleB->Position().getX() - _particleA->Position().getX();
+    float dY = _particleB->Position().getY() - _particleA->Position().getY();
+    float dZ = _particleB->Position().getZ() - _particleA->Position().getZ();
     _nLentght = sqrt(dX * dX + dY * dY + dZ * dZ);
     _stiffness = stifness;
 }

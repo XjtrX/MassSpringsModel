@@ -6,7 +6,7 @@
 using namespace std;
 #define PI 3.14159265
 
-#include "Model/SpringsObjects/RectCloth.h"
+#include "Model/SpringsObjects/RectVerletCloth.h"
 #include "Model/ModelSamples/TriangleObstacle.h"
 #include "3DMath/MathRotation.h"
 
@@ -21,7 +21,7 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     //_timer.start(_timeInterval * 1000);
 
 
-    RectCloth* rC = new RectCloth(  10, 10, 30, 30
+    RectVerletCloth* rC = new RectVerletCloth(  10, 10, 30, 30
                                   , 1, 1, 1
                                   , Point3D<float>(90, 0, 0)
                                   , Point3D<float>(-15, 0, 15));
@@ -29,18 +29,18 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     rC->_particles[99]->setStatic(1);
     rC->_particles[0]->setStatic(1);
     rC->_particles[9]->setStatic(1);
-    SpringsObject* sO = rC;
-    _scene.AddSprongsObject(sO);
+    VerletSpringsObject* sO = rC;
+    _scene.AddSpringsObject(sO);
 
     /*
     rC = new RectCloth(  10, 10, 30, 30
                                   , 1, 1, 1.44
                                   , Point3D<float>(90, 0, 0)
                                   , Point3D<float>(-15, 8, 15));
-    rC->_particles[90]->setStatic(1);
-    rC->_particles[99]->setStatic(1);
-    //rC->_particles[0]->setStatic(1);
-    //rC->_particles[9]->setStatic(1);
+    rC->_VerletParticles[90]->setStatic(1);
+    rC->_VerletParticles[99]->setStatic(1);
+    //rC->_VerletParticles[0]->setStatic(1);
+    //rC->_VerletParticles[9]->setStatic(1);
     sO = rC;
     _scene.AddSprongsObject(sO);
     */
@@ -50,23 +50,23 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     _scene.AddTriangleObstacle(tO);
 
     /*
-    Particle* p = new Particle(Point3D<float>(0, 15, 4), 1, 2, 0);
-    _scene.AddParticle(p);
+    VerletParticle* p = new VerletParticle(Point3D<float>(0, 15, 4), 1, 2, 0);
+    _scene.AddVerletParticle(p);
 
-    p = new Particle(Point3D<float>(-5, 15, 4), 1, 2, 0);
-    _scene.AddParticle(p);
+    p = new VerletParticle(Point3D<float>(-5, 15, 4), 1, 2, 0);
+    _scene.AddVerletParticle(p);
 
-    p = new Particle(Point3D<float>(5, 15, 4), 1, 2, 0);
-    _scene.AddParticle(p);
+    p = new VerletParticle(Point3D<float>(5, 15, 4), 1, 2, 0);
+    _scene.AddVerletParticle(p);
 
-    p = new Particle(Point3D<float>(0, 15, -4), 1, 2, 0);
-    _scene.AddParticle(p);
+    p = new VerletParticle(Point3D<float>(0, 15, -4), 1, 2, 0);
+    _scene.AddVerletParticle(p);
 
-    p = new Particle(Point3D<float>(-5, 15, -4), 1, 2, 0);
-    _scene.AddParticle(p);
+    p = new VerletParticle(Point3D<float>(-5, 15, -4), 1, 2, 0);
+    _scene.AddVerletParticle(p);
 
-    p = new Particle(Point3D<float>(5, 15, -4), 1, 2, 0);
-    _scene.AddParticle(p);
+    p = new VerletParticle(Point3D<float>(5, 15, -4), 1, 2, 0);
+    _scene.AddVerletParticle(p);
     */
 
 }

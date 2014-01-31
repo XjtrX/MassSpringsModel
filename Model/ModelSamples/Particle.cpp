@@ -1,77 +1,28 @@
-#include "Particle.h"
+#include "Model/ModelSamples/Particle.h"
 
 Particle::Particle()
 {
 }
 
-Particle::Particle(Point3D<float> initialPosition, float massVolume, float borderRadius
-                   , int st)
+Particle::Particle(const Particle &particle)
 {
-    _prevPosition = initialPosition;
-    _position = initialPosition;
-    _appliedForce.set(0, 0, 0);
-    _massVolume = massVolume;
-    _static = st;
-    _borderRadius = borderRadius;
+    this->_position = particle._position;
+    this->_massVolume = particle._massVolume;
+    this->_borderRadius = particle._borderRadius;
+    this->_static = particle._static;
 }
+
+Particle::Particle(const Point3D<float>& initialPosition
+                   , const float& massVolume, const float& borderRadius, const int& st)
+{
+    _position = initialPosition;
+    _massVolume = massVolume;
+    _borderRadius = borderRadius;
+    _static = st;
+}
+
 
 Particle::~Particle()
-{
-}
-
-void Particle::Move()
-{
-    if (_static)
-    {
-        _position = _prevPosition;
-        _appliedForce.set(0, 0, 0);
-        return;
-    }
-
-    Point3D<float> temp = _position;
-    //_position.Plus(_position);
-    _position += _position;
-    //_position.Minus(_prevPosition);
-    _position -= _prevPosition;
-    //_position.Plus(_appliedForce);
-    _prevPosition = temp;
-    //_appliedForce.set(0, 0, 0);
-}
-
-void Particle::Accelerate(const float &timeStep)
-{
-    float koeff = timeStep * timeStep / 2 / _massVolume;
-    _position.PlusX(_appliedForce.getX() * koeff);
-    _position.PlusY(_appliedForce.getY() * koeff);
-    _position.PlusZ(_appliedForce.getZ() * koeff);
-    _appliedForce.set(0, 0, 0);
-}
-
-Point3D<float>& Particle::PrevPosition()
-{
-    return _prevPosition;
-}
-
-Point3D<float>& Particle::Position()
-{
-    return _position;
-}
-
-void Particle::ApplyForce(const float &fX, const float &fY, const float &fZ)
-{
-    _appliedForce.PlusX(fX);
-    _appliedForce.PlusY(fY);
-    _appliedForce.PlusZ(fZ);
-}
-
-void Particle::ApplyAcceleration(const float &fX, const float &fY, const float &fZ)
-{
-    _appliedForce.PlusX(fX * _massVolume);
-    _appliedForce.PlusY(fY * _massVolume);
-    _appliedForce.PlusZ(fZ * _massVolume);
-}
-
-void Particle::Collide(int flag)
 {
 }
 
@@ -84,6 +35,11 @@ void Particle::Draw()
         gluSphere(Sphere, _borderRadius, 10, 10);
     glPopMatrix();
     gluDeleteQuadric(Sphere);
+}
+
+Point3D<float>& Particle::Position()
+{
+    return _position;
 }
 
 int Particle::isStatic()

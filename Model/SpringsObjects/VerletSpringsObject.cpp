@@ -1,17 +1,17 @@
-#include "SpringsObject.h"
+#include "VerletSpringsObject.h"
 
-SpringsObject::SpringsObject(int particlesCount, int springsCount)
+VerletSpringsObject::VerletSpringsObject(int particlesCount, int springsCount)
     : _particlesCount(particlesCount), _springsCount(springsCount)
     , _particles(particlesCount), _springs(springsCount)
 {
 }
 
-SpringsObject::~SpringsObject()
+VerletSpringsObject::~VerletSpringsObject()
 {
 
 }
 
-void SpringsObject::Draw()
+void VerletSpringsObject::Draw()
 {  
     glBegin(GL_LINES);
 
@@ -26,7 +26,7 @@ void SpringsObject::Draw()
      glEnd();
 }
 
-void SpringsObject::RecalculateSprings()
+void VerletSpringsObject::RecalculateSprings()
 {
     for (int i = 0; i < _springsCount; i++)
     {
@@ -34,7 +34,7 @@ void SpringsObject::RecalculateSprings()
     }
 }
 
-void SpringsObject::ApplyForce(const float &fX, const float &fY, const float &fZ)
+void VerletSpringsObject::ApplyForce(const float &fX, const float &fY, const float &fZ)
 {
     for (int i = 0; i < _particlesCount; i++)
     {
@@ -42,7 +42,7 @@ void SpringsObject::ApplyForce(const float &fX, const float &fY, const float &fZ
     }
 }
 
-void SpringsObject::ApplyAcceleration(const float &fX, const float &fY, const float &fZ)
+void VerletSpringsObject::ApplyAcceleration(const float &fX, const float &fY, const float &fZ)
 {
     for (int i = 0; i < _particlesCount; i++)
     {
@@ -50,7 +50,7 @@ void SpringsObject::ApplyAcceleration(const float &fX, const float &fY, const fl
     }
 }
 
-void SpringsObject::Accelerate(const float &timeStep)
+void VerletSpringsObject::Accelerate(const float &timeStep)
 {
     for (int i = 0; i < _particlesCount; i++)
     {
@@ -58,7 +58,7 @@ void SpringsObject::Accelerate(const float &timeStep)
     }
 }
 
-void SpringsObject::Move()
+void VerletSpringsObject::Move()
 {
     for (int i = 0; i < _particlesCount; i++)
     {
@@ -66,6 +66,6 @@ void SpringsObject::Move()
     }
 }
 
-void SpringsObject::Collide(int flag)
+void VerletSpringsObject::Collide(int flag)
 {
 }

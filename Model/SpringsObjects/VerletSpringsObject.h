@@ -7,11 +7,11 @@
 #include <vector>
 using namespace std;
 
-class SpringsObject: public VerletObject
+class VerletSpringsObject: public VerletObject
 {
 public:
-    SpringsObject(int particlesCount, int springsCount);
-    virtual ~SpringsObject();
+    VerletSpringsObject(int particlesCount, int springsCount);
+    virtual ~VerletSpringsObject();
     void Draw();
 
     void RecalculateSprings();

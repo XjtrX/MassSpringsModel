@@ -1,15 +1,15 @@
 #ifndef RECTCLOTH_H
 #define RECTCLOTH_H
 
-#include "SpringsObject.h"
-class RectCloth: public SpringsObject
+#include "VerletSpringsObject.h"
+class RectVerletCloth: public VerletSpringsObject
 {
     friend void paintGL();
 public:
-    RectCloth(int cols, int rows, int width, int height
+    RectVerletCloth(int cols, int rows, int width, int height
               , float massVolume, float stiffness, float borderRadius
               , Point3D<float> rotation, Point3D<float> translation);
-    virtual ~RectCloth();
+    virtual ~RectVerletCloth();
 };
 
 #endif // RECTCLOTH_H

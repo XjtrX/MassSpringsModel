@@ -1,22 +1,20 @@
 QT += core gui opengl
 SOURCES += \
     main.cpp \
-    Model/SpringsObjects/RectCloth.cpp \
-    Model/SpringsObjects/SpringsObject.cpp \
     Model/Scene/Scene.cpp \
-    Model/SpringsObjects/Cube.cpp \
-    Model/ModelSamples/Particle.cpp \
-    Model/ModelSamples/Spring.cpp \
+    Model/ModelSamples/VerletParticle.cpp \
     Model/ModelSamples/TriangleObstacle.cpp \
     SceneGlWidget.cpp \
-    SceneWindow.cpp
+    SceneWindow.cpp \
+    Model/ModelSamples/RungeKuttaParticle.cpp \
+    Model/ModelSamples/Particle.cpp \
+    Model/ModelSamples/Spring.cpp \
+    Model/SpringsObjects/VerletSpringsObject.cpp \
+    Model/SpringsObjects/RectVerletCloth.cpp
 HEADERS += \
-    Model/SpringsObjects/RectCloth.h \
-    Model/SpringsObjects/SpringsObject.h \
     Model/ModelSamples/Spring.h \
     Model/Scene/Scene.h \
     Model/SpringsObjects/Cube.h \
-    Model/ModelSamples/Particle.h \
     Model/Interfaces/ElasticObject.h \
     Model/Interfaces/VerletObject.h \
     Model/Interfaces/DrawableObject.h \
@@ -26,7 +24,13 @@ HEADERS += \
     SceneGlWidget.h \
     SceneWindow.h \
     3DMath/RotationHolder.h \
-    3DMath/MathRotation.h
+    3DMath/MathRotation.h \
+    Model/Interfaces/RungeKuttaObject.h \
+    Model/ModelSamples/VerletParticle.h \
+    Model/ModelSamples/RungeKuttaParticle.h \
+    Model/ModelSamples/Particle.h \
+    Model/SpringsObjects/VerletSpringsObject.h \
+    Model/SpringsObjects/RectVerletCloth.h
 
 FORMS += \
     scenewindow.ui

@@ -19,8 +19,8 @@ private:
 
 public:
     Spring();
-    Spring(Particle* particleA, Particle* particleB
-           , float stifness, float nLength = 0);
+    Spring(Particle *particleA, Particle *particleB
+           , const float stifness, const float nLength = 0);
     virtual ~Spring();
 
     int Recalculate();

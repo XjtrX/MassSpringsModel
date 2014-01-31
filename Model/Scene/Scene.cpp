@@ -9,7 +9,7 @@ Scene::~Scene()
     int l = _springsObjects.size();
     for (int i = 0; i < l; i++)
     {
-        SpringsObject* sO = _springsObjects.at(i);
+        VerletSpringsObject* sO = _springsObjects.at(i);
         delete sO;
     }
     l = _triangleObstacles.size();
@@ -122,10 +122,10 @@ void Scene::Collide(int flag)
     int l = _particles.size();
     for (int i = 0; i < l; i++)
     {
-        Particle* p1 = _particles.at(i);
+        VerletParticle* p1 = (VerletParticle*)_particles.at(i);
         for (int j = i + 1; j < l; j++)
         {
-            Particle* p2 = _particles.at(j);
+            VerletParticle* p2 = (VerletParticle*)_particles.at(j);
 
             Point3D<float> dist = p1->Position();
             dist -= p2->Position();
@@ -187,7 +187,7 @@ void Scene::Collide(int flag)
     }
 }
 
-void Scene::AddSprongsObject(SpringsObject *springsObject)
+void Scene::AddSpringsObject(VerletSpringsObject *springsObject)
 {
     _springsObjects.push_back(springsObject);
     for (vector<Particle*>::iterator it = springsObject->_particles.begin();
@@ -208,7 +208,7 @@ void Scene::AddTriangleObstacle(TriangleObstacle *triangleObstacle)
     _triangleObstacles.push_back(triangleObstacle);
 }
 
-void Scene::AddParticle(Particle *particle)
+void Scene::AddVerletParticle(VerletParticle *particle)
 {
     _particles.push_back(particle);
     _freeParticles.push_back(particle);

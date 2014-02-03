@@ -1,32 +1,23 @@
-#ifndef SPRINGSOBJECT_H
-#define SPRINGSOBJECT_H
+#ifndef VERLETSPRINGSOBJECT_H
+#define VERLETSPRINGSOBJECT_H
 
 #include "Model/Interfaces/VerletObject.h"
-#include "Model/ModelSamples/Spring.h"
+#include "Model/SpringsObjects/SpringsObject.h"
 
-#include <vector>
-using namespace std;
-
-class VerletSpringsObject: public VerletObject
+class VerletSpringsObject: public SpringsObject, public VerletObject
 {
 public:
     VerletSpringsObject(int particlesCount, int springsCount);
     virtual ~VerletSpringsObject();
-    void Draw();
 
-    void RecalculateSprings();
+    //void Collide(int flag);
 
-    void ApplyForce(const float &fX, const float &fY, const float &fZ);
-    void ApplyAcceleration(const float &fX, const float &fY, const float &fZ);
-    void Accelerate(const float &timeStep);
-    void Move();
-    void Collide(int flag);
-//protected:
-public:
-    int _particlesCount;
-    int _springsCount;
-    vector<Particle*> _particles;
-    vector<Spring*> _springs;
+    virtual void Accelerate(const float &timeStep);
+    virtual void Move();
+    virtual void ApplyForce(const float &fX, const float &fY, const float &fZ);
+    virtual void ApplyAcceleration(const float &fX, const float &fY, const float &fZ);
+
+    virtual void Iteration(float timeInterval);
 };
 
-#endif // SPRINGSOBJECT_H
+#endif // VERLETSPRINGSOBJECT_H

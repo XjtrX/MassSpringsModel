@@ -1,7 +1,8 @@
-#ifndef RECTCLOTH_H
-#define RECTCLOTH_H
+#ifndef RECTVERLETCLOTH_H
+#define RECTVERLETCLOTH_H
 
-#include "VerletSpringsObject.h"
+#include "Model/SpringsObjects/VerletSpringsObject.h"
+
 class RectVerletCloth: public VerletSpringsObject
 {
     friend void paintGL();
@@ -12,4 +13,4 @@ public:
     virtual ~RectVerletCloth();
 };
 
-#endif // RECTCLOTH_H
+#endif // RECTVERLETCLOTH_H

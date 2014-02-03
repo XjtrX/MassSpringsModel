@@ -1,8 +1,8 @@
 #include "SceneWindow.h"
 #include "ui_scenewindow.h"
 
-//#include "iostream"
-//using namespace std;
+#include "iostream"
+using namespace std;
 
 SceneWindow::SceneWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -68,6 +68,13 @@ void SceneWindow::LeaveSlot()
 {
     //cout << "Leave\n";
     //cout.flush();
+}
+
+void SceneWindow::wheelEvent(QWheelEvent *we)
+{
+    cout << "scroll: "  << we->angleDelta().x()
+         << " " << we->angleDelta().y() << endl;
+    cout.flush();
 }
 
 void SceneWindow::on_pB_Start_released()

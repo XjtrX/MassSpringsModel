@@ -67,25 +67,34 @@ public:
         return *this;
     }
 
-/*
-    Point3D& operator *(const float& f)
+    Point3D& operator /=(const float coeff)
+
     {
-        this->_x *= f;
-        this->_y *= f;
-        this->_z *= f;
+        this->_x /= coeff;
+        this->_y /= coeff;
+        this->_z /= coeff;
 
         return *this;
     }
 
-    Point3D& operator /(const float& f)
+    Point3D operator /(const float coeff)
     {
-        this->_x /= f;
-        this->_y /= f;
-        this->_z /= f;
-
-        return *this;
+        Point3D res(*this);
+        res._x /= coeff;
+        res._y /= coeff;
+        res._z /= coeff;
+        return res;
     }
-*/
+
+    Point3D operator *(const float coeff)
+    {
+        Point3D res(*this);
+        res._x *= coeff;
+        res._y *= coeff;
+        res._z *= coeff;
+        return res;
+    }
+
     A getX()
     {
         return _x;

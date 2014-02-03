@@ -16,6 +16,10 @@ public:
 
     virtual ParticleState& operator +=(const ParticleState& other);
     virtual ParticleState& operator *=(const float& coeff);
+
+    virtual ParticleState operator /(const float& coeff);
+    virtual ParticleState operator +(const ParticleState& other);
+    virtual ParticleState operator *(const float& coeff);
 };
 
 #endif // POINTSTATE_H

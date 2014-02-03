@@ -1,8 +1,7 @@
 #include "VerletSpringsObject.h"
 
 VerletSpringsObject::VerletSpringsObject(int particlesCount, int springsCount)
-    : _particlesCount(particlesCount), _springsCount(springsCount)
-    , _particles(particlesCount), _springs(springsCount)
+    : SpringsObject(particlesCount, springsCount)
 {
 }
 
@@ -11,61 +10,41 @@ VerletSpringsObject::~VerletSpringsObject()
 
 }
 
-void VerletSpringsObject::Draw()
-{  
-    glBegin(GL_LINES);
-
-     for (int i = 0; i < this->_springsCount; i++)
-     {
-         Point3D<float> p = this->_springs[i]->getParticleA()->getPosition();
-         glVertex3f(p.getX(), p.getY(), p.getZ());
-         p = this->_springs[i]->getParticleB()->getPosition();
-         glVertex3f(p.getX(), p.getY(), p.getZ());
-     }
-
-     glEnd();
-}
-
-void VerletSpringsObject::RecalculateSprings()
-{
-    for (int i = 0; i < _springsCount; i++)
-    {
-        _springs[i]->Recalculate();
-    }
-}
-
-void VerletSpringsObject::ApplyForce(const float &fX, const float &fY, const float &fZ)
-{
-    for (int i = 0; i < _particlesCount; i++)
-    {
-        _particles[i]->ApplyForce(fX, fY ,fZ);
-    }
-}
-
-void VerletSpringsObject::ApplyAcceleration(const float &fX, const float &fY, const float &fZ)
-{
-    for (int i = 0; i < _particlesCount; i++)
-    {
-        _particles[i]->ApplyAcceleration(fX, fY ,fZ);
-    }
-}
-
 void VerletSpringsObject::Accelerate(const float &timeStep)
 {
-    for (int i = 0; i < _particlesCount; i++)
-    {
-        _particles[i]->Accelerate(timeStep);
-    }
+    SpringsObject::Accelerate(timeStep);
 }
 
 void VerletSpringsObject::Move()
 {
-    for (int i = 0; i < _particlesCount; i++)
-    {
-        _particles[i]->Move();
-    }
+    SpringsObject::Move();
 }
 
-void VerletSpringsObject::Collide(int flag)
+void VerletSpringsObject::ApplyForce(const float &fX, const float &fY, const float &fZ)
 {
+    SpringsObject::ApplyForce(fX, fY, fZ);
+}
+
+void VerletSpringsObject::ApplyAcceleration(const float &fX, const float &fY, const float &fZ)
+{
+    SpringsObject::ApplyAcceleration(fX, fY, fZ);
+}
+
+void VerletSpringsObject::Iteration(float timeInterval)
+{
+    /*
+    _scene.ApplyAcceleration(0, -9.8, 0);
+    _scene.RecalculateSprings();
+    _scene.Accelerate(_timeInterval);
+    //_scene.Collide(false);
+    _scene.Move();
+    //_scene.Collide(true);
+    //_scene.RecalculateSprings();
+    //_scene.Accelerate(1.0 / 24);
+    */
+
+    this->ApplyAcceleration(0, -9.8, 0);
+    this->RecalculateSprings();
+    this->Accelerate(timeInterval);
+    this->Move();
 }

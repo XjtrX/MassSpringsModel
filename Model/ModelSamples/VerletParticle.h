@@ -2,8 +2,9 @@
 #define VerletParticle_H
 
 #include "Model/ModelSamples/Unresolved/Particle.h"
+#include "Model/Interfaces/VerletObject.h"
 
-class VerletParticle: public Particle
+class VerletParticle: public Particle//, public VerletObject
 {
 public:
     ParticlePosition _prevPosition;

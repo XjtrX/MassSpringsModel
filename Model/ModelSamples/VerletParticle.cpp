@@ -41,6 +41,6 @@ Point3D<float>& VerletParticle::PrevPosition()
     return _prevPosition._position;
 }
 
-void VerletParticle::Collide(int flag)
+void VerletParticle::Collide(int)
 {
 }

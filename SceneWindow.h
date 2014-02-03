@@ -23,6 +23,7 @@ private slots:
     void MousePressSlot();
     void MouseReleaseSlot();
     void LeaveSlot();
+    void wheelEvent(QWheelEvent *we);
 
     void on_pB_Start_released();
 

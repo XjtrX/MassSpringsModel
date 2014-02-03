@@ -6,7 +6,8 @@
 using namespace std;
 #define PI 3.14159265
 
-#include "Model/SpringsObjects/RectVerletCloth.h"
+#include "Model/SpringsObjects/Cloth/RectVerletCloth.h"
+#include "Model/SpringsObjects/Cloth/RectRungeKuttaCloth.h"
 #include "Model/ModelSamples/TriangleObstacle.h"
 #include "3DMath/MathRotation.h"
 
@@ -21,16 +22,15 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     //_timer.start(_timeInterval * 1000);
 
 
-    RectVerletCloth* rC = new RectVerletCloth(  10, 10, 30, 30
-                                  , 1, 1, 1
+    SpringsObject* rC = new RectRungeKuttaCloth(10, 10, 30, 30
+                                  , 1, 10, 1
                                   , Point3D<float>(90, 0, 0)
                                   , Point3D<float>(-15, 0, 15));
     rC->_particles[90]->setStatic(1);
     rC->_particles[99]->setStatic(1);
     rC->_particles[0]->setStatic(1);
     rC->_particles[9]->setStatic(1);
-    VerletSpringsObject* sO = rC;
-    _scene.AddSpringsObject(sO);
+    _scene.AddSpringsObject(rC);
 
     /*
     rC = new RectCloth(  10, 10, 30, 30
@@ -45,9 +45,11 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     _scene.AddSprongsObject(sO);
     */
 
+    /*
     TriangleObstacle* tO = new TriangleObstacle(1, 1, Point3D<float>(45.0, 0.0, 0.0)
                                                 , Point3D<float>(0, 0 , 0));
     _scene.AddTriangleObstacle(tO);
+    */
 
     /*
     VerletParticle* p = new VerletParticle(Point3D<float>(0, 15, 4), 1, 2, 0);
@@ -83,7 +85,7 @@ void SceneGLWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glColor3f(1, 0.6, 0);
-    glLineWidth(1.5);
+    glLineWidth(1);
     _scene.Draw();
 }
 
@@ -155,14 +157,18 @@ void SceneGLWidget::UpdateScene()
     _rectCloth.Move();
     _rectCloth.Accelerate(1.0 / 24);
     */
+
+    _scene.Iteration(_timeInterval);
+    /*
     _scene.ApplyAcceleration(0, -9.8, 0);
     _scene.RecalculateSprings();
     _scene.Accelerate(_timeInterval);
-    _scene.Collide(false);
+    //_scene.Collide(false);
     _scene.Move();
-    _scene.Collide(true);
+    //_scene.Collide(true);
     //_scene.RecalculateSprings();
     //_scene.Accelerate(1.0 / 24);
+    */
     this->repaint();
 
 //    t2 = clock();

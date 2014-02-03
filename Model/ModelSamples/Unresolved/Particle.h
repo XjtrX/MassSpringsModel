@@ -33,9 +33,9 @@ public:
     Point3D<float>& getPosition();
 
     virtual void Move() = 0;
-    virtual void Accelerate(const float &timeStep);
-    virtual void ApplyForce(const float& fX, const float& fY, const float& fZ);
-    virtual void ApplyAcceleration(const float &aX, const float &aY, const float &aZ);
+    void Accelerate(const float &timeStep);
+    void ApplyForce(const float& fX, const float& fY, const float& fZ);
+    void ApplyAcceleration(const float &aX, const float &aY, const float &aZ);
     virtual void Collide(int flag) = 0;
 
 };

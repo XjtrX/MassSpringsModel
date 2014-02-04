@@ -47,17 +47,17 @@ void RungeKuttaSpringsObject::ComputeK4(float timestep)
 
 void RungeKuttaSpringsObject::Iteration(float timeInterval)
 {
+    ApplyAcceleration(0, -9.8, 0);
     RecalculateSprings();
-    ApplyForce(0, -9.8, 0);
     ComputeK1(timeInterval);
+    ApplyAcceleration(0, -9.8, 0);
     RecalculateSprings();
-    ApplyForce(0, -9.8, 0);
     ComputeK2(timeInterval);
+    ApplyAcceleration(0, -9.8, 0);
     RecalculateSprings();
-    ApplyForce(0, -9.8, 0);
     ComputeK3(timeInterval);
+    ApplyAcceleration(0, -9.8, 0);
     RecalculateSprings();
-    ApplyForce(0, -9.8, 0);
     ComputeK4(timeInterval);
     Move();
 }

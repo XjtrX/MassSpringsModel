@@ -17,13 +17,13 @@ using namespace std;
 SceneGLWidget::SceneGLWidget(QWidget *parent)
     : QGLWidget(parent)
 {
-    _timeInterval = 1.0 / 24;
+    _timeInterval = 1.0 / 100;
     connect(&_timer, SIGNAL(timeout()), this, SLOT(UpdateScene()));
     //_timer.start(_timeInterval * 1000);
 
 
     SpringsObject* rC = new RectRungeKuttaCloth(10, 10, 30, 30
-                                  , 1, 10, 1
+                                  , 1, 100, 1
                                   , Point3D<float>(90, 0, 0)
                                   , Point3D<float>(-15, 0, 15));
     rC->_particles[90]->setStatic(1);

@@ -22,14 +22,14 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     //_timer.start(_timeInterval * 1000);
 
 
-    SpringsObject* rC = new RectRungeKuttaCloth(10, 10, 30, 30
+    SpringsObject* rC = new RectRungeKuttaCloth(10, 10, 1, 1
                                   , 1, 100, 1
                                   , Point3D<float>(90, 0, 0)
                                   , Point3D<float>(-15, 0, 15));
     rC->_particles[90]->setStatic(1);
     rC->_particles[99]->setStatic(1);
-    rC->_particles[0]->setStatic(1);
-    rC->_particles[9]->setStatic(1);
+//    rC->_particles[0]->setStatic(1);
+//    rC->_particles[9]->setStatic(1);
     _scene.AddSpringsObject(rC);
 
     /*

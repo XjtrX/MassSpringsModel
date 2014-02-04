@@ -21,6 +21,8 @@ public:
     virtual void Move();
     virtual void ApplyForce(const float &fX, const float &fY, const float &fZ);
     virtual void ApplyAcceleration(const float &fX, const float &fY, const float &fZ);
+
+    virtual void MoveEachOther(float timestep);
 };
 
 #endif // RUNGEKUTTASPRINGSOBJECT_H

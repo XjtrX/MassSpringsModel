@@ -13,6 +13,7 @@ class Spring: public ElasticObject, public DrawableObject
 private:
     Particle* _particleA;
     Particle* _particleB;
+public:
     float _nLentght;
     float _stiffness;
 //    float _maxLength;
@@ -29,7 +30,6 @@ public:
 
     Particle* getParticleA();
     Particle* getParticleB();
-
 };
 
 #endif // SPRING_H

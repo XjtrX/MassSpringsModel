@@ -48,7 +48,6 @@ void RungeKuttaParticle::Move()
     _prev += _k3 / 3;
     _prev += _k4 / 6;
     _position = _prev;
-
 }
 
 ParticleState RungeKuttaParticle::RKTransformation(const ParticleState particleState, float)
@@ -97,4 +96,36 @@ void RungeKuttaParticle::ComputeK4(float timestep)
         return;
     }
     _k4 = RKTransformation(_prev + _k3, timestep) * timestep;
+}
+
+void RungeKuttaParticle::AddConnection(Spring* spring, Particle* particle)
+{
+    ConnectedParticle* cP = new ConnectedParticle(spring, particle);
+    _connections.push_back(*cP);
+}
+
+void RungeKuttaParticle::RecalculateConnectionsAffort()
+{
+    int l = _connections.size();
+    for (int i = 0; i < l; i++)
+    {
+        Spring* s = _connections.at(i)._spring;
+        Particle* p = _connections.at(i)._particle;
+
+        Point3D<float> pA = this->getPosition();
+        Point3D<float> pB = p->getPosition();
+        Point3D<float> dist = pB;
+        dist -= pA;
+
+        float distLen = sqrt(dist.getSquaredLength());
+
+        float diff = s->_nLentght - distLen;
+
+        float stiffness = s->_stiffness;
+        float fX = diff * dist.getX() / distLen * stiffness;
+        float fY = diff * dist.getY() / distLen * stiffness;
+        float fZ = diff * dist.getZ() / distLen * stiffness;
+
+        this->ApplyForce(-fX, -fY, -fZ);
+    }
 }

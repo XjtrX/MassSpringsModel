@@ -3,6 +3,12 @@
 #include "3DMath/MathRotation.h"
 #include "Model/ModelSamples/RungeKuttaParticle.h"
 
+void ConnectParticles(Particle* p1, Particle* p2, Spring* s)
+{
+    dynamic_cast<RungeKuttaParticle*>(p1)->AddConnection(s, p2);
+    dynamic_cast<RungeKuttaParticle*>(p2)->AddConnection(s, p1);
+}
+
 RectRungeKuttaCloth::RectRungeKuttaCloth(int cols, int rows, int width, int height
                                          , float massVolume, float stiffnes
                                          , float borderRadius
@@ -39,20 +45,41 @@ RectRungeKuttaCloth::RectRungeKuttaCloth(int cols, int rows, int width, int heig
                         , massOfParticle, borderRadius);
             if (c > 0)
             {
-                _springs[i++] = new Spring(_particles[r * cols + c - 1], _particles[r * cols + c]
+                _springs[i++] = new Spring(_particles[r * cols + c - 1]
+                        , _particles[r * cols + c]
                         , stiffnes, sW);
+
+                ConnectParticles(_particles[r * cols + c - 1]
+                        , _particles[r * cols + c]
+                        , _springs[i - 1]);
             }
             if (r > 0)
             {
-                _springs[i++] = new Spring(_particles[r * cols + c], _particles[(r - 1) * cols + c]
+                _springs[i++] = new Spring(_particles[r * cols + c]
+                        , _particles[(r - 1) * cols + c]
                         , stiffnes, sH);
+
+                ConnectParticles(_particles[r * cols + c]
+                        , _particles[(r - 1) * cols + c]
+                        , _springs[i - 1]);
             }
             if (c > 0 && r > 0)
             {
-                _springs[i++] = new Spring(_particles[r * cols + c], _particles[(r - 1) * cols + c - 1]
+                _springs[i++] = new Spring(_particles[r * cols + c]
+                        , _particles[(r - 1) * cols + c - 1]
                         , stiffnes);
-                _springs[i++] = new Spring(_particles[r * cols + c - 1], _particles[(r - 1) * cols + c]
+
+                ConnectParticles(_particles[r * cols + c]
+                        , _particles[(r - 1) * cols + c - 1]
+                        , _springs[i - 1]);
+
+                _springs[i++] = new Spring(_particles[r * cols + c - 1]
+                        , _particles[(r - 1) * cols + c]
                         , stiffnes);
+
+                ConnectParticles(_particles[r * cols + c - 1]
+                        , _particles[(r - 1) * cols + c]
+                        , _springs[i - 1]);
             }
         }
     }

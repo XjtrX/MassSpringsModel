@@ -47,6 +47,9 @@ void RungeKuttaSpringsObject::ComputeK4(float timestep)
 
 void RungeKuttaSpringsObject::Iteration(float timeInterval)
 {
+    MoveEachOther(timeInterval);
+    return;
+
     ApplyAcceleration(0, -9.8, 0);
     RecalculateSprings();
     ComputeK1(timeInterval);
@@ -75,4 +78,30 @@ void RungeKuttaSpringsObject::ApplyForce(const float &fX, const float &fY, const
 void RungeKuttaSpringsObject::ApplyAcceleration(const float &fX, const float &fY, const float &fZ)
 {
     SpringsObject::ApplyAcceleration(fX, fY, fZ);
+}
+
+void RungeKuttaSpringsObject::MoveEachOther(float timestep)
+{
+    for (int i = 0; i < _particlesCount; i++)
+    {
+        RungeKuttaParticle* rKP = dynamic_cast<RungeKuttaParticle*>(_particles.at(i));
+        rKP->ApplyAcceleration(0, -9.8, 0);
+        rKP->RecalculateConnectionsAffort();
+        rKP->ComputeK1(timestep);
+
+        rKP->ApplyAcceleration(0, -9.8, 0);
+        rKP->RecalculateConnectionsAffort();
+        rKP->ComputeK2(timestep);
+
+        rKP->ApplyAcceleration(0, -9.8, 0);
+        rKP->RecalculateConnectionsAffort();
+        rKP->ComputeK3(timestep);
+
+        rKP->ApplyAcceleration(0, -9.8, 0);
+        rKP->RecalculateConnectionsAffort();
+        rKP->ComputeK4(timestep);
+
+        rKP->Move();
+    }
+    //Move();
 }

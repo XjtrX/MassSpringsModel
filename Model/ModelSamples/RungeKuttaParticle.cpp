@@ -48,6 +48,7 @@ void RungeKuttaParticle::Move()
     _prev += _k3 / 3;
     _prev += _k4 / 6;
     _position = _prev;
+    _velocity = _prev._velocity;
 }
 
 ParticleState RungeKuttaParticle::RKTransformation(const ParticleState particleState, float)
@@ -67,6 +68,7 @@ void RungeKuttaParticle::ComputeK1(float timestep)
     }
     _k1 = RKTransformation(_prev, timestep) * timestep;
     _position = _prev + _k1 * 0.5;
+    _velocity = _prev._velocity + _k1._velocity * 0.5;
 }
 
 void RungeKuttaParticle::ComputeK2(float timestep)
@@ -77,6 +79,7 @@ void RungeKuttaParticle::ComputeK2(float timestep)
     }
     _k2 = RKTransformation(_prev + _k1 * 0.5, timestep) * timestep;
     _position = _prev + _k2 * 0.5;
+    _velocity = _prev._velocity + _k2._velocity * 0.5;
 }
 
 void RungeKuttaParticle::ComputeK3(float timestep)
@@ -87,6 +90,7 @@ void RungeKuttaParticle::ComputeK3(float timestep)
     }
     _k3 = RKTransformation(_prev + _k2 * 0.5, timestep) * timestep;
     _position = _prev + _k3;
+    _velocity = _prev._velocity + _k3._velocity;
 }
 
 void RungeKuttaParticle::ComputeK4(float timestep)
@@ -114,18 +118,22 @@ void RungeKuttaParticle::RecalculateConnectionsAffort()
 
         Point3D<float> pA = this->getPosition();
         Point3D<float> pB = p->getPosition();
-        Point3D<float> dist = pB;
-        dist -= pA;
+        Point3D<float> dist = pA;
+        dist -= pB;
 
         float distLen = sqrt(dist.getSquaredLength());
 
         float diff = s->_nLentght - distLen;
 
-        float stiffness = s->_stiffness;
-        float fX = diff * dist.getX() / distLen * stiffness;
-        float fY = diff * dist.getY() / distLen * stiffness;
-        float fZ = diff * dist.getZ() / distLen * stiffness;
+        float kDamp = 0.01;
+        Point3D<float> diffVel = this->_velocity;
+        diffVel -= dynamic_cast<RungeKuttaParticle*>(p)->_velocity;
 
-        this->ApplyForce(-fX, -fY, -fZ);
+        float stiffness = s->_stiffness;
+        float fX = diff * dist.getX() / distLen * stiffness - diffVel.getX() * kDamp;
+        float fY = diff * dist.getY() / distLen * stiffness - diffVel.getY() * kDamp;
+        float fZ = diff * dist.getZ() / distLen * stiffness - diffVel.getZ() * kDamp;
+
+        this->ApplyForce(fX, fY, fZ);
     }
 }

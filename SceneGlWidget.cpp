@@ -23,13 +23,17 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     _perspectiveAngle = 45;
     connect(&_timer, SIGNAL(timeout()), this, SLOT(UpdateScene()));
 
-    SpringsObject* rC = new RectRungeKuttaCloth(10, 10, 0.3, 0.3
-                                  , 1, 100, 1
+    int rows =30;
+    int cols = 30;
+
+
+    SpringsObject* rC = new RectRungeKuttaCloth(rows, cols, 30, 30
+                                  , 1, 10, 1
                                   , Point3D<float>(90, 0, 0)
                                   , Point3D<float>(-15, 0, 15));
-    rC->_particles[90]->setStatic(1);
-    rC->_particles[99]->setStatic(1);
-//    rC->_particles[0]->setStatic(1);
+    rC->_particles[0]->setStatic(1);
+    rC->_particles[cols-1]->setStatic(1);
+    rC->_particles[(rows-1)*cols]->setStatic(1);
 //    rC->_particles[9]->setStatic(1);
     _scene.AddSpringsObject(rC);
 
@@ -202,7 +206,7 @@ void SceneGLWidget::Rotate(int x, int y, int z)
     UpdateViewPoint();
 }
 
-void SceneGLWidget::Translate(int x, int y, int z)
+void SceneGLWidget::Translate(float x, float y, float z)
 {
     _transition.PlusX(x);
     _transition.PlusY(y);

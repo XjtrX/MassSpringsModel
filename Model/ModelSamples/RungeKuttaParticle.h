@@ -54,6 +54,7 @@ public:
     void RecalculateConnectionsAffort();
 
 public:
+    Point3D<float> _velocity;
     ParticleState _prev;
     ParticleState _k1;
     ParticleState _k2;

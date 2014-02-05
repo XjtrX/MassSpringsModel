@@ -47,7 +47,7 @@ void SceneWindow::MouseMoveSlot()
         }
         else
         {
-            this->ui->widget->Translate(-x, y, 0);
+            this->ui->widget->Translate(-x * 0.1, y * 0.1, 0);
         }
         if (0 == ui->widget->getSimulationStatus())
         {

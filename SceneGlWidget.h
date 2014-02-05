@@ -44,7 +44,7 @@ public slots:
 
 public:
     void Rotate(int x, int y, int z);
-    void Translate(int x, int y, int z);
+    void Translate(float x, float y, float z);
     int getSimulationStatus();
 
 private:

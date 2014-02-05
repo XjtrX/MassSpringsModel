@@ -15,7 +15,8 @@ RectRungeKuttaCloth::RectRungeKuttaCloth(int cols, int rows, float width, float 
                                          , Point3D<float> rotation
                                          , Point3D<float> translation)
     : RungeKuttaSpringsObject(cols * rows
-                  , (cols - 1) * rows + cols * (rows - 1) + 2 * (cols - 1) * (rows - 1))
+                              , (cols - 1) * rows + cols * (rows - 1) + 2 * (cols - 1) * (rows - 1)
+                              + (cols - 2) * rows + cols * (rows - 2))
 {
     //_particlesCount = cols * rows;: SpringsObject(particlesCount, springsCount)
     //_springsCount = (cols - 1) * rows + cols * (rows - 1) + 2 * (cols - 1) * (rows - 1);
@@ -79,6 +80,30 @@ RectRungeKuttaCloth::RectRungeKuttaCloth(int cols, int rows, float width, float 
 
                 ConnectParticles(_particles[r * cols + c - 1]
                         , _particles[(r - 1) * cols + c]
+                        , _springs[i - 1]);
+            }
+
+
+            //---------------------------------------------------
+
+            if (c > 1)
+            {
+                _springs[i++] = new Spring(_particles[r * cols + c]
+                        , _particles[r * cols + c - 2]
+                        , stiffnes / 4, sW);
+
+                ConnectParticles(_particles[r * cols + c]
+                        , _particles[r * cols + c - 2]
+                        , _springs[i - 1]);
+            }
+            if (r > 1)
+            {
+                _springs[i++] = new Spring(_particles[r * cols + c]
+                        , _particles[(r - 2) * cols + c]
+                        , stiffnes / 4, sH);
+
+                ConnectParticles(_particles[r * cols + c]
+                        , _particles[(r - 2) * cols + c]
                         , _springs[i - 1]);
             }
         }

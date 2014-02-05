@@ -97,10 +97,11 @@ public:
 
     Point3D operator +(const Point3D& other)
     {
-        Point3D* res = new Point3D(this);
+        Point3D* res = new Point3D(*this);
         res->_x += other._x;
         res->_y += other._y;
         res->_z += other._z;
+        return *res;
     }
 
     A getX()

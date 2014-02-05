@@ -41,6 +41,7 @@ public slots:
     void StopSimulation();
     void NextIteration();
     void ChangePerspective(int val);
+    void Collide();
 
 public:
     void Rotate(int x, int y, int z);

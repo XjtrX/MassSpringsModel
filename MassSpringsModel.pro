@@ -46,4 +46,8 @@ HEADERS += \
 FORMS += \
     scenewindow.ui
 
-LIBS += -lglut -lGL -lGLU
+QMAKE_LIBDIR += /home/user/MassSpringsModel/exact-ccd
+INCLUDEPATH += /home/user/MassSpringsModel/exact-ccd
+
+
+LIBS += -lglut -lGL -lGLU -lexact-ccd

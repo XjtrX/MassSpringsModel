@@ -7,7 +7,6 @@
 
 #include "Model/ModelSamples/Spring.h"
 
-//#include <iostream>
 #include <vector>
 using namespace std;
 
@@ -38,7 +37,6 @@ public:
                        , const int st = 0);
     virtual ~RungeKuttaParticle();
 
-    virtual void Collide(int flag);
     virtual void Move();
 
     virtual void ApplyForce(const float &fX, const float &fY, const float &fZ);
@@ -50,12 +48,14 @@ public:
     virtual void ComputeK3(float timestep);
     virtual void ComputeK4(float timestep);
 
+    virtual void Collide(int flag);
+
     void AddConnection(Spring* spring, Particle* particle);
     void RecalculateConnectionsAffort();
 
 public:
     Point3D<float> _velocity;
-    ParticleState _prev;
+    ParticleState _interm;
     ParticleState _k1;
     ParticleState _k2;
     ParticleState _k3;

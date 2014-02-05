@@ -7,9 +7,9 @@ Spring::Spring()
     _nLentght = 0;
 }
 
-Spring::Spring(Particle *particleA, Particle *particleB
-               , const float stifness, const float nLength)
-    : _particleA(particleA), _particleB(particleB)
+Spring::Spring(Particle *particleA, Particle *particleB, const float stifness
+               , const float nLength, const int type)
+    : _particleA(particleA), _particleB(particleB), _type(type)
 {
     _nLentght = nLength;
     float dX = _particleB->getPosition().getX() - _particleA->getPosition().getX();
@@ -17,6 +17,7 @@ Spring::Spring(Particle *particleA, Particle *particleB
     float dZ = _particleB->getPosition().getZ() - _particleA->getPosition().getZ();
     _nLentght = sqrt(dX * dX + dY * dY + dZ * dZ);
     _stiffness = stifness;
+    _highlighted = 0;
 }
 
 Spring::~Spring()
@@ -43,12 +44,22 @@ int Spring::Recalculate()
     return 0;
 }
 
-void Spring::Draw()
+#include <iostream>
+void Spring::Draw(const int &flushColor)
 {
-     Point3D<float> p = this->_particleA->getPosition();
-     glVertex3f(p.getX(), p.getY(), p.getZ());
-     p = _particleB->getPosition();
-     glVertex3f(p.getX(), p.getY(), p.getZ());
+    if (this->_highlighted)
+    {
+        glColor3f(1, 0, 0);
+        if (flushColor)
+        {
+            this->_highlighted = 0;
+        }
+    }
+    Point3D<float> p = this->_particleA->getPosition();
+    glVertex3f(p.getX(), p.getY(), p.getZ());
+    p = _particleB->getPosition();
+    glVertex3f(p.getX(), p.getY(), p.getZ());
+    glColor3f(1, 0.6, 0);
 }
 
 Particle *Spring::getParticleA()

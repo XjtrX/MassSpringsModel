@@ -4,8 +4,8 @@
 #include <iostream>
 using namespace std;
 
-RungeKuttaSpringsObject::RungeKuttaSpringsObject(int particlesCount, int springsCount)
-    : SpringsObject(particlesCount, springsCount)
+RungeKuttaSpringsObject::RungeKuttaSpringsObject(int particlesCount, int springsCount, int structuralSpringsCount)
+    : SpringsObject(particlesCount, springsCount, structuralSpringsCount)
 {
 }
 
@@ -78,6 +78,11 @@ void RungeKuttaSpringsObject::ApplyForce(const float &fX, const float &fY, const
 void RungeKuttaSpringsObject::ApplyAcceleration(const float &fX, const float &fY, const float &fZ)
 {
     SpringsObject::ApplyAcceleration(fX, fY, fZ);
+}
+
+void RungeKuttaSpringsObject::Collide(int flag)
+{
+    SpringsObject::Collide(flag);
 }
 
 void RungeKuttaSpringsObject::MoveEachOther(float timestep)

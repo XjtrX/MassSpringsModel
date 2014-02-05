@@ -36,7 +36,7 @@ Scene::~Scene()
     }
 }
 
-void Scene::Draw()
+void Scene::Draw(const int &flushColor)
 {
     /*
     int l = _triangleObstacles.size();
@@ -56,7 +56,7 @@ void Scene::Draw()
     int l = _springsObjects.size();
     for (int i = 0; i < l; i++)
     {
-        _springsObjects.at(i)->Draw();
+        _springsObjects.at(i)->Draw(flushColor);
     }
 
     /*
@@ -215,6 +215,14 @@ void Scene::AddSpringsObject(SpringsObject *springsObject)
          it != springsObject->_springs.end(); ++it)
     {
         _springs.push_back(*it);
+    }
+}
+
+void Scene::Collide(int flag)
+{
+    for (int i = 0; i < _springsObjects.size(); i++)
+    {
+        _springsObjects.at(i)->Collide(flag);
     }
 }
 

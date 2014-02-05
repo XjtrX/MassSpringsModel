@@ -21,6 +21,8 @@ SceneWindow::SceneWindow(QWidget *parent) :
     connect(this, SIGNAL(UpdatePerspective(int))
             , ui->widget, SLOT(ChangePerspective(int)));
 
+    connect(this, SIGNAL(Collide()), ui->widget, SLOT(Collide()));
+
     _mousePressed = 0;
 }
 
@@ -100,4 +102,9 @@ void SceneWindow::on_pB_Stop_released()
 void SceneWindow::on_pB_Next_pressed()
 {
     emit NextIteration();
+}
+
+void SceneWindow::on_pbCollide_released()
+{
+    emit Collide();
 }

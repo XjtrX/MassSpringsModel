@@ -15,9 +15,9 @@ public:
     SpringsObject();
     virtual ~SpringsObject();
 
-    SpringsObject(int particlesCount, int springsCount);
+    SpringsObject(int particlesCount, int springsCount, int structuralSpringsCount);
 
-    virtual void Draw();
+    virtual void Draw(const int &flushColor);
 
     virtual void Iteration(float timeInterval) = 0;
 
@@ -27,12 +27,16 @@ public:
     virtual void ApplyAcceleration(const float &fX, const float &fY, const float &fZ);
     virtual void Accelerate(const float &timeStep);
     virtual void Move();
+    virtual void Collide(int flag);
 
 public:
     int _particlesCount;
     int _springsCount;
+    int _structuralSpringsCount;
     vector<Particle*> _particles;
     vector<Spring*> _springs;
+    vector<Spring*> _structuralSprings;
+
 };
 
 #endif // SPRINGSOBJECT_H

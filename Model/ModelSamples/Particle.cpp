@@ -7,6 +7,7 @@ Particle::Particle()
 Particle::Particle(const Particle &particle)
 {
     this->_position = particle._position;
+    this->_prevPosition = particle._prevPosition;
     this->_massVolume = particle._massVolume;
     this->_borderRadius = particle._borderRadius;
     this->_static = particle._static;
@@ -16,6 +17,7 @@ Particle::Particle(const ParticlePosition& initialPosition
                    , const float& massVolume, const float& borderRadius, const int& st)
 {
     _position = initialPosition;
+    _prevPosition = initialPosition;
     _massVolume = massVolume;
     _borderRadius = borderRadius;
     _static = st;
@@ -64,6 +66,10 @@ void Particle::ApplyAcceleration(const float &aX, const float &aY, const float &
     _appliedForce.PlusX(aX * _massVolume);
     _appliedForce.PlusY(aY * _massVolume);
     _appliedForce.PlusZ(aZ * _massVolume);
+}
+
+void Particle::Collide(int)
+{
 }
 
 

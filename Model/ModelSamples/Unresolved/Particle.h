@@ -17,6 +17,7 @@ public:
 
 public:
     ParticlePosition _position;
+    ParticlePosition _prevPosition;
     Point3D<float> _appliedForce;
     float _massVolume;
     int _static;
@@ -36,7 +37,7 @@ public:
     void Accelerate(const float &timeStep);
     void ApplyForce(const float& fX, const float& fY, const float& fZ);
     void ApplyAcceleration(const float &aX, const float &aY, const float &aZ);
-    virtual void Collide(int flag) = 0;
+    void Collide(int flag);
 
 };
 

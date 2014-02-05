@@ -8,25 +8,32 @@
 
 #include <math.h>
 using namespace std;
+
+#define structural 0
+#define shear 1
+#define bend 2
+
 class Spring: public ElasticObject, public DrawableObject
 {
-private:
+public:
     Particle* _particleA;
     Particle* _particleB;
 public:
     float _nLentght;
     float _stiffness;
 //    float _maxLength;
+    int _type;
+    int _highlighted;
 
 public:
     Spring();
     Spring(Particle *particleA, Particle *particleB
-           , const float stifness, const float nLength = 0);
+           , const float stifness, const float nLength = 0, const int type = structural);
     virtual ~Spring();
 
     int Recalculate();
 
-    void Draw();
+    void Draw(const int &flushColor);
 
     Particle* getParticleA();
     Particle* getParticleB();

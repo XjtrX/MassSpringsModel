@@ -7,7 +7,6 @@
 class VerletParticle: public Particle//, public VerletObject
 {
 public:
-    ParticlePosition _prevPosition;
     Point3D<float> _appliedForce;
 
     VerletParticle();

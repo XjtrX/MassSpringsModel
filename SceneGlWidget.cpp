@@ -17,21 +17,21 @@ using namespace std;
 SceneGLWidget::SceneGLWidget(QWidget *parent)
     : QGLWidget(parent)
 {
-    _timeInterval = 1.0 / 200;
+    _timeInterval = 1.0 / 50;
     _repaintDelay = 0.04;
     _timeToFrame = 0;
     _perspectiveAngle = 45;
     connect(&_timer, SIGNAL(timeout()), this, SLOT(UpdateScene()));
 
-    int rows =30;
+    int rows = 30;
     int cols = 30;
 
 
     SpringsObject* rC = new RectRungeKuttaCloth(rows, cols, 30, 30
-                                  , 1, 10, 1
+                                  , 1, 1, 1
                                   , Point3D<float>(90, 0, 0)
                                   , Point3D<float>(-15, 0, 15));
-    rC->_particles[0]->setStatic(1);
+//    rC->_particles[0]->setStatic(1);
     rC->_particles[cols-1]->setStatic(1);
     rC->_particles[(rows-1)*cols]->setStatic(1);
 //    rC->_particles[9]->setStatic(1);
@@ -91,7 +91,14 @@ void SceneGLWidget::paintGL()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glColor3f(1, 0.6, 0);
     glLineWidth(1);
-    _scene.Draw();
+    if (_timer.isActive())
+    {
+        _scene.Draw(1);
+    }
+    else
+    {
+        _scene.Draw(0);
+    }
 }
 
 void SceneGLWidget::resizeGL(int w, int h)
@@ -167,6 +174,7 @@ void SceneGLWidget::UpdateScene()
     */
 
     _scene.Iteration(_timeInterval);
+    _scene.Collide(0);
     /*
     _scene.ApplyAcceleration(0, -9.8, 0);
     _scene.RecalculateSprings();
@@ -177,6 +185,9 @@ void SceneGLWidget::UpdateScene()
     //_scene.RecalculateSprings();
     //_scene.Accelerate(1.0 / 24);
     */
+    this->repaint();
+    return;
+
     _timeToFrame += _timeInterval;
     if (_timeToFrame >= _repaintDelay)
     {
@@ -242,4 +253,9 @@ void SceneGLWidget::ChangePerspective(int val)
 {
     _perspectiveAngle += val;
     this->resizeGL(_width, _height);
+}
+
+void SceneGLWidget::Collide()
+{
+    this->_scene.Collide(0);
 }

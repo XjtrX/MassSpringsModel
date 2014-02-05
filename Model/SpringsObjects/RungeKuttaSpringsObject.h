@@ -7,7 +7,7 @@
 class RungeKuttaSpringsObject: public SpringsObject, public RungeKuttaObject
 {
 public:
-    RungeKuttaSpringsObject(int particlesCount, int springsCount);
+    RungeKuttaSpringsObject(int particlesCount, int springsCount, int structuralSpringsCount);
     virtual ~RungeKuttaSpringsObject();
 
 public:
@@ -21,6 +21,8 @@ public:
     virtual void Move();
     virtual void ApplyForce(const float &fX, const float &fY, const float &fZ);
     virtual void ApplyAcceleration(const float &fX, const float &fY, const float &fZ);
+
+    virtual void Collide(int flag);
 
     virtual void MoveEachOther(float timestep);
 };

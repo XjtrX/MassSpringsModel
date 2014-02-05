@@ -8,7 +8,7 @@ class Scene: public SpringsObject
 public:
     Scene();
     virtual ~Scene();
-    void Draw();
+    void Draw(const int &flushColor);
 
     /*
     void RecalculateSprings();
@@ -22,6 +22,7 @@ public:
     void Iteration(float timeInterval);
 
     void AddSpringsObject(SpringsObject* springsObject);
+    virtual void Collide(int flag);
     //void AddTriangleObstacle(TriangleObstacle* triangleObstacle);
     //void AddVerletParticle(VerletParticle* particle);
 private:

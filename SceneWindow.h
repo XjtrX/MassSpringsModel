@@ -31,11 +31,14 @@ private slots:
 
     void on_pB_Next_pressed();
 
+    void on_pbCollide_released();
+
 signals:
     void StartSimulation();
     void StopSimulation();
     void NextIteration();
     void UpdatePerspective(int val);
+    void Collide();
 
 private:
     int _mousePressed;

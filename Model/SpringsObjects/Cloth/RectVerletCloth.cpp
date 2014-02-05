@@ -2,7 +2,7 @@
 #include "3DMath/MathRotation.h"
 #include "Model/ModelSamples/VerletParticle.h"
 
-RectVerletCloth::RectVerletCloth(int cols, int rows, int width, int height
+RectVerletCloth::RectVerletCloth(int cols, int rows, float width, float height
                      , float massVolume, float stiffnes, float borderRadius
                      , Point3D<float> rotation, Point3D<float> translation)
     : VerletSpringsObject(cols * rows

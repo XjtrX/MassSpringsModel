@@ -29,7 +29,7 @@ private:
     void leaveEvent(QEvent *);
 
 signals:
-    void MousePressSignal();
+    void MousePressSignal(QMouseEvent *ev);
     void MouseMoveSignal();
     void MouseReleaseSignal();
     void LeaveSignal();
@@ -40,12 +40,15 @@ public slots:
     void StartSimulation();
     void StopSimulation();
     void NextIteration();
+    void ChangePerspective(int val);
 
 public:
     void Rotate(int x, int y, int z);
+    void Translate(int x, int y, int z);
     int getSimulationStatus();
 
 private:
+    void UpdatePerspective();
     void UpdateViewPoint();
 
 public:
@@ -55,10 +58,15 @@ public:
 private:
     int _mousePosX;
     int _mousePosY;
+    int _width;
+    int _height;
     RotationHolder<int> _rotation;
-    Point3D<int> _transition;
+    Point3D<float> _transition;
+    float _perspectiveAngle;
     Scene _scene;
     float _timeInterval;
+    float _repaintDelay;
+    float _timeToFrame;
     QTimer _timer;
 };
 

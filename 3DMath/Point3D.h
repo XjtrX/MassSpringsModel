@@ -95,6 +95,14 @@ public:
         return res;
     }
 
+    Point3D operator +(const Point3D& other)
+    {
+        Point3D* res = new Point3D(this);
+        res->_x += other._x;
+        res->_y += other._y;
+        res->_z += other._z;
+    }
+
     A getX()
     {
         return _x;

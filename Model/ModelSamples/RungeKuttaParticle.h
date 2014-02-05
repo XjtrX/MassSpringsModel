@@ -7,7 +7,7 @@
 
 #include "Model/ModelSamples/Spring.h"
 
-#include <iostream>
+//#include <iostream>
 #include <vector>
 using namespace std;
 
@@ -19,13 +19,13 @@ struct ConnectedParticle
     ConnectedParticle(Spring* spring, Particle* particle)
         :_spring(spring), _particle(particle)
     {
-        cout << "created\n";
-        cout.flush();
+//        cout << "created\n";
+//        cout.flush();
     }
     ~ConnectedParticle()
     {
-        cout << "deleted\n";
-        cout.flush();
+//        cout << "deleted\n";
+//        cout.flush();
     }
 };
 

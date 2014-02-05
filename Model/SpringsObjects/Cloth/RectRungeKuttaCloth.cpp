@@ -9,7 +9,7 @@ void ConnectParticles(Particle* p1, Particle* p2, Spring* s)
     dynamic_cast<RungeKuttaParticle*>(p2)->AddConnection(s, p1);
 }
 
-RectRungeKuttaCloth::RectRungeKuttaCloth(int cols, int rows, int width, int height
+RectRungeKuttaCloth::RectRungeKuttaCloth(int cols, int rows, float width, float height
                                          , float massVolume, float stiffnes
                                          , float borderRadius
                                          , Point3D<float> rotation

@@ -17,12 +17,13 @@ using namespace std;
 SceneGLWidget::SceneGLWidget(QWidget *parent)
     : QGLWidget(parent)
 {
-    _timeInterval = 1.0 / 100;
+    _timeInterval = 1.0 / 200;
+    _repaintDelay = 0.04;
+    _timeToFrame = 0;
+    _perspectiveAngle = 45;
     connect(&_timer, SIGNAL(timeout()), this, SLOT(UpdateScene()));
-    //_timer.start(_timeInterval * 1000);
 
-
-    SpringsObject* rC = new RectRungeKuttaCloth(10, 10, 1, 1
+    SpringsObject* rC = new RectRungeKuttaCloth(10, 10, 0.3, 0.3
                                   , 1, 100, 1
                                   , Point3D<float>(90, 0, 0)
                                   , Point3D<float>(-15, 0, 15));
@@ -93,16 +94,19 @@ void SceneGLWidget::resizeGL(int w, int h)
 {
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
+    _width = w;
+    _height = h;
     glLoadIdentity();
-    gluPerspective(45, (float)w/h, 0.01, 100.0);
+    gluPerspective(_perspectiveAngle, (float)_width/_height, 0.01, 100.0);
     UpdateViewPoint();
+    this->repaint();
 }
 
 void SceneGLWidget::mousePressEvent(QMouseEvent *ev)
 {
     this->_mousePosX = ev->x();
     this->_mousePosY = ev->y();
-    emit MousePressSignal();
+    emit MousePressSignal(ev);
 }
 
 void SceneGLWidget::mouseMoveEvent(QMouseEvent *ev)
@@ -131,11 +135,11 @@ void SceneGLWidget::UpdateViewPoint()
                                     , -1 * _rotation.getY()
                                     , _rotation.getZ());
 
-    Point3D<float> eye;
-    eye.set(0, 0, 50);
+    Point3D<float> eye = Point3D<float>(_transition);
+    eye.PlusZ(50);
     eye = m.RotatePoint(eye, rotMatr);
-    Point3D<float> center;
-    center.set(0, 0, 0);
+    Point3D<float> center = Point3D<float>(_transition);
+    //center.set(0, 0, 0);
     center = m.RotatePoint(center, rotMatr);
     Point3D<float> up;
     up.set(0, 1, 0);
@@ -169,8 +173,12 @@ void SceneGLWidget::UpdateScene()
     //_scene.RecalculateSprings();
     //_scene.Accelerate(1.0 / 24);
     */
-    this->repaint();
-
+    _timeToFrame += _timeInterval;
+    if (_timeToFrame >= _repaintDelay)
+    {
+        _timeToFrame = 0;
+        this->repaint();
+    }
 //    t2 = clock();
 //    double difference = (t2 - t1) / (double)(CLOCKS_PER_SEC / 1000);
 //    cout << "difference " << difference << endl;
@@ -194,11 +202,18 @@ void SceneGLWidget::Rotate(int x, int y, int z)
     UpdateViewPoint();
 }
 
+void SceneGLWidget::Translate(int x, int y, int z)
+{
+    _transition.PlusX(x);
+    _transition.PlusY(y);
+    _transition.PlusZ(z);
+    UpdateViewPoint();
+}
+
 int SceneGLWidget::getSimulationStatus()
 {
     return _timer.isActive();
 }
-
 
 void SceneGLWidget::StartSimulation()
 {
@@ -214,6 +229,13 @@ void SceneGLWidget::NextIteration()
 {
     if (0 == _timer.isActive())
     {
+        _timeToFrame = _repaintDelay;
         this->UpdateScene();
     }
+}
+
+void SceneGLWidget::ChangePerspective(int val)
+{
+    _perspectiveAngle += val;
+    this->resizeGL(_width, _height);
 }

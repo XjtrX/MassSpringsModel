@@ -7,7 +7,7 @@ class RectVerletCloth: public VerletSpringsObject
 {
     friend void paintGL();
 public:
-    RectVerletCloth(int cols, int rows, int width, int height
+    RectVerletCloth(int cols, int rows, float width, float height
               , float massVolume, float stiffness, float borderRadius
               , Point3D<float> rotation, Point3D<float> translation);
     virtual ~RectVerletCloth();

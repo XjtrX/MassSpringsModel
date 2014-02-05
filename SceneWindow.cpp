@@ -10,13 +10,16 @@ SceneWindow::SceneWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     connect(ui->widget, SIGNAL(MouseMoveSignal()), this, SLOT(MouseMoveSlot()));
-    connect(ui->widget, SIGNAL(MousePressSignal()), this, SLOT(MousePressSlot()));
+    connect(ui->widget, SIGNAL(MousePressSignal(QMouseEvent *))
+            , this, SLOT(MousePressSlot(QMouseEvent *)));
     connect(ui->widget, SIGNAL(MouseReleaseSignal()), this, SLOT(MouseReleaseSlot()));
     connect(ui->widget, SIGNAL(LeaveSignal()), this, SLOT(LeaveSlot()));
 
     connect(this, SIGNAL(StartSimulation()), ui->widget, SLOT(StartSimulation()));
     connect(this, SIGNAL(StopSimulation()), ui->widget, SLOT(StopSimulation()));
     connect(this, SIGNAL(NextIteration()),  ui->widget, SLOT(NextIteration()));
+    connect(this, SIGNAL(UpdatePerspective(int))
+            , ui->widget, SLOT(ChangePerspective(int)));
 
     _mousePressed = 0;
 }
@@ -36,24 +39,32 @@ void SceneWindow::MouseMoveSlot()
     _prevMousePos.setY(mPY);
     //cout << x << " " << y << endl;
     //cout.flush();
-    if (_mousePressed)
+    if (_mousePressed > 0)
     {
-        this->ui->widget->Rotate(-y, -x, 0);
+        if (_mousePressed == 1)
+        {
+            this->ui->widget->Rotate(-y, -x, 0);
+        }
+        else
+        {
+            this->ui->widget->Translate(-x, y, 0);
+        }
         if (0 == ui->widget->getSimulationStatus())
         {
             ui->widget->repaint();
         }
-//    this->ui->widget->Rotate(0, y, 0);
     }
 }
 
-void SceneWindow::MousePressSlot()
+void SceneWindow::MousePressSlot(QMouseEvent *ev)
 {
     _mousePressed = 1;
     _prevMousePos.setX(this->ui->widget->mousePosX());
     _prevMousePos.setY(this->ui->widget->mousePosY());
-    //cout << "Mouse Pressed\n";
-    //cout.flush();
+    if (ev->button() == Qt::RightButton)
+    {
+        _mousePressed = 2;
+    }
 }
 
 void SceneWindow::MouseReleaseSlot()
@@ -72,9 +83,8 @@ void SceneWindow::LeaveSlot()
 
 void SceneWindow::wheelEvent(QWheelEvent *we)
 {
-    cout << "scroll: "  << we->angleDelta().x()
-         << " " << we->angleDelta().y() << endl;
-    cout.flush();
+    int val = we->angleDelta().y() > 0 ? 1 : -1;
+    emit UpdatePerspective(-val);
 }
 
 void SceneWindow::on_pB_Start_released()

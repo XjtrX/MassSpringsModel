@@ -20,7 +20,7 @@ public:
     
 private slots:
     void MouseMoveSlot();
-    void MousePressSlot();
+    void MousePressSlot(QMouseEvent *ev);
     void MouseReleaseSlot();
     void LeaveSlot();
     void wheelEvent(QWheelEvent *we);
@@ -35,6 +35,7 @@ signals:
     void StartSimulation();
     void StopSimulation();
     void NextIteration();
+    void UpdatePerspective(int val);
 
 private:
     int _mousePressed;

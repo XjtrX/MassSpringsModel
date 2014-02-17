@@ -13,11 +13,12 @@ RectRungeKuttaCloth::RectRungeKuttaCloth(int cols, int rows, float width, float 
                                          , float massVolume, float stiffnes
                                          , float borderRadius
                                          , Point3D<float> rotation
-                                         , Point3D<float> translation)
+                                         , Point3D<float> translation
+                                         , const int& withBendSprings)
     : RungeKuttaSpringsObject(cols * rows
                               , (cols - 1) * rows + cols * (rows - 1) + 2 * (cols - 1) * (rows - 1)
-                              + (cols - 2) * rows + cols * (rows - 2)
-    , (cols - 1) * rows + cols * (rows - 1))
+                              + ((cols - 2) * rows + cols * (rows - 2)) * (withBendSprings == 1 ? 1 : 0)
+                              , (cols - 1) * rows + cols * (rows - 1))
 {
     //_particlesCount = cols * rows;: SpringsObject(particlesCount, springsCount)
     //_springsCount = (cols - 1) * rows + cols * (rows - 1) + 2 * (cols - 1) * (rows - 1);
@@ -90,7 +91,10 @@ RectRungeKuttaCloth::RectRungeKuttaCloth(int cols, int rows, float width, float 
 
 
             //---------------------------------------------------
-
+            if (!withBendSprings)
+            {
+                continue;
+            }
             if (c > 1)
             {
                 _springs[i++] = new Spring(_particles[r * cols + c]

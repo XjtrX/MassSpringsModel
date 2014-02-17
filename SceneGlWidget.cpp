@@ -23,14 +23,14 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     _perspectiveAngle = 45;
     connect(&_timer, SIGNAL(timeout()), this, SLOT(UpdateScene()));
 
-    int rows = 30;
-    int cols = 30;
+    int rows = 10;
+    int cols = 10;
 
 
-    SpringsObject* rC = new RectRungeKuttaCloth(rows, cols, 30, 30
+    SpringsObject* rC = new RectRungeKuttaCloth(rows, cols, 10, 10
                                   , 1, 1, 1
                                   , Point3D<float>(90, 0, 0)
-                                  , Point3D<float>(-15, 0, 15));
+                                  , Point3D<float>(-15, 0, 15), 1);
 //    rC->_particles[0]->setStatic(1);
     rC->_particles[cols-1]->setStatic(1);
     rC->_particles[(rows-1)*cols]->setStatic(1);
@@ -91,14 +91,7 @@ void SceneGLWidget::paintGL()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glColor3f(1, 0.6, 0);
     glLineWidth(1);
-    if (_timer.isActive())
-    {
-        _scene.Draw(1);
-    }
-    else
-    {
-        _scene.Draw(0);
-    }
+    _scene.Draw();
 }
 
 void SceneGLWidget::resizeGL(int w, int h)

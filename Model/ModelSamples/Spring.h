@@ -33,7 +33,7 @@ public:
 
     int Recalculate();
 
-    void Draw(const int &flushColor);
+    void Draw();
 
     Particle* getParticleA();
     Particle* getParticleB();

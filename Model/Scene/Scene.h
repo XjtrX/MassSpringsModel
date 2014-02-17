@@ -8,7 +8,7 @@ class Scene: public SpringsObject
 public:
     Scene();
     virtual ~Scene();
-    void Draw(const int &flushColor);
+    void Draw();
 
     /*
     void RecalculateSprings();

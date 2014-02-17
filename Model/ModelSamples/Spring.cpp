@@ -44,16 +44,11 @@ int Spring::Recalculate()
     return 0;
 }
 
-#include <iostream>
-void Spring::Draw(const int &flushColor)
+void Spring::Draw()
 {
     if (this->_highlighted)
     {
         glColor3f(1, 0, 0);
-        if (flushColor)
-        {
-            this->_highlighted = 0;
-        }
     }
     Point3D<float> p = this->_particleA->getPosition();
     glVertex3f(p.getX(), p.getY(), p.getZ());

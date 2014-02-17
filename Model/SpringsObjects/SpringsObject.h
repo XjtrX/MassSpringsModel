@@ -17,7 +17,7 @@ public:
 
     SpringsObject(int particlesCount, int springsCount, int structuralSpringsCount);
 
-    virtual void Draw(const int &flushColor);
+    virtual void Draw();
 
     virtual void Iteration(float timeInterval) = 0;
 

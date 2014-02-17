@@ -19,7 +19,7 @@ int main(int argc, char* argv[])
     SceneWindow sW;
     sW.show();
 
-
+/*
      bool result =false;
 
      {
@@ -52,11 +52,7 @@ int main(int argc, char* argv[])
          qDebug() << result;
      }
 
-
-
-
-
-
+*/
 
     return a.exec();
 }

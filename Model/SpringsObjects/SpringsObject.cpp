@@ -21,13 +21,13 @@ SpringsObject::SpringsObject(int particlesCount, int springsCount, int structura
     _structuralSprings = vector<Spring*>(structuralSpringsCount);
 }
 
-void SpringsObject::Draw(const int& flushColor)
+void SpringsObject::Draw()
 {
     glBegin(GL_LINES);
 
-    for (int i = 0; i < this->_springsCount; i++)
+    for (int i = 0; i < this->_structuralSpringsCount; i++)
     {
-        this->_springs[i]->Draw(flushColor);
+        this->_structuralSprings[i]->Draw();
         /*
         Point3D<float> p = this->_springs[i]->getParticleA()->getPosition();
         glVertex3f(p.getX(), p.getY(), p.getZ());
@@ -131,6 +131,10 @@ int testSprings(Spring* a, Spring* b)
 
 void SpringsObject::Collide(int)
 {
+    for (int i = 0; i < _structuralSpringsCount; i++)
+    {
+        _structuralSprings[i]->_highlighted = 0;
+    }
     for (int i = 0; i < _structuralSpringsCount; i++)
     {
         Spring* a = _structuralSprings[i];

@@ -85,7 +85,8 @@ void SceneWindow::LeaveSlot()
 
 void SceneWindow::wheelEvent(QWheelEvent *we)
 {
-    int val = we->angleDelta().y() > 0 ? 1 : -1;
+    //int val = we->angleDelta().y() > 0 ? 1 : -1;
+    int val = we->delta() > 0 ? 1: -1;
     emit UpdatePerspective(-val);
 }
 

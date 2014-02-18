@@ -49,20 +49,25 @@ void RungeKuttaSpringsObject::Iteration(float timeInterval)
 {
     MoveEachOther(timeInterval);
     return;
-
+/*
     ApplyAcceleration(0, -9.8, 0);
-    RecalculateSprings();
+    RecalculateConnectionsAffort();
+    //RecalculateSprings();
     ComputeK1(timeInterval);
     ApplyAcceleration(0, -9.8, 0);
-    RecalculateSprings();
+    RecalculateConnectionsAffort();
+    //RecalculateSprings();
     ComputeK2(timeInterval);
     ApplyAcceleration(0, -9.8, 0);
-    RecalculateSprings();
+    RecalculateConnectionsAffort();
+    //RecalculateSprings();
     ComputeK3(timeInterval);
     ApplyAcceleration(0, -9.8, 0);
-    RecalculateSprings();
+    RecalculateConnectionsAffort();
+    //RecalculateSprings();
     ComputeK4(timeInterval);
     Move();
+*/
 }
 
 void RungeKuttaSpringsObject::Move()
@@ -106,7 +111,15 @@ void RungeKuttaSpringsObject::MoveEachOther(float timestep)
         rKP->RecalculateConnectionsAffort();
         rKP->ComputeK4(timestep);
 
-        rKP->Move();
+        //rKP->Move();
     }
-    //Move();
+    Move();
+}
+
+void RungeKuttaSpringsObject::RecalculateConnectionsAffort()
+{
+    for (int i = 0; i < _particlesCount; i++)
+    {
+        dynamic_cast<RungeKuttaParticle*>(_particles[i])->RecalculateConnectionsAffort();
+    }
 }

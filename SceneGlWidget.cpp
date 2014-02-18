@@ -6,7 +6,7 @@
 using namespace std;
 #define PI 3.14159265
 
-#include "Model/SpringsObjects/Cloth/RectVerletCloth.h"
+//#include "Model/SpringsObjects/Cloth/RectVerletCloth.h"
 #include "Model/SpringsObjects/Cloth/RectRungeKuttaCloth.h"
 #include "Model/ModelSamples/TriangleObstacle.h"
 #include "3DMath/MathRotation.h"
@@ -17,7 +17,7 @@ using namespace std;
 SceneGLWidget::SceneGLWidget(QWidget *parent)
     : QGLWidget(parent)
 {
-    _timeInterval = 1.0 / 50;
+    _timeInterval = 1.0 / 200;
     _repaintDelay = 0.04;
     _timeToFrame = 0;
     _perspectiveAngle = 45;
@@ -25,16 +25,21 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
 
     int rows = 10;
     int cols = 10;
+    float width = 10;
+    float heigth = 10;
+    float massVolume = 0.01;
+    float stiffness = 1;
+    float borderRadius = 1;
 
-
-    SpringsObject* rC = new RectRungeKuttaCloth(rows, cols, 10, 10
-                                  , 1, 1, 1
+    SpringsObject* rC = new RectRungeKuttaCloth(rows, cols
+                                                , width, heigth
+                                                , massVolume, stiffness, borderRadius
                                   , Point3D<float>(90, 0, 0)
-                                  , Point3D<float>(-15, 0, 15), 1);
+                                  , Point3D<float>(0, 0, 0), 0);
 //    rC->_particles[0]->setStatic(1);
     rC->_particles[cols-1]->setStatic(1);
     rC->_particles[(rows-1)*cols]->setStatic(1);
-//    rC->_particles[9]->setStatic(1);
+//    rC->_particles[rows * cols -1]->setStatic(1);
     _scene.AddSpringsObject(rC);
 
     /*
@@ -75,7 +80,6 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     p = new VerletParticle(Point3D<float>(5, 15, -4), 1, 2, 0);
     _scene.AddVerletParticle(p);
     */
-
 }
 
 void SceneGLWidget::initializeGL()
@@ -140,7 +144,7 @@ void SceneGLWidget::UpdateViewPoint()
                                     , _rotation.getZ());
 
     Point3D<float> eye = Point3D<float>(_transition);
-    eye.PlusZ(50);
+    eye.PlusZ(10);
     eye = m.RotatePoint(eye, rotMatr);
     Point3D<float> center = Point3D<float>(_transition);
     //center.set(0, 0, 0);
@@ -167,7 +171,7 @@ void SceneGLWidget::UpdateScene()
     */
 
     _scene.Iteration(_timeInterval);
-    _scene.Collide(0);
+    //_scene.Collide(0);
     /*
     _scene.ApplyAcceleration(0, -9.8, 0);
     _scene.RecalculateSprings();

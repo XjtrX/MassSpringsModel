@@ -77,6 +77,11 @@ void Scene::Iteration(float timeInterval)
     {
         _springsObjects.at(i)->Iteration(timeInterval);
     }
+    return;
+    for (int i = 0; i < l; i++)
+    {
+        _springsObjects[i]->Move();
+    }
 }
 
 /*

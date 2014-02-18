@@ -1,5 +1,8 @@
 #include "SpringsObject.h"
 
+#include <math.h>
+using namespace std;
+
 #include "vec.h"
 #include "rootparitycollisiontest.h"
 
@@ -79,9 +82,6 @@ void SpringsObject::Move()
     }
 }
 
-#include <math.h>
-using namespace std;
-
 inline float distance(Point3D<float>* p1, Point3D<float>* p2)
 {
     Point3D<float> dist = *p1;
@@ -148,6 +148,4 @@ void SpringsObject::Collide(int)
             }
         }
     }
-//    cout << "collide finished\n";
-//    cout.flush();
 }

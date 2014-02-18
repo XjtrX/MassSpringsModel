@@ -29,9 +29,9 @@ private slots:
 
     void on_pB_Stop_released();
 
-    void on_pB_Next_pressed();
-
     void on_pbCollide_released();
+
+    void on_pb_Step_clicked();
 
 signals:
     void StartSimulation();

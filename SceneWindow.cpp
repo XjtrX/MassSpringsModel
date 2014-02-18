@@ -100,12 +100,12 @@ void SceneWindow::on_pB_Stop_released()
     emit StopSimulation();
 }
 
-void SceneWindow::on_pB_Next_pressed()
-{
-    emit NextIteration();
-}
-
 void SceneWindow::on_pbCollide_released()
 {
     emit Collide();
+}
+
+void SceneWindow::on_pb_Step_clicked()
+{
+    emit NextIteration();
 }

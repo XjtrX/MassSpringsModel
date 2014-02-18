@@ -25,6 +25,8 @@ public:
     virtual void Collide(int flag);
 
     virtual void MoveEachOther(float timestep);
+
+    void RecalculateConnectionsAffort();
 };
 
 #endif // RUNGEKUTTASPRINGSOBJECT_H

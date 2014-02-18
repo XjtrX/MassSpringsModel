@@ -10,7 +10,7 @@
 
 #include "3DMath/Point3D.h"
 #include "3DMath/RotationHolder.h"
-#include "Model/Scene/Scene.h"
+#include "Model/SpringsObjects/Scene/Scene.h"
 
 class SceneGLWidget : public QGLWidget
 {

@@ -73,7 +73,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pB_Next">
+       <widget class="QPushButton" name="pb_Step">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -81,7 +81,7 @@
          </sizepolicy>
         </property>
         <property name="text">
-         <string>Next</string>
+         <string>Step</string>
         </property>
        </widget>
       </item>

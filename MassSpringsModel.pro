@@ -1,7 +1,6 @@
 QT += core gui opengl
 SOURCES += \
     main.cpp \
-    Model/Scene/Scene.cpp \
     Model/ModelSamples/VerletParticle.cpp \
     Model/ModelSamples/TriangleObstacle.cpp \
     SceneGlWidget.cpp \
@@ -12,13 +11,13 @@ SOURCES += \
     Model/SpringsObjects/VerletSpringsObject.cpp \
     3DMath/ParticleState.cpp \
     3DMath/ParticlePosition.cpp \
+    Model/SpringsObjects/Scene/Scene.cpp \
     Model/SpringsObjects/RungeKuttaSpringsObject.cpp \
     Model/SpringsObjects/SpringsObject.cpp \
     Model/SpringsObjects/Cloth/RectVerletCloth.cpp \
     Model/SpringsObjects/Cloth/RectRungeKuttaCloth.cpp
 HEADERS += \
     Model/ModelSamples/Spring.h \
-    Model/Scene/Scene.h \
     Model/SpringsObjects/Cube.h \
     Model/Interfaces/ElasticObject.h \
     Model/Interfaces/VerletObject.h \
@@ -33,6 +32,7 @@ HEADERS += \
     Model/Interfaces/RungeKuttaObject.h \
     Model/ModelSamples/VerletParticle.h \
     Model/ModelSamples/RungeKuttaParticle.h \
+    Model/SpringsObjects/Scene/Scene.h \
     Model/SpringsObjects/VerletSpringsObject.h \
     Model/ModelSamples/Unresolved/Particle.h \
     3DMath/ParticleState.h \

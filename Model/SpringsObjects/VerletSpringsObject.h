@@ -7,7 +7,7 @@
 class VerletSpringsObject: public SpringsObject, public VerletObject
 {
 public:
-    VerletSpringsObject(int particlesCount, int springsCount, int structuralSpringsCount);
+    VerletSpringsObject(int particlesCount, int springsCount, int structuralSpringsCount, int clothTrianglesCount);
     virtual ~VerletSpringsObject();
 
     //void Collide(int flag);

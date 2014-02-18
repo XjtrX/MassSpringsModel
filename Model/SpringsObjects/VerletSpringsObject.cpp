@@ -1,7 +1,7 @@
 #include "VerletSpringsObject.h"
 
-VerletSpringsObject::VerletSpringsObject(int particlesCount, int springsCount, int structuralSpringsCount)
-    : SpringsObject(particlesCount, springsCount, structuralSpringsCount)
+VerletSpringsObject::VerletSpringsObject(int particlesCount, int springsCount, int structuralSpringsCount, int clothTrianglesCount)
+    : SpringsObject(particlesCount, springsCount, structuralSpringsCount, clothTrianglesCount)
 {
 }
 

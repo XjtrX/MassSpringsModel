@@ -2,10 +2,11 @@
 #include "Model/ModelSamples/RungeKuttaParticle.h"
 
 #include <iostream>
+#include "omp.h"
 using namespace std;
 
-RungeKuttaSpringsObject::RungeKuttaSpringsObject(int particlesCount, int springsCount, int structuralSpringsCount)
-    : SpringsObject(particlesCount, springsCount, structuralSpringsCount)
+RungeKuttaSpringsObject::RungeKuttaSpringsObject(int particlesCount, int springsCount, int structuralSpringsCount, int clothTrianglesCount)
+    : SpringsObject(particlesCount, springsCount, structuralSpringsCount, clothTrianglesCount)
 {
 }
 
@@ -92,6 +93,8 @@ void RungeKuttaSpringsObject::Collide(int flag)
 
 void RungeKuttaSpringsObject::MoveEachOther(float timestep)
 {
+
+    //#pragma omp parallel for
     for (int i = 0; i < _particlesCount; i++)
     {
         RungeKuttaParticle* rKP = dynamic_cast<RungeKuttaParticle*>(_particles.at(i));

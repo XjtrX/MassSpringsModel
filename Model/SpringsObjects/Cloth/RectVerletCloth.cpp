@@ -7,7 +7,8 @@ RectVerletCloth::RectVerletCloth(int cols, int rows, float width, float height
                      , Point3D<float> rotation, Point3D<float> translation)
     : VerletSpringsObject(cols * rows
                           , (cols - 1) * rows + cols * (rows - 1) + 2 * (cols - 1) * (rows - 1)
-                          , (cols - 1) * rows + cols * (rows - 1))
+                          , (cols - 1) * rows + cols * (rows - 1)
+                          , (cols - 1) * (rows - 1) * 2)
 {
     //_particlesCount = cols * rows;
     //_springsCount = (cols - 1) * rows + cols * (rows - 1) + 2 * (cols - 1) * (rows - 1);

@@ -126,7 +126,7 @@ void RungeKuttaParticle::RecalculateConnectionsAffort()
 
         float diff = s->_nLentght - distLen;
 
-        float kDamp = 0.0001;
+        float kDamp = 0.01;
         Point3D<float> diffVel = this->_velocity;
         diffVel -= dynamic_cast<RungeKuttaParticle*>(p)->_velocity;
 

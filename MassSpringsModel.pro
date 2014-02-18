@@ -41,12 +41,18 @@ HEADERS += \
     Model/SpringsObjects/SpringsObject.h \
     Model/SpringsObjects/Cloth/RectVerletCloth.h \
     Model/SpringsObjects/Cloth/RectRungeKuttaCloth.h \
-    Model/Interfaces/MovableObject.h
+    Model/Interfaces/MovableObject.h \
+    ResolveCollision.h \
+    Model/ModelSamples/ClothTriangle.h
 
 FORMS += \
     scenewindow.ui
 
-QMAKE_LIBDIR += /home/lord/projects/qt/MassSpringsModel/exact-ccd
-INCLUDEPATH += /home/lord/projects/qt/MassSpringsModel/exact-ccd
+QMAKE_LIBDIR += /home/user/MassSpringsModel/exact-ccd
+INCLUDEPATH += /home/user/MassSpringsModel/exact-ccd
 
 LIBS += -lglut -lGL -lGLU -lexact-ccd
+
+
+QMAKE_CXXFLAGS += -fopenmp
+QMAKE_LIBS += -lgomp

@@ -14,7 +14,7 @@ SpringsObject::~SpringsObject()
 {
 }
 
-SpringsObject::SpringsObject(int particlesCount, int springsCount, int structuralSpringsCount)
+SpringsObject::SpringsObject(int particlesCount, int springsCount, int structuralSpringsCount, int clothTrianglesCount)
 {
     _particlesCount = particlesCount;
     _particles = vector<Particle*>(particlesCount);
@@ -22,21 +22,16 @@ SpringsObject::SpringsObject(int particlesCount, int springsCount, int structura
     _springs = vector<Spring*>(springsCount);
     _structuralSpringsCount = structuralSpringsCount;
     _structuralSprings = vector<Spring*>(structuralSpringsCount);
+    _clothTrianglesCount = clothTrianglesCount;
+    _clothTriangles = vector<ClothTriangle*>(clothTrianglesCount);
 }
 
 void SpringsObject::Draw()
 {
     glBegin(GL_LINES);
-
-    for (int i = 0; i < this->_structuralSpringsCount; i++)
+    for (int i = 0; i < this->_clothTrianglesCount; i++)
     {
-        this->_structuralSprings[i]->Draw();
-        /*
-        Point3D<float> p = this->_springs[i]->getParticleA()->getPosition();
-        glVertex3f(p.getX(), p.getY(), p.getZ());
-        p = this->_springs[i]->getParticleB()->getPosition();
-        glVertex3f(p.getX(), p.getY(), p.getZ());
-        */
+        this->_clothTriangles[i]->Draw();
     }
 
     glEnd();
@@ -129,12 +124,28 @@ int testSprings(Spring* a, Spring* b)
     return result;
 }
 
+inline int testTriangles(ClothTriangle* a, ClothTriangle* b)
+{
+
+}
+
 void SpringsObject::Collide(int)
 {
+ /*   for (int i = 0; i < _clothTrianglesCount; i++)
+    {
+        _clothTriangles[i]._highlighted = 0;
+    }
+    for (int i = 0; i < _clothTrianglesCount; i++)
+    {
+        ClothTriangle* a = _clothTriangles[i];
+        for (int j = 0; j < _str)
+    }
+
     for (int i = 0; i < _structuralSpringsCount; i++)
     {
         _structuralSprings[i]->_highlighted = 0;
     }
+
     for (int i = 0; i < _structuralSpringsCount; i++)
     {
         Spring* a = _structuralSprings[i];
@@ -148,4 +159,5 @@ void SpringsObject::Collide(int)
             }
         }
     }
+ */
 }

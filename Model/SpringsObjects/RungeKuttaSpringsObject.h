@@ -7,7 +7,7 @@
 class RungeKuttaSpringsObject: public SpringsObject, public RungeKuttaObject
 {
 public:
-    RungeKuttaSpringsObject(int particlesCount, int springsCount, int structuralSpringsCount);
+    RungeKuttaSpringsObject(int particlesCount, int springsCount, int structuralSpringsCount, int clothTrianglesCount);
     virtual ~RungeKuttaSpringsObject();
 
 public:

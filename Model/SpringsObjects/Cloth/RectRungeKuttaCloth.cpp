@@ -18,7 +18,8 @@ RectRungeKuttaCloth::RectRungeKuttaCloth(int cols, int rows, float width, float 
     : RungeKuttaSpringsObject(cols * rows
                               , (cols - 1) * rows + cols * (rows - 1) + 2 * (cols - 1) * (rows - 1)
                               + ((cols - 2) * rows + cols * (rows - 2)) * (withBendSprings == 1 ? 1 : 0)
-                              , (cols - 1) * rows + cols * (rows - 1))
+                              , (cols - 1) * rows + cols * (rows - 1)
+                              , (cols - 1) * (rows - 1) * 2)
 {
     //_particlesCount = cols * rows;: SpringsObject(particlesCount, springsCount)
     //_springsCount = (cols - 1) * rows + cols * (rows - 1) + 2 * (cols - 1) * (rows - 1);
@@ -38,6 +39,8 @@ RectRungeKuttaCloth::RectRungeKuttaCloth(int cols, int rows, float width, float 
     int structSpnNum = 0;
 
     int i = 0;
+
+    int t = 0;
     for (int r = 0; r < rows; r++)
     {
         for (int c = 0; c < cols; c++)
@@ -87,6 +90,14 @@ RectRungeKuttaCloth::RectRungeKuttaCloth(int cols, int rows, float width, float 
                 ConnectParticles(_particles[r * cols + c - 1]
                         , _particles[(r - 1) * cols + c]
                         , _springs[i - 1]);
+            }
+
+
+            //---------------------triangleCloth
+            if (c > 0 && r > 0)
+            {
+                _clothTriangles[t++] = new ClothTriangle(_particles[(r - 1) * cols + c - 1], _particles[(r - 1) * cols + c], _particles[r * cols + c]);
+                _clothTriangles[t++] = new ClothTriangle(_particles[(r - 1) * cols + c - 1], _particles[r * cols + c - 1], _particles[r * cols + c]);
             }
 
 

@@ -5,6 +5,7 @@
 #include "Model/ModelSamples/Spring.h"
 #include "Model/ModelSamples/Unresolved/Particle.h"
 #include "Model/Interfaces/MovableObject.h"
+#include "Model/ModelSamples/ClothTriangle.h"
 
 #include <vector>
 using namespace std;
@@ -13,9 +14,9 @@ class SpringsObject: public MovableObject, public DrawableObject
 {
 public:
     SpringsObject();
-    virtual ~SpringsObject();
 
-    SpringsObject(int particlesCount, int springsCount, int structuralSpringsCount);
+    SpringsObject(int particlesCount, int springsCount, int structuralSpringsCount, int clothTrianglesCount);
+    virtual ~SpringsObject();
 
     virtual void Draw();
 
@@ -33,10 +34,11 @@ public:
     int _particlesCount;
     int _springsCount;
     int _structuralSpringsCount;
+    int _clothTrianglesCount;
     vector<Particle*> _particles;
     vector<Spring*> _springs;
     vector<Spring*> _structuralSprings;
-
+    vector<ClothTriangle*> _clothTriangles;
 };
 
 #endif // SPRINGSOBJECT_H

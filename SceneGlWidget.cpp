@@ -121,7 +121,7 @@ void SceneGLWidget::UpdateViewPoint()
 void SceneGLWidget::UpdateScene()
 {
     _scene.Iteration(_timeInterval);
-    //_scene.Collide(0);
+    _scene.Collide(0);
     //this->repaint();
     //return;
     _timeToFrame += _timeInterval;

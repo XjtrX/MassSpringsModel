@@ -44,7 +44,7 @@ public:
     inline void DrawTriangle()
     {
         DrawLine(_p1->_position._position, _p2->_position._position);
-        DrawLine(_p2->_position._position, _p2->_position._position);
+        DrawLine(_p2->_position._position, _p3->_position._position);
         DrawLine(_p3->_position._position, _p1->_position._position);
     }
 };

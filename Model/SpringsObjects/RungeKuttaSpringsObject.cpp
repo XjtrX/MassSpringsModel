@@ -76,17 +76,17 @@ void RungeKuttaSpringsObject::Move()
     SpringsObject::Move();
 }
 
-void RungeKuttaSpringsObject::ApplyForce(const float &fX, const float &fY, const float &fZ)
+inline void RungeKuttaSpringsObject::ApplyForce(const float &fX, const float &fY, const float &fZ)
 {
     SpringsObject::ApplyForce(fX, fY, fZ);
 }
 
-void RungeKuttaSpringsObject::ApplyAcceleration(const float &fX, const float &fY, const float &fZ)
+inline void RungeKuttaSpringsObject::ApplyAcceleration(const float &fX, const float &fY, const float &fZ)
 {
     SpringsObject::ApplyAcceleration(fX, fY, fZ);
 }
 
-void RungeKuttaSpringsObject::Collide(int flag)
+inline void RungeKuttaSpringsObject::Collide(int flag)
 {
     SpringsObject::Collide(flag);
 }

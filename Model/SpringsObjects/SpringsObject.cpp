@@ -126,20 +126,54 @@ int testSprings(Spring* a, Spring* b)
 
 inline int testTriangles(ClothTriangle* a, ClothTriangle* b)
 {
+    /*
+    Point3D<float>& aAP = a->_particleA->_prevPosition._position;
+    Point3D<float>& aAC = a->_particleA->_position._position;
+    Point3D<float>& aBP = a->_particleB->_prevPosition._position;
+    Point3D<float>& aBC = a->_particleB->_position._position;
 
+    Point3D<float>& bAP = b->_particleA->_prevPosition._position;
+    Point3D<float>& bAC = b->_particleA->_position._position;
+    Point3D<float>& bBP = b->_particleB->_prevPosition._position;
+    Point3D<float>& bBC = b->_particleB->_position._position;
+
+
+    Vec3d verts_old[4]={Vec3d(aAP._x,aAP._y,aAP._z),Vec3d(aBP._x,aBP._y,aBP._z),Vec3d(bAP._x,bAP._y,bAP._z),Vec3d(bBP._x,bBP._y,bBP._z)};
+    Vec3d verts_new[4]={Vec3d(aAC._x,aAC._y,aAC._z),Vec3d(aBC._x,aBC._y,aBC._z),Vec3d(bAC._x,bAC._y,bAC._z),Vec3d(bBC._x,bBC._y,bBC._z)};
+
+    bool is_edge_edge = true;
+
+    rootparity::RootParityCollisionTest test(
+        verts_old[0],verts_old[1],verts_old[2],verts_old[3],
+        verts_new[0],verts_new[1],verts_new[2],verts_new[3],is_edge_edge);
+
+    int result = test.run_test();
+
+    return result;
+    */
+    return 0;
 }
 
 void SpringsObject::Collide(int)
 {
- /*   for (int i = 0; i < _clothTrianglesCount; i++)
+    for (int i = 0; i < _clothTrianglesCount; i++)
     {
-        _clothTriangles[i]._highlighted = 0;
+        _clothTriangles[i]->_highlighted = 0;
     }
     for (int i = 0; i < _clothTrianglesCount; i++)
     {
         ClothTriangle* a = _clothTriangles[i];
-        for (int j = 0; j < _str)
+        for (int j = 0; j < _clothTrianglesCount; j++)
+        {
+            ClothTriangle* b = _clothTriangles[j];
+            if (testTriangles(a, b))
+            {
+                a->_highlighted = 1;
+                b->_highlighted = 1;
+            }
+        }
     }
+    /*
 
     for (int i = 0; i < _structuralSpringsCount; i++)
     {

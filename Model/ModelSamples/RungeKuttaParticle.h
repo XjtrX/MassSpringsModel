@@ -61,7 +61,7 @@ public:
     ParticleState _k3;
     ParticleState _k4;
 
-    vector<ConnectedParticle> _connections;
+    vector<ConnectedParticle*> _connections;
 };
 
 #endif // RUNGEKUTTAPARTICLE_H

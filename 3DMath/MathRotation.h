@@ -92,7 +92,7 @@ static float* MultRotMatr(const float* m1, const float* m2)
     return res;
 }
 
-static Point3D<float>& RotatePoint(Point3D<float> &p, const float *rotMart)
+static Point3D<float>& RotatePoint(Point3D<float> p, const float *rotMart)
 {
     Point3D<float>* res = new Point3D<float>();
     res->setX(p.getX() * rotMart[0] + p.getY() * rotMart[1] + p.getZ() * rotMart[2]);

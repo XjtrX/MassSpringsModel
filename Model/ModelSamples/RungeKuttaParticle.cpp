@@ -106,7 +106,7 @@ void RungeKuttaParticle::Collide(int flag)
 void RungeKuttaParticle::AddConnection(Spring* spring, Particle* particle)
 {
     ConnectedParticle* cP = new ConnectedParticle(spring, particle);
-    _connections.push_back(*cP);
+    _connections.push_back(cP);
 }
 
 void RungeKuttaParticle::RecalculateConnectionsAffort()
@@ -114,8 +114,8 @@ void RungeKuttaParticle::RecalculateConnectionsAffort()
     int l = _connections.size();
     for (int i = 0; i < l; i++)
     {
-        Spring* s = _connections.at(i)._spring;
-        Particle* p = _connections.at(i)._particle;
+        Spring* s = _connections.at(i)->_spring;
+        Particle* p = _connections.at(i)->_particle;
 
         Point3D<float> pA = this->getPosition();
         Point3D<float> pB = p->getPosition();

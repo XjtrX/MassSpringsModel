@@ -16,21 +16,21 @@ using namespace std;
 SceneGLWidget::SceneGLWidget(QWidget *parent)
     : QGLWidget(parent)
 {
-    _timeInterval = 1.0 / 500;
+    _timeInterval = 1.0 / 25;
     _repaintDelay = 0.04;
     _timeToFrame = 0;
     _perspectiveAngle = 45;
     connect(&_timer, SIGNAL(timeout()), this, SLOT(UpdateScene()));
 
-    int rows = 10;
-    int cols = 10;
-    float width = 1;
-    float heigth = 1;
-    float massVolume = 0.1;
-    float stiffness = 10;
+    int rows = 8;
+    int cols = 8;
+    float width = 10;
+    float heigth = 10;
+    float massVolume = 1;
+    float stiffness = 1;
     float borderRadius = 1;
 
-    SpringsObject* rC = new RectRungeKuttaCloth(rows, cols
+    SpringsObject* rC = new RectRungeKuttaCloth(cols, rows
                                                 , width, heigth
                                                 , massVolume, stiffness, borderRadius
                                   , Point3D<float>(90, 0, 0)
@@ -122,8 +122,8 @@ void SceneGLWidget::UpdateScene()
 {
     _scene.Iteration(_timeInterval);
     _scene.Collide(0);
-    //this->repaint();
-    //return;
+    this->repaint();
+    return;
     _timeToFrame += _timeInterval;
     if (_timeToFrame >= _repaintDelay)
     {

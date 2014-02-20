@@ -6,8 +6,14 @@
 class PointTriangleMainfold
 {
 public:
-    PointTriangleMainfold();
-    //virtual ~
+    Particle* _p;
+    ClothTriangle* _t;
+    Point3D<float> _barycentric;
+public:
+    PointTriangleMainfold(Particle* p, ClothTriangle* t);
+    virtual ~PointTriangleMainfold();
+
+    void ResolveCollision();
 };
 
 #endif // POINTTRIANGLEMAINFOLD_H

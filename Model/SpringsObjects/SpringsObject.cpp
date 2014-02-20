@@ -96,7 +96,7 @@ inline float distance(Point3D<float>* p1, Point3D<float>* p2)
     return sqrt(dist.getSquaredLength());
 }
 
-int testSprings(Spring* a, Spring* b)
+int TestSprings(Spring* a, Spring* b)
 {
     if (a->getParticleA() == b->getParticleA()
             || a->getParticleA() == b->getParticleB()
@@ -136,7 +136,7 @@ int testSprings(Spring* a, Spring* b)
     return result;
 }
 
-int testTriangles(ClothTriangle* a, ClothTriangle* b)
+int SpringsObject::TestTriangles(ClothTriangle* a, ClothTriangle* b)
 {
     if (a->isNeighbour(*b))
     {
@@ -160,6 +160,7 @@ int testTriangles(ClothTriangle* a, ClothTriangle* b)
     Vec3d vb1C(b1C._x, b1C._y, b1C._z);
     Vec3d vb2C(b2C._x, b2C._y, b2C._z);
 
+    int result = 0;
     bool is_edge_edge = false;
     for (int i = 0; i < 3; i++)
     {
@@ -172,13 +173,15 @@ int testTriangles(ClothTriangle* a, ClothTriangle* b)
         rootparity::RootParityCollisionTest test(
             vaIP, vb0P, vb1P, vb2P,
             vaIC, vb0C, vb1C, vb2C, is_edge_edge);
-        int result = test.run_test();
-        if (result)
+        int testResult = test.run_test();
+        if (testResult)
         {
-            return 1;
+            PointTriangleMainfold* m = new PointTriangleMainfold(a->_p[i], b);
+            _mainfolds.push_back(m);
+            result = 1;
         }
     }
-    return 0;
+    return result;
 }
 
 void SpringsObject::Collide(int)
@@ -190,14 +193,28 @@ void SpringsObject::Collide(int)
     for (int i = 0; i < _clothTrianglesCount; i++)
     {
         ClothTriangle* a = _clothTriangles[i];
-        for (int j = i + 1; j < _clothTrianglesCount; j++)
+        for (int j = 0; j < _clothTrianglesCount; j++)
         {
             ClothTriangle* b = _clothTriangles[j];
-            if (testTriangles(a, b))
+            if (TestTriangles(a, b))
             {
                 a->_highlighted = 1;
                 b->_highlighted = 1;
             }
         }
+    }
+    ResolveCollisions();
+}
+
+
+#include <iostream>
+using namespace std;
+
+void SpringsObject::ResolveCollisions()
+{
+    while(!_mainfolds.empty())
+    {
+        _mainfolds.back()->ResolveCollision();
+        _mainfolds.pop_back();
     }
 }

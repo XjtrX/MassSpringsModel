@@ -6,8 +6,10 @@
 #include "Model/ModelSamples/Unresolved/Particle.h"
 #include "Model/Interfaces/MovableObject.h"
 #include "Model/ModelSamples/ClothTriangle.h"
+#include "Model/Collision/PointTriangleMainfold.h"
 
 #include <vector>
+#include <list>
 using namespace std;
 
 class SpringsObject: public MovableObject, public DrawableObject
@@ -30,6 +32,9 @@ public:
     virtual void Move();
     virtual void Collide(int flag);
 
+    int TestTriangles(ClothTriangle* a, ClothTriangle* b);
+    void ResolveCollisions();
+
 public:
     int _particlesCount;
     int _springsCount;
@@ -39,6 +44,8 @@ public:
     vector<Spring*> _springs;
     vector<Spring*> _structuralSprings;
     vector<ClothTriangle*> _clothTriangles;
+
+    list<PointTriangleMainfold*> _mainfolds;
 };
 
 #endif // SPRINGSOBJECT_H

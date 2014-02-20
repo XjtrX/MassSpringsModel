@@ -1,6 +1,9 @@
 #ifndef POINT3D_H
 #define POINT3D_H
 
+#include <iostream>
+using namespace std;
+
 template<class A>
 class Point3D
 {
@@ -38,6 +41,11 @@ public:
             _z = other._z;
         }
         return *this;
+    }
+
+    void Print(const char* desription)
+    {
+        cout << desription << " " << this->_x << " " << this->_y << " " << this->_z << endl;
     }
 
     Point3D& operator +=(const Point3D& other)
@@ -97,10 +105,60 @@ public:
 
     Point3D operator +(const Point3D& other)
     {
-        Point3D res ;//= new Point3D(*this);
+        Point3D res;
         res._x = this->_x + other._x;
         res._y = this->_y + other._y;
         res._z = this->_z + other._z;
+        return res;
+    }
+
+    static Point3D CrossProduct(const Point3D& a, const Point3D& b)
+    {
+        return Point3D(
+                      a._y * b._z - b._y * a._z
+                    , a._z * b._x - a._x * b._z
+                    , a._x * b._y - b._x * a._y);
+    }
+
+    A DotProduct(const Point3D& other)
+    {
+        A res =   this->_x * other._x
+                + this->_y * other._y
+                + this->_z * other._z;
+        return res;
+    }
+
+    static A Determinant(const Point3D& col1, const Point3D& col2, const Point3D& col3)
+    {
+        A res;
+        res =     col1._x * (col2._y * col3._z - col3._y * col2._z)
+                - col2._x * (col1._y * col3._z - col3._y * col1._z)
+                + col3._x * (col1._y * col2._z - col2._y * col1._z);
+        return res;
+    }
+
+    Point3D BarycentricCoordinates(Point3D a, Point3D b, Point3D c)
+    {
+        a._z = 1;
+        b._z = 1;
+        c._z = 1;
+        A temp = this->_z;
+        this->_z = 1;
+        Point3D res;
+        float d = this->Determinant(a, b , c);
+        if (0 == d)
+        {
+            this->_z = temp;
+            return res;
+        }
+        float d1 = this->Determinant(*this,  b   ,  c   );
+        float d2 = this->Determinant( a   , *this,  c   );
+        float d3 = this->Determinant( a   ,  b   , *this);
+
+        res._x = d1 / d;
+        res._y = d2 / d;
+        res._z = d3 / d;
+        this->_z = temp;
         return res;
     }
 

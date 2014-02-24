@@ -162,6 +162,10 @@ public:
             res._x = -1 * d1 / d;
             res._y = -1 * d2 / d;
             res._z = -1 * d3 / d;
+            A sum = res._x + res._y + res._z;
+            res._x /= sum;
+            res._y /= sum;
+            res._z /= sum;
             return res;
         }
     }

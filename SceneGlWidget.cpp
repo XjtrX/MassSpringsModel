@@ -10,6 +10,7 @@ using namespace std;
 #include "Model/SpringsObjects/Cloth/RectVerletCloth.h"
 #include "Model/ModelSamples/TriangleObstacle.h"
 #include "3DMath/MathRotation.h"
+#include "Model/ModelSamples/VerletParticle.h"
 
 #include <ctime>
 using namespace std;
@@ -34,11 +35,11 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     float stiffness = 1;
     float borderRadius = 1;
 
-    SpringsObject* rC = new RectVerletCloth(cols, rows
+    SpringsObject* rC = new RectRungeKuttaCloth(cols, rows
                                                 , width, heigth
                                                 , massVolume, stiffness, borderRadius
-                                  , Point3D<float>(90, 45, 0)
-                                  , Point3D<float>(-5, 0, 0), 0);
+                                  , Point3D<float>(90, 0, 0)
+                                  , Point3D<float>(-10, 0, 0), 0);
 //    rC->_particles[0]->setStatic(1);
     rC->_particles[cols-1]->setStatic(1);
     rC->_particles[(rows-1)*cols]->setStatic(1);
@@ -181,19 +182,17 @@ void SceneGLWidget::StopSimulation()
 
 void SceneGLWidget::NextIteration()
 {
-/*
-    VerletParticle p(ParticlePosition(Point3D<float>( 0, 1,  0)), 1);
-    VerletParticle a(ParticlePosition(Point3D<float>( 2, 0, -1)), 1);
-    VerletParticle b(ParticlePosition(Point3D<float>(-2, 0, -1)), 1);
-    VerletParticle c(ParticlePosition(Point3D<float>( 0, 0,  2)), 1);
-    ClothTriangle t(&a, &b, &c);
-    PointTriangleMainfold m(&p, &t);
-    m.ResolveCollision();
-    p._appliedForce.Print("force P");
-    a._appliedForce.Print("force A");
-    b._appliedForce.Print("force B");
-    c._appliedForce.Print("force C");
-*/
+//    VerletParticle p(ParticlePosition(Point3D<float>( 0, 1,  0)), 1);
+//    VerletParticle a(ParticlePosition(Point3D<float>( 2, 0, -1)), 1);
+//    VerletParticle b(ParticlePosition(Point3D<float>(-2, 0, -1)), 1);
+//    VerletParticle c(ParticlePosition(Point3D<float>( 0, 0,  2)), 1);
+//    ClothTriangle t(&a, &b, &c);
+//    PointTriangleMainfold m(&p, &t);
+//    m.ResolveCollision();
+//    m._p->_appliedForce.Print("force P");
+//    m._t->_p[0]->_appliedForce.Print("force A");
+//    m._t->_p[1]->_appliedForce.Print("force B");
+//    m._t->_p[2]->_appliedForce.Print("force C");
     if (0 == _timer.isActive())
     {
         _timeToFrame = _repaintDelay;

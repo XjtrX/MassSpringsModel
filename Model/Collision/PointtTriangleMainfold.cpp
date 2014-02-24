@@ -67,9 +67,9 @@ void PointTriangleMainfold::ResolveCollision()
     Point3D<float> disp = D;
     disp -= projection;
 
-//    disp.Print("disp");
+    disp.Print("disp");
 
-    float coeff = 0.001;
+    float coeff = -0.005;
 
     disp *= coeff;
 

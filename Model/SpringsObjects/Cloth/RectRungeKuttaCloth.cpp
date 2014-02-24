@@ -129,6 +129,7 @@ RectRungeKuttaCloth::RectRungeKuttaCloth(int cols, int rows, float width, float 
 
         }
     }
+    delete[] rotMatr;
 }
 
 RectRungeKuttaCloth::~RectRungeKuttaCloth()

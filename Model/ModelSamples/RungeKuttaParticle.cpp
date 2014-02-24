@@ -99,7 +99,7 @@ void RungeKuttaParticle::ComputeK4(float timestep)
     _k4 = RKTransformation(_interm + _k3, timestep) * timestep;
 }
 
-void RungeKuttaParticle::Collide(int flag)
+void RungeKuttaParticle::Collide(int)
 {
 }
 

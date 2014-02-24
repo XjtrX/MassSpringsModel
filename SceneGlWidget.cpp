@@ -7,6 +7,7 @@ using namespace std;
 #define PI 3.14159265
 
 #include "Model/SpringsObjects/Cloth/RectRungeKuttaCloth.h"
+#include "Model/SpringsObjects/Cloth/RectVerletCloth.h"
 #include "Model/ModelSamples/TriangleObstacle.h"
 #include "3DMath/MathRotation.h"
 
@@ -16,12 +17,10 @@ using namespace std;
 #include <iostream>
 using namespace std;
 
-#include "Model/ModelSamples/VerletParticle.h"
-
 SceneGLWidget::SceneGLWidget(QWidget *parent)
     : QGLWidget(parent)
 {
-    _timeInterval = 1.0 / 50;
+    _timeInterval = 1.0 / 25;
     _repaintDelay = 0.04;
     _timeToFrame = 0;
     _perspectiveAngle = 45;
@@ -29,13 +28,13 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
 
     int rows = 10;
     int cols = 10;
-    float width = 10;
-    float heigth = 10;
+    float width = 30;
+    float heigth = 30;
     float massVolume = 1;
     float stiffness = 1;
     float borderRadius = 1;
 
-    SpringsObject* rC = new RectRungeKuttaCloth(cols, rows
+    SpringsObject* rC = new RectVerletCloth(cols, rows
                                                 , width, heigth
                                                 , massVolume, stiffness, borderRadius
                                   , Point3D<float>(90, 45, 0)
@@ -45,19 +44,6 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     rC->_particles[(rows-1)*cols]->setStatic(1);
 //    rC->_particles[rows * cols -1]->setStatic(1);
     _scene.AddSpringsObject(rC);
-
-
-    VerletParticle p(ParticlePosition(Point3D<float>(0 + 10, 1 + 10, 0 + 10)), 1);
-    VerletParticle a(ParticlePosition(Point3D<float>(2 + 10, 0 + 10, -1 + 10)), 1);
-    VerletParticle b(ParticlePosition(Point3D<float>(-2 + 10, 0 + 10, -1 + 10)), 1);
-    VerletParticle c(ParticlePosition(Point3D<float>(0 + 10, 0 + 10, 2 + 10)), 1);
-    ClothTriangle t(&a, &b, &c);
-    PointTriangleMainfold m(&p, &t);
-    m.ResolveCollision();
-    p._appliedForce.Print("force P");
-    a._appliedForce.Print("force A");
-    b._appliedForce.Print("force B");
-    c._appliedForce.Print("force C");
 }
 
 void SceneGLWidget::initializeGL()
@@ -122,7 +108,7 @@ void SceneGLWidget::UpdateViewPoint()
                                     , _rotation.getZ());
 
     Point3D<float> eye = Point3D<float>(_transition);
-    eye.PlusZ(10);
+    eye.PlusZ(40);
     eye = m.RotatePoint(eye, rotMatr);
     Point3D<float> center = Point3D<float>(_transition);
     //center.set(0, 0, 0);
@@ -141,8 +127,8 @@ void SceneGLWidget::UpdateScene()
 {
     _scene.Iteration(_timeInterval);
     _scene.Collide(0);
-    this->repaint();
-    return;
+    //this->repaint();
+    //return;
     _timeToFrame += _timeInterval;
     if (_timeToFrame >= _repaintDelay)
     {
@@ -195,6 +181,19 @@ void SceneGLWidget::StopSimulation()
 
 void SceneGLWidget::NextIteration()
 {
+/*
+    VerletParticle p(ParticlePosition(Point3D<float>( 0, 1,  0)), 1);
+    VerletParticle a(ParticlePosition(Point3D<float>( 2, 0, -1)), 1);
+    VerletParticle b(ParticlePosition(Point3D<float>(-2, 0, -1)), 1);
+    VerletParticle c(ParticlePosition(Point3D<float>( 0, 0,  2)), 1);
+    ClothTriangle t(&a, &b, &c);
+    PointTriangleMainfold m(&p, &t);
+    m.ResolveCollision();
+    p._appliedForce.Print("force P");
+    a._appliedForce.Print("force A");
+    b._appliedForce.Print("force B");
+    c._appliedForce.Print("force C");
+*/
     if (0 == _timer.isActive())
     {
         _timeToFrame = _repaintDelay;

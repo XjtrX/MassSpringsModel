@@ -10,7 +10,7 @@ public:
     VerletSpringsObject(int particlesCount, int springsCount, int structuralSpringsCount, int clothTrianglesCount);
     virtual ~VerletSpringsObject();
 
-    //void Collide(int flag);
+    void Collide(int flag);
 
     virtual void Accelerate(const float &timeStep);
     virtual void Move();

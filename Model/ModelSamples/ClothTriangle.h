@@ -24,6 +24,11 @@ public:
         _highlighted = 0;
     }
 
+    virtual ~ClothTriangle()
+    {
+
+    }
+
     virtual void Draw()
     {
         if (this->_highlighted)

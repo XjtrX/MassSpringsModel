@@ -12,9 +12,6 @@ PointTriangleMainfold::~PointTriangleMainfold()
 {
 }
 
-//#include <iostream>
-//using namespace std;
-
 void PointTriangleMainfold::ResolveCollision()
 {
     Point3D<float>& A = _t->_p[0]->_position._position;
@@ -72,15 +69,14 @@ void PointTriangleMainfold::ResolveCollision()
 
 //    disp.Print("disp");
 
-    float coeff = -0.05;
+    float coeff = 0.001;
 
     disp *= coeff;
 
     _p->ApplyForce(disp._x, disp._y, disp._z);
-//    _p->_appliedForce.Print("force P");
-    return;
+//    return;
     disp *= -1;
-    _t->_p[0]->ApplyForce(disp._x / bCPr._x, disp._y / bCPr._x, disp._z / bCPr._x);
-    _t->_p[1]->ApplyForce(disp._x / bCPr._y, disp._y / bCPr._y, disp._z / bCPr._y);
-    _t->_p[1]->ApplyForce(disp._x / bCPr._z, disp._y / bCPr._z, disp._z / bCPr._z);
+    _t->_p[0]->ApplyForce(disp._x * bCPr._x, disp._y * bCPr._x, disp._z * bCPr._x);
+    _t->_p[1]->ApplyForce(disp._x * bCPr._y, disp._y * bCPr._y, disp._z * bCPr._y);
+    _t->_p[2]->ApplyForce(disp._x * bCPr._z, disp._y * bCPr._z, disp._z * bCPr._z);
 }

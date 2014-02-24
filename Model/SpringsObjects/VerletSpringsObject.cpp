@@ -10,6 +10,11 @@ VerletSpringsObject::~VerletSpringsObject()
 
 }
 
+void VerletSpringsObject::Collide(int flag)
+{
+    SpringsObject::Collide(flag);
+}
+
 void VerletSpringsObject::Accelerate(const float &timeStep)
 {
     SpringsObject::Accelerate(timeStep);

@@ -139,27 +139,31 @@ public:
 
     Point3D BarycentricCoordinates(Point3D a, Point3D b, Point3D c)
     {
-        a._z = 1;
-        b._z = 1;
-        c._z = 1;
-        A temp = this->_z;
-        this->_z = 1;
-        Point3D res;
-        float d = this->Determinant(a, b , c);
-        if (0 == d)
+        Point3D addiotion(0, 0, 0);
+        while(1)
         {
-            this->_z = temp;
+            Point3D aN(a._x + addiotion._x, a._y + addiotion._y, a._z + addiotion._z);
+            Point3D bN(b._x + addiotion._x, b._y + addiotion._y, b._z + addiotion._z);
+            Point3D cN(c._x + addiotion._x, c._y + addiotion._y, c._z + addiotion._z);
+            Point3D tN(this->_x + addiotion._x, this->_y + addiotion._y, this->_z + addiotion._z);
+            Point3D res;
+            float d = this->Determinant(aN, bN, cN);
+            if (0 == d)
+            {
+                addiotion.PlusX(1);
+                addiotion.PlusY(1);
+                addiotion.PlusZ(1);
+                continue;
+            }
+            float d1 = this->Determinant(tN, bN, cN);
+            float d2 = this->Determinant(aN, tN, cN);
+            float d3 = this->Determinant(aN, bN, tN);
+
+            res._x = -1 * d1 / d;
+            res._y = -1 * d2 / d;
+            res._z = -1 * d3 / d;
             return res;
         }
-        float d1 = this->Determinant(*this,  b   ,  c   );
-        float d2 = this->Determinant( a   , *this,  c   );
-        float d3 = this->Determinant( a   ,  b   , *this);
-
-        res._x = d1 / d;
-        res._y = d2 / d;
-        res._z = d3 / d;
-        this->_z = temp;
-        return res;
     }
 
     A getX()

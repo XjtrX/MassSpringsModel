@@ -31,6 +31,7 @@ public:
     virtual void Accelerate(const float &timeStep);
     virtual void Move();
     virtual void Collide(int flag);
+    virtual void FlushHighlighting();
 
     int TestTriangles(ClothTriangle* a, ClothTriangle* b);
     void ResolveCollisions();

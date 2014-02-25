@@ -27,11 +27,38 @@ void PointTriangleManifold::ResolveCollision()
     Point3D<float> disp = D;
     disp -= projection;
 
-//    disp.Print("disp");
+//    disp.Normalization();
+//    float coeff = -0.0000010;
 
-    float coeff = -30;
+    Point3D<float> velP = _p->_position._position;
+    velP -= _p->_prevPosition._position;
+
+    Point3D<float> velT0 = _t->_p[0]->_position._position;
+    velT0 -= _t->_p[0]->_prevPosition._position;
+
+    Point3D<float> velT1 = _t->_p[1]->_position._position;
+    velT1 -= _t->_p[1]->_prevPosition._position;
+
+    Point3D<float> velT2 = _t->_p[2]->_position._position;
+    velT2 -= _t->_p[2]->_prevPosition._position;
+
+
+    velT0 *= bCPr._x;
+    velT1 *= bCPr._y;
+    velT2 *= bCPr._z;
+
+    Point3D<float> velT = velT0;
+    velT += velT1;
+    velT += velT2;
+
+    Point3D<float> dispVel = velP;
+    dispVel -= velT;
+
+    float coeff = -5000 * sqrt(dispVel.getSquaredLength()) * _p->_massVolume;
 
     disp *= coeff;
+
+
 
     _p->ApplyForce(disp._x, disp._y, disp._z);
 //    return;

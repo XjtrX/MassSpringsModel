@@ -48,6 +48,14 @@ public:
         cout << desription << " " << this->_x << " " << this->_y << " " << this->_z << endl;
     }
 
+    void Normalization()
+    {
+        A sum = this->_x + this->_y + this->_z;
+        this->_x /= sum;
+        this->_y /= sum;
+        this->_z /= sum;
+    }
+
     Point3D& operator +=(const Point3D& other)
     {
         this->_x += other._x;

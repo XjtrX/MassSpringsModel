@@ -32,18 +32,22 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     float width = 30;
     float heigth = 30;
     float massVolume = 1;
-    float stiffness = 1;
+    float stiffness = 2;
     float borderRadius = 1;
+    int withBendSpring = 0;
 
     SpringsObject* rC = new RectVerletCloth(cols, rows
                                                 , width, heigth
                                                 , massVolume, stiffness, borderRadius
                                   , Point3D<float>(90, 0, 0)
-                                  , Point3D<float>(-10, 0, 0), 1);
-    rC->_particles[0]->setStatic(1);
-//    rC->_particles[cols-1]->setStatic(1);
-//    rC->_particles[(rows-1)*cols]->setStatic(1);
-    rC->_particles[rows * cols -1]->setStatic(1);
+                                  , Point3D<float>(-10, 0, 0)
+                                  , withBendSpring);
+//    rC->_particles[0]->setStatic(1)
+    rC->_particles[cols-1]->setStatic(1);
+    rC->_particles[(rows-1)*cols]->setStatic(1);
+//    rC->_particles[rows * cols -1]->setStatic(1);
+//    rC->_particles[(rows / 2) * cols]->setStatic(1);
+//    rC->_particles[(rows / 2 + 1) * cols - 1]->setStatic(1);
     _scene.AddSpringsObject(rC);
 }
 
@@ -63,8 +67,7 @@ void SceneGLWidget::paintGL()
     glLineWidth(1);
     _scene.Draw();
 /*
- *
- *prev
+prev
  -3.32059 -22.2249 -10.9535
  1.88671 -26.545 -12.1133
  3.04649 -22.2249 -17.3205
@@ -200,8 +203,12 @@ void SceneGLWidget::UpdateViewPoint()
 
 void SceneGLWidget::UpdateScene()
 {
+    _scene.FlushHighlighting();
     _scene.Iteration(_timeInterval);
     _scene.Collide(0);
+//    _scene.Collide(0);
+//    _scene.Collide(0);
+//    _scene.Collide(0);
     //this->repaint();
     //return;
     _timeToFrame += _timeInterval;

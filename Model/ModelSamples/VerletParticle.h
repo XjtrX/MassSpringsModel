@@ -19,7 +19,6 @@ public:
     virtual void Collide(int flag);
 
     Point3D<float>& PrevPosition();
-
 };
 
 #endif // VerletParticle_H

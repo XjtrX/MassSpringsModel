@@ -27,6 +27,7 @@ void VerletParticle::Move()
     }
 
     ParticlePosition temp = _position;
+    /*
     //_position.Plus(_position);
     _position += _position;
     //_position.Minus(_prevPosition);
@@ -34,6 +35,15 @@ void VerletParticle::Move()
     //_position.Plus(_appliedForce);
     _prevPosition = temp;
     //_appliedForce.set(0, 0, 0);
+    */
+//    /*
+    float coeff = 0.02;
+    _position += _position;
+    _position *= (1 - coeff / 2);
+    _prevPosition *= (1 - coeff);
+    _position -= _prevPosition;
+    _prevPosition = temp;
+//    */
 }
 
 Point3D<float>& VerletParticle::PrevPosition()

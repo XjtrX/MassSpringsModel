@@ -23,6 +23,7 @@ public:
 
     void AddSpringsObject(SpringsObject* springsObject);
     virtual void Collide(int flag);
+    virtual void FlushHighlighting();
     //void AddTriangleObstacle(TriangleObstacle* triangleObstacle);
     //void AddVerletParticle(VerletParticle* particle);
 private:

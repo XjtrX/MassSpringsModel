@@ -50,6 +50,8 @@ void VerletSpringsObject::Iteration(float timeInterval)
 
     this->ApplyAcceleration(0, -9.8, 0);
     this->RecalculateSprings();
-    this->Accelerate(timeInterval);
+//    this->Accelerate(timeInterval);
+//    this->Move();
     this->Move();
+    this->Accelerate(timeInterval);
 }

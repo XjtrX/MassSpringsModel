@@ -247,10 +247,8 @@ using namespace std;
 
 void SpringsObject::Collide(int)
 {
-    for (int i = 0; i < _clothTrianglesCount; i++)
+    for (int n = 0; n < 1; n++)
     {
-        _clothTriangles[i]->_highlighted = 0;
-    }
     for (int i = 0; i < _clothTrianglesCount; i++)
     {
         ClothTriangle* a = _clothTriangles[i];
@@ -290,17 +288,34 @@ void SpringsObject::Collide(int)
         }
     }
     ResolveCollisions();
+    }
+}
+
+void SpringsObject::FlushHighlighting()
+{
+    for (int i = 0; i < _clothTrianglesCount; i++)
+    {
+        _clothTriangles[i]->_highlighted = 0;
+    }
 }
 
 
 #include <iostream>
 using namespace std;
 
+#include "Model/ModelSamples/VerletParticle.h"
+
 void SpringsObject::ResolveCollisions()
 {
+    if (_manifolds.empty())
+    {
+        return;
+    }
     while(!_manifolds.empty())
     {
         _manifolds.back()->ResolveCollision();
         _manifolds.pop_back();
     }
+    this->Accelerate(1.0/25);
+//    this->Collide(0);
 }

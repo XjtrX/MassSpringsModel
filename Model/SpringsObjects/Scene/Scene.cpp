@@ -225,9 +225,17 @@ void Scene::AddSpringsObject(SpringsObject *springsObject)
 
 void Scene::Collide(int flag)
 {
-    for (int i = 0; i < _springsObjects.size(); i++)
+    for (uint i = 0; i < _springsObjects.size(); i++)
     {
         _springsObjects.at(i)->Collide(flag);
+    }
+}
+
+void Scene::FlushHighlighting()
+{
+    for (uint i = 0; i < _springsObjects.size(); i++)
+    {
+        _springsObjects.at(i)->FlushHighlighting();
     }
 }
 

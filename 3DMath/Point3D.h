@@ -147,6 +147,11 @@ public:
             Point3D cN(c._x + addiotion._x, c._y + addiotion._y, c._z + addiotion._z);
             Point3D tN(this->_x + addiotion._x, this->_y + addiotion._y, this->_z + addiotion._z);
             Point3D res;
+
+            aN.Print("aN");
+            bN.Print("bN");
+            cN.Print("cN");
+            tN.Print("tN");
             float d = this->Determinant(aN, bN, cN);
             if (0 == d)
             {

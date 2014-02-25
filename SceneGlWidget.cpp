@@ -27,23 +27,23 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     _perspectiveAngle = 45;
     connect(&_timer, SIGNAL(timeout()), this, SLOT(UpdateScene()));
 
-    int rows = 10;
-    int cols = 10;
+    int rows = 5;
+    int cols = 5;
     float width = 30;
     float heigth = 30;
     float massVolume = 1;
     float stiffness = 1;
     float borderRadius = 1;
 
-    SpringsObject* rC = new RectRungeKuttaCloth(cols, rows
+    SpringsObject* rC = new RectVerletCloth(cols, rows
                                                 , width, heigth
                                                 , massVolume, stiffness, borderRadius
                                   , Point3D<float>(90, 0, 0)
                                   , Point3D<float>(-10, 0, 0), 0);
-//    rC->_particles[0]->setStatic(1);
-    rC->_particles[cols-1]->setStatic(1);
-    rC->_particles[(rows-1)*cols]->setStatic(1);
-//    rC->_particles[rows * cols -1]->setStatic(1);
+    rC->_particles[0]->setStatic(1);
+//    rC->_particles[cols-1]->setStatic(1);
+//    rC->_particles[(rows-1)*cols]->setStatic(1);
+    rC->_particles[rows * cols -1]->setStatic(1);
     _scene.AddSpringsObject(rC);
 }
 
@@ -182,7 +182,7 @@ void SceneGLWidget::StopSimulation()
 
 void SceneGLWidget::NextIteration()
 {
-//    VerletParticle p(ParticlePosition(Point3D<float>( 0, 1,  0)), 1);
+//    VerletParticle p(ParticlePosition(Point3D<float>( 0, 1,  2)), 1);
 //    VerletParticle a(ParticlePosition(Point3D<float>( 2, 0, -1)), 1);
 //    VerletParticle b(ParticlePosition(Point3D<float>(-2, 0, -1)), 1);
 //    VerletParticle c(ParticlePosition(Point3D<float>( 0, 0,  2)), 1);

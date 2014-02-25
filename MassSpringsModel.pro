@@ -16,7 +16,7 @@ SOURCES += \
     Model/SpringsObjects/SpringsObject.cpp \
     Model/SpringsObjects/Cloth/RectVerletCloth.cpp \
     Model/SpringsObjects/Cloth/RectRungeKuttaCloth.cpp \
-    Model/Collision/PointtTriangleMainfold.cpp
+    Model/Collision/PointTriangleMainfold.cpp
 HEADERS += \
     Model/ModelSamples/Spring.h \
     Model/SpringsObjects/Cube.h \

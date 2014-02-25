@@ -21,10 +21,27 @@ struct ConnectedParticle
 //        cout << "created\n";
 //        cout.flush();
     }
-    ~ConnectedParticle()
+    virtual ~ConnectedParticle()
     {
 //        cout << "deleted\n";
 //        cout.flush();
+    }
+};
+
+#include "Model/ModelSamples/ClothTriangle.h"
+
+struct TriangleToCollide
+{
+    ClothTriangle* _tO;
+    float _aDP;
+
+    TriangleToCollide(ClothTriangle* tO)
+    {
+        _tO = tO;
+    }
+
+    virtual ~TriangleToCollide()
+    {
     }
 };
 
@@ -62,6 +79,7 @@ public:
     ParticleState _k4;
 
     vector<ConnectedParticle*> _connections;
+    vector<TriangleToCollide*> _triangles;
 };
 
 #endif // RUNGEKUTTAPARTICLE_H

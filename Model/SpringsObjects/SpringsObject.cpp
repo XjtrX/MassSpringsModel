@@ -6,6 +6,8 @@ using namespace std;
 #include "vec.h"
 #include "rootparitycollisiontest.h"
 
+#include "3DMath/ParticleState.h"
+
 SpringsObject::SpringsObject()
 {
 }

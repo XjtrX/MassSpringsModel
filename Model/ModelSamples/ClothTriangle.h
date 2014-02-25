@@ -5,14 +5,14 @@
 #include "Model/Interfaces/DrawableObject.h"
 #include "Model/ModelSamples/Unresolved/Particle.h"
 
-#include <iostream>
-using namespace std;
-
 class ClothTriangle: public DrawableObject
 {
 public:
     Particle* _p[3];
     Particle* _connected;
+
+    Point3D<float> _normal;
+    float _DCoeff;
 
     int _highlighted;
 
@@ -27,6 +27,34 @@ public:
     virtual ~ClothTriangle()
     {
 
+    }
+
+    void RecalculatePlane()
+    {
+        Point3D<float>& A = this->_p[0]->_position._position;
+        Point3D<float>& B = this->_p[1]->_position._position;
+        Point3D<float>& C = this->_p[2]->_position._position;
+
+        Point3D<float> AB = B;
+        AB -= A;
+
+        Point3D<float> AC = C;
+        AC -= A;
+
+        this->_normal = Point3D<float>::CrossProduct(AB, AC);
+
+        _DCoeff = this->_normal.DotProduct(A);
+    }
+
+    Point3D<float> CalculateProjection(const Point3D<float>& p)
+    {
+        float dP = _normal.DotProduct(p);
+        float sL = _normal.getSquaredLength();
+        float lambda = -1 * (_DCoeff + dP) / sL;
+        Point3D<float> res(  p._x + lambda * _normal._x
+                           , p._y + lambda * _normal._y
+                           , p._z + lambda * _normal._z);
+        return res;
     }
 
     virtual void Draw()

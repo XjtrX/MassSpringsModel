@@ -55,12 +55,72 @@ void SceneGLWidget::initializeGL()
     //glEnable(GL_LIGHTING);
     //glEnable(GL_COLOR_MATERIAL);
 }
+
 void SceneGLWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glColor3f(1, 0.6, 0);
     glLineWidth(1);
     _scene.Draw();
+/*
+ *
+ *prev
+ -3.32059 -22.2249 -10.9535
+ 1.88671 -26.545 -12.1133
+ 3.04649 -22.2249 -17.3205
+curr
+ -3.13175 -22.1173 -10.7655
+ 2.30141 -26.1831 -11.6986
+ 3.23455 -22.1173 -17.1317
+triangle j 6
+prev
+ 0.953551 -22.2249 -6.67942
+ 2.11332 -26.545 -11.8867
+ 7.32061 -22.2249 -13.0464
+curr
+ 0.765492 -22.1173 -6.86826
+ 1.69862 -26.1831 -12.3014
+ 7.13177 -22.1173 -13.2345
+ */
+///*
+    Point3D<float> a0p( -3.32059, -22.2249, -10.9535);
+    Point3D<float> a1p(1.88671, -26.545, -12.1133);
+    Point3D<float> a2p(3.04649, -22.2249, -17.3205);
+
+    Point3D<float> a0n( -3.13175, -22.1173, -10.7655);
+    Point3D<float> a1n(2.30141, -26.1831, -11.6986);
+    Point3D<float> a2n(3.23455, -22.1173, -17.1317);
+
+    Point3D<float> b0p(0.953551, -22.2249, -6.67942);
+    Point3D<float> b1p(2.11332, -26.545, -11.8867);
+    Point3D<float> b2p(7.32061, -22.2249 ,-13.0464);
+
+    Point3D<float> b0n( 0.765492, -22.1173, -6.86826);
+    Point3D<float> b1n(1.69862, -26.1831, -12.3014);
+    Point3D<float> b2n( 7.13177, -22.1173 ,-13.2345);
+
+    glBegin(GL_LINES);
+
+    glColor3f(0, 0.5, 0);
+    DrawableObject::DrawLine(a0p, a1p);
+    DrawableObject::DrawLine(a1p, a2p);
+    DrawableObject::DrawLine(a2p, a0p);
+    glColor3f(0, 1, 0);
+    DrawableObject::DrawLine(a0n, a1n);
+    DrawableObject::DrawLine(a1n, a2n);
+    DrawableObject::DrawLine(a2n, a0n);
+
+    glColor3f(0, 0, 0.5);
+    DrawableObject::DrawLine(b0p, b1p);
+    DrawableObject::DrawLine(b1p, b2p);
+    DrawableObject::DrawLine(b2p, b0p);
+    glColor3f(0, 0, 1);
+    DrawableObject::DrawLine(b0n, b1n);
+    DrawableObject::DrawLine(b1n, b2n);
+    DrawableObject::DrawLine(b2n, b0n);
+
+    glEnd();
+//*/
 }
 
 void SceneGLWidget::resizeGL(int w, int h)
@@ -182,12 +242,16 @@ void SceneGLWidget::StopSimulation()
 
 void SceneGLWidget::NextIteration()
 {
-//    VerletParticle p(ParticlePosition(Point3D<float>( 0, 1,  2)), 1);
-//    VerletParticle a(ParticlePosition(Point3D<float>( 2, 0, -1)), 1);
-//    VerletParticle b(ParticlePosition(Point3D<float>(-2, 0, -1)), 1);
-//    VerletParticle c(ParticlePosition(Point3D<float>( 0, 0,  2)), 1);
-//    ClothTriangle t(&a, &b, &c);
-//    PointTriangleMainfold m(&p, &t);
+    VerletParticle p(ParticlePosition(Point3D<float>( 0, 1,  2)), 1);
+    VerletParticle a(ParticlePosition(Point3D<float>( 2, 0, -1)), 1);
+    VerletParticle b(ParticlePosition(Point3D<float>(-2, 0, -1)), 1);
+    VerletParticle c(ParticlePosition(Point3D<float>( 0, 0,  2)), 1);
+    ClothTriangle t(&a, &b, &c);
+    PointTriangleManifold m(&p, &t);
+    t.RecalculatePlane();
+    Point3D<float> pr = t.CalculateProjection(p._position._position);
+    pr.Print("projection ");
+    cout << "isInTriangle " << t.isInTriangle(pr) << endl;
 //    m.ResolveCollision();
 //    m._p->_appliedForce.Print("force P");
 //    m._t->_p[0]->_appliedForce.Print("force A");

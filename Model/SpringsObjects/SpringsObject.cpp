@@ -3,8 +3,8 @@
 #include <math.h>
 using namespace std;
 
-#include "vec.h"
-#include "rootparitycollisiontest.h"
+#include "exact-ccd/vec.h"
+#include "exact-ccd/rootparitycollisiontest.h"
 
 #include "3DMath/ParticleState.h"
 
@@ -138,6 +138,13 @@ int TestSprings(Spring* a, Spring* b)
     return result;
 }
 
+/*
+void Print(const Vec3d& v, char* desc)
+{
+    cout << desc << v[0] << ", " << v[1] << ", " << v[2] << endl;
+}
+*/
+
 int SpringsObject::TestTriangles(ClothTriangle* a, ClothTriangle* b)
 {
     if (a->isNeighbour(*b))
@@ -163,9 +170,10 @@ int SpringsObject::TestTriangles(ClothTriangle* a, ClothTriangle* b)
     Vec3d vb2C(b2C._x, b2C._y, b2C._z);
 
     int result = 0;
+//    int myRes = 0;
     bool is_edge_edge = false;
     for (int i = 0; i < 3; i++)
-    {
+    {      
         Point3D<float>& aIP = a->_p[i]->_prevPosition._position;
         Point3D<float>& aIC = a->_p[i]->_position._position;
 
@@ -178,13 +186,52 @@ int SpringsObject::TestTriangles(ClothTriangle* a, ClothTriangle* b)
         int testResult = test.run_test();
         if (testResult)
         {
-            PointTriangleMainfold* m = new PointTriangleMainfold(a->_p[i], b);
-            _mainfolds.push_back(m);
+            PointTriangleManifold* m = new PointTriangleManifold(a->_p[i], b);
+            _manifolds.push_back(m);
             result = 1;
+/*
+            Print(vaIP, "prev\n");
+            Print(vb0P, "");
+            Print(vb1P, "");
+            Print(vb2P, "");
+
+            Print(vaIC, "curr\n");
+            Print(vb0C, "");
+            Print(vb1C, "");
+            Print(vb2C, "");
+*/
         }
+
+        Point3D<float> prP = b->CalculatePrevProjection(aIP);
+        Point3D<float> prN = b->CalculateProjection(aIC);
+
+        Point3D<float> vecP = prP;
+        vecP -= aIP;
+
+        Point3D<float> vecN = prN;
+        vecN -= aIC;
+
+        float dPP = vecP.DotProduct(b->_prevNormal);
+        float dPN = vecN.DotProduct(b->_normal);
+        if (   b->isInPrevTriangle(dPP)
+            && b->isInTriangle(dPN)
+            && (  ((dPP > 0) && (dPN < 0))
+               || ((dPP < 0) && (dPN > 0)))
+            )
+        {
+//            myRes = 1;
+            if (!testResult)
+            {
+                cout << "error\n";
+            }
+        }
+
     }
     return result;
 }
+
+#include <iostream>
+using namespace std;
 
 void SpringsObject::Collide(int)
 {
@@ -195,6 +242,7 @@ void SpringsObject::Collide(int)
     for (int i = 0; i < _clothTrianglesCount; i++)
     {
         ClothTriangle* a = _clothTriangles[i];
+        a->RecalculatePlane();
         for (int j = 0; j < _clothTrianglesCount; j++)
         {
             ClothTriangle* b = _clothTriangles[j];
@@ -202,6 +250,28 @@ void SpringsObject::Collide(int)
             {
                 a->_highlighted = 1;
                 b->_highlighted = 1;
+                cout << i << " " << j << endl;
+                cout << "triangle i " << i << endl;
+                cout << "prev\n";
+                a->_p[0]->_prevPosition._position.Print("");
+                a->_p[1]->_prevPosition._position.Print("");
+                a->_p[2]->_prevPosition._position.Print("");
+                cout << "curr\n";
+                a->_p[0]->_position._position.Print("");
+                a->_p[1]->_position._position.Print("");
+                a->_p[2]->_position._position.Print("");
+
+                cout << "triangle j " << j << endl;
+                cout << "prev\n";
+                b->_p[0]->_prevPosition._position.Print("");
+                b->_p[1]->_prevPosition._position.Print("");
+                b->_p[2]->_prevPosition._position.Print("");
+                cout << "curr\n";
+                b->_p[0]->_position._position.Print("");
+                b->_p[1]->_position._position.Print("");
+                b->_p[2]->_position._position.Print("");
+
+                cout << "check b a " << TestTriangles(b, a) << endl;
             }
         }
     }
@@ -214,9 +284,9 @@ using namespace std;
 
 void SpringsObject::ResolveCollisions()
 {
-    while(!_mainfolds.empty())
+    while(!_manifolds.empty())
     {
-        _mainfolds.back()->ResolveCollision();
-        _mainfolds.pop_back();
+        _manifolds.back()->ResolveCollision();
+        _manifolds.pop_back();
     }
 }

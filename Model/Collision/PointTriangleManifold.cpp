@@ -1,18 +1,18 @@
-#include "PointTriangleMainfold.h"
+#include "PointTriangleManifold.h"
 
 #include <math.h>
 
-PointTriangleMainfold::PointTriangleMainfold(Particle *p, ClothTriangle *t)
+PointTriangleManifold::PointTriangleManifold(Particle *p, ClothTriangle *t)
 {
     _p = p;
     _t = t;
 }
 
-PointTriangleMainfold::~PointTriangleMainfold()
+PointTriangleManifold::~PointTriangleManifold()
 {
 }
 
-void PointTriangleMainfold::ResolveCollision()
+void PointTriangleManifold::ResolveCollision()
 {
     Point3D<float>& D = _p->_position._position;
 

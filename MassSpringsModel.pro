@@ -16,7 +16,11 @@ SOURCES += \
     Model/SpringsObjects/SpringsObject.cpp \
     Model/SpringsObjects/Cloth/RectVerletCloth.cpp \
     Model/SpringsObjects/Cloth/RectRungeKuttaCloth.cpp \
-    Model/Collision/PointTriangleMainfold.cpp
+    Model/Collision/PointTriangleManifold.cpp \
+    exact-ccd/expansion.cpp \
+    exact-ccd/interval.cpp \
+    exact-ccd/rootparitycollisiontest.cpp
+
 HEADERS += \
     Model/ModelSamples/Spring.h \
     Model/SpringsObjects/Cube.h \
@@ -45,18 +49,23 @@ HEADERS += \
     Model/Interfaces/MovableObject.h \
     ResolveCollision.h \
     Model/ModelSamples/ClothTriangle.h \
-    Model/Collision/PointTriangleMainfold.h
+    Model/Collision/PointTriangleManifold.h \
+    exact-ccd/expansion.h \
+    exact-ccd/interval_base.h \
+    exact-ccd/interval.h \
+    exact-ccd/vec.h \
+    exact-ccd/rootparitycollisiontest.h
 
 FORMS += \
     scenewindow.ui
 
 #QMAKE_LIBDIR += /home/user/MassSpringsModel/exact-ccd
 #INCLUDEPATH += /home/user/MassSpringsModel/exact-ccd
-QMAKE_LIBDIR += /home/lord/projects/qt/MassSpringsModel/exact-ccd
-INCLUDEPATH += /home/lord/projects/qt/MassSpringsModel/exact-ccd
+#QMAKE_LIBDIR += /home/lord/projects/qt/MassSpringsModel/exact-ccd
+#INCLUDEPATH += /home/lord/projects/qt/MassSpringsModel/exact-ccd
 
 
-LIBS += -lglut -lGL -lGLU -lexact-ccd
+LIBS += -lglut -lGL -lGLU# -lexact-ccd
 
 
 QMAKE_CXXFLAGS += -fopenmp

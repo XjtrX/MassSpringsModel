@@ -6,7 +6,7 @@
 #include "Model/ModelSamples/Unresolved/Particle.h"
 #include "Model/Interfaces/MovableObject.h"
 #include "Model/ModelSamples/ClothTriangle.h"
-#include "Model/Collision/PointTriangleMainfold.h"
+#include "Model/Collision/PointTriangleManifold.h"
 
 #include <vector>
 #include <list>
@@ -45,7 +45,7 @@ public:
     vector<Spring*> _structuralSprings;
     vector<ClothTriangle*> _clothTriangles;
 
-    list<PointTriangleMainfold*> _mainfolds;
+    list<PointTriangleManifold*> _manifolds;
 };
 
 #endif // SPRINGSOBJECT_H

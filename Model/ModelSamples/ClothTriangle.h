@@ -14,6 +14,9 @@ public:
     Point3D<float> _normal;
     float _DCoeff;
 
+    Point3D<float> _prevNormal;
+    float _prevDCoeff;
+
     int _highlighted;
 
     ClothTriangle(Particle* p1, Particle* p2, Particle *p3)
@@ -31,6 +34,8 @@ public:
 
     void RecalculatePlane()
     {
+        _prevNormal = _normal;
+        _prevDCoeff = _DCoeff;
         Point3D<float>& A = this->_p[0]->_position._position;
         Point3D<float>& B = this->_p[1]->_position._position;
         Point3D<float>& C = this->_p[2]->_position._position;
@@ -54,6 +59,77 @@ public:
         Point3D<float> res(  p._x + lambda * _normal._x
                            , p._y + lambda * _normal._y
                            , p._z + lambda * _normal._z);
+        return res;
+    }
+
+    int isInTriangle(const Point3D<float>& p)
+    {
+        Point3D<float> AB = _p[1]->_position._position;
+        AB -= _p[0]->_position._position;
+        Point3D<float> BC = _p[2]->_position._position;
+        BC -= _p[1]->_position._position;
+        Point3D<float> CA = _p[0]->_position._position;
+        CA -= _p[2]->_position._position;
+
+        Point3D<float> AP = p;
+        AP -= _p[0]->_position._position;
+        Point3D<float> BP = p;
+        BP -= _p[1]->_position._position;
+        Point3D<float> CP = p;
+        CP -= _p[2]->_position._position;
+
+        Point3D<float> cPA = Point3D<float>::CrossProduct(AB, AP);
+        Point3D<float> cPB = Point3D<float>::CrossProduct(BC, BP);
+        Point3D<float> cPC = Point3D<float>::CrossProduct(CA, CP);
+
+        float sAB = cPA.DotProduct(cPB);
+        float sBC = cPB.DotProduct(cPC);
+        float sCA = cPC.DotProduct(cPA);
+        if ((0 > sAB) || (0 > sBC) || (0 > sCA))
+        {
+            return 0;
+        }
+        return 1;
+    }
+
+    int isInPrevTriangle(const Point3D<float>& p)
+    {
+        Point3D<float> AB = _p[1]->_prevPosition._position;
+        AB -= _p[0]->_prevPosition._position;
+        Point3D<float> BC = _p[2]->_prevPosition._position;
+        BC -= _p[1]->_prevPosition._position;
+        Point3D<float> CA = _p[0]->_prevPosition._position;
+        CA -= _p[2]->_prevPosition._position;
+
+        Point3D<float> AP = p;
+        AP -= _p[0]->_prevPosition._position;
+        Point3D<float> BP = p;
+        BP -= _p[1]->_prevPosition._position;
+        Point3D<float> CP = p;
+        CP -= _p[2]->_prevPosition._position;
+
+        Point3D<float> cPA = Point3D<float>::CrossProduct(AB, AP);
+        Point3D<float> cPB = Point3D<float>::CrossProduct(BC, BP);
+        Point3D<float> cPC = Point3D<float>::CrossProduct(CA, CP);
+
+        float sAB = cPA.DotProduct(cPB);
+        float sBC = cPB.DotProduct(cPC);
+        float sCA = cPC.DotProduct(cPA);
+        if ((0 > sAB) || (0 > sBC) || (0 > sCA))
+        {
+            return 0;
+        }
+        return 1;
+    }
+
+    Point3D<float> CalculatePrevProjection(const Point3D<float>& p)
+    {
+        float dP = _prevNormal.DotProduct(p);
+        float sL = _prevNormal.getSquaredLength();
+        float lambda = -1 * (_prevDCoeff + dP) / sL;
+        Point3D<float> res(  p._x + lambda * _prevNormal._x
+                           , p._y + lambda * _prevNormal._y
+                           , p._z + lambda * _prevNormal._z);
         return res;
     }
 

@@ -45,7 +45,7 @@ void RungeKuttaParticle::Move()
     _interm += _k3 / 3;
     _interm += _k4 / 6;
     _position = _interm;
-    _velocity = _interm._velocity;
+//    _velocity = _interm._velocity;
 }
 
 ParticleState RungeKuttaParticle::RKTransformation(const ParticleState particleState, float)
@@ -65,7 +65,7 @@ void RungeKuttaParticle::ComputeK1(float timestep)
     }
     _k1 = RKTransformation(_interm, timestep) * timestep;
     _position = _interm + _k1 * 0.5;
-    _velocity = _interm._velocity + _k1._velocity * 0.5;
+//    _velocity = _interm._velocity + _k1._velocity * 0.5;
 }
 
 void RungeKuttaParticle::ComputeK2(float timestep)
@@ -76,7 +76,7 @@ void RungeKuttaParticle::ComputeK2(float timestep)
     }
     _k2 = RKTransformation(_interm + _k1 * 0.5, timestep) * timestep;
     _position = _interm + _k2 * 0.5;
-    _velocity = _interm._velocity + _k2._velocity * 0.5;
+//    _velocity = _interm._velocity + _k2._velocity * 0.5;
 }
 
 void RungeKuttaParticle::ComputeK3(float timestep)
@@ -87,7 +87,7 @@ void RungeKuttaParticle::ComputeK3(float timestep)
     }
     _k3 = RKTransformation(_interm + _k2 * 0.5, timestep) * timestep;
     _position = _interm + _k3;
-    _velocity = _interm._velocity + _k3._velocity;
+//    _velocity = _interm._velocity + _k3._velocity;
 }
 
 void RungeKuttaParticle::ComputeK4(float timestep)
@@ -127,8 +127,8 @@ void RungeKuttaParticle::RecalculateConnectionsAffort()
         float diff = s->_nLentght - distLen;
 
         float kDamp = 0.01;
-        Point3D<float> diffVel = this->_velocity;
-        diffVel -= dynamic_cast<RungeKuttaParticle*>(p)->_velocity;
+        Point3D<float> diffVel = dynamic_cast<ParticleState*>(&(this->_position))->_velocity;
+        diffVel -= dynamic_cast<ParticleState*>(&(p->_position))->_velocity;
 
         float stiffness = s->_stiffness;
         float fX = diff * dist.getX() / distLen * stiffness - diffVel.getX() * kDamp;

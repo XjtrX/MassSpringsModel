@@ -29,7 +29,7 @@ void PointTriangleManifold::ResolveCollision()
 
 //    disp.Print("disp");
 
-    float coeff = 0.2;
+    float coeff = -30;
 
     disp *= coeff;
 

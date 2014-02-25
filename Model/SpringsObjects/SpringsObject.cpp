@@ -213,10 +213,14 @@ int SpringsObject::TestTriangles(ClothTriangle* a, ClothTriangle* b)
 
         float dPP = vecP.DotProduct(b->_prevNormal);
         float dPN = vecN.DotProduct(b->_normal);
-        cout << "isInTriangle " << b->isInTriangle(dPN) << endl;
-
-        if (  /* b->isInPrevTriangle(dPP)
-            &&*/ b->isInTriangle(dPN)
+        /*
+        if (b->isInTriangle(prN))
+        {
+            cout << "isInTriangle 1" << endl;
+        }
+        */
+        if (  /* b->isInPrevTriangle(prP)
+            &&*/ b->isInTriangle(prN)
             && (  ((dPP > 0) && (dPN < 0))
                || ((dPP < 0) && (dPN > 0)))
             )
@@ -225,6 +229,8 @@ int SpringsObject::TestTriangles(ClothTriangle* a, ClothTriangle* b)
             if (!testResult)
             {
                 cout << "error\n";
+                PointTriangleManifold* m = new PointTriangleManifold(a->_p[i], b);
+                _manifolds.push_back(m);
             }
             else
             {

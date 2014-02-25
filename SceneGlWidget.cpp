@@ -39,7 +39,7 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
                                                 , width, heigth
                                                 , massVolume, stiffness, borderRadius
                                   , Point3D<float>(90, 0, 0)
-                                  , Point3D<float>(-10, 0, 0), 0);
+                                  , Point3D<float>(-10, 0, 0), 1);
     rC->_particles[0]->setStatic(1);
 //    rC->_particles[cols-1]->setStatic(1);
 //    rC->_particles[(rows-1)*cols]->setStatic(1);
@@ -82,7 +82,7 @@ curr
  1.69862 -26.1831 -12.3014
  7.13177 -22.1173 -13.2345
  */
-///*
+/*
     Point3D<float> a0p( -3.32059, -22.2249, -10.9535);
     Point3D<float> a1p(1.88671, -26.545, -12.1133);
     Point3D<float> a2p(3.04649, -22.2249, -17.3205);
@@ -134,7 +134,7 @@ curr
 //    glColor3f(1, 0, 0);
 //    DrawableObject::DrawLine(prN, a1n);
     glEnd();
-//*/
+*/
 }
 
 void SceneGLWidget::resizeGL(int w, int h)

@@ -18,12 +18,12 @@ void PointTriangleMainfold::ResolveCollision()
 
     this->_t->RecalculatePlane();
     Point3D<float> projection = _t->CalculateProjection(D);
-    projection.Print("projection");
+//    projection.Print("projection");
     Point3D<float> bCPr = projection.BarycentricCoordinates(
               this->_t->_p[0]->_position._position
             , this->_t->_p[1]->_position._position
             , this->_t->_p[2]->_position._position);
-//    bCPr.Print("barycentricProjection");
+    bCPr.Print("barycentricProjection");
     Point3D<float> disp = D;
     disp -= projection;
 

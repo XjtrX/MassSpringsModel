@@ -48,7 +48,7 @@ public:
 
         this->_normal = Point3D<float>::CrossProduct(AB, AC);
 
-        _DCoeff = this->_normal.DotProduct(A);
+        _DCoeff = -1 * this->_normal.DotProduct(A);
     }
 
     Point3D<float> CalculateProjection(const Point3D<float>& p)

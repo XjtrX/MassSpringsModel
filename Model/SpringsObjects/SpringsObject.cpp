@@ -213,8 +213,10 @@ int SpringsObject::TestTriangles(ClothTriangle* a, ClothTriangle* b)
 
         float dPP = vecP.DotProduct(b->_prevNormal);
         float dPN = vecN.DotProduct(b->_normal);
-        if (   b->isInPrevTriangle(dPP)
-            && b->isInTriangle(dPN)
+        cout << "isInTriangle " << b->isInTriangle(dPN) << endl;
+
+        if (  /* b->isInPrevTriangle(dPP)
+            &&*/ b->isInTriangle(dPN)
             && (  ((dPP > 0) && (dPN < 0))
                || ((dPP < 0) && (dPN > 0)))
             )
@@ -223,6 +225,10 @@ int SpringsObject::TestTriangles(ClothTriangle* a, ClothTriangle* b)
             if (!testResult)
             {
                 cout << "error\n";
+            }
+            else
+            {
+                cout << "yeah\n";
             }
         }
 
@@ -250,6 +256,7 @@ void SpringsObject::Collide(int)
             {
                 a->_highlighted = 1;
                 b->_highlighted = 1;
+                /*
                 cout << i << " " << j << endl;
                 cout << "triangle i " << i << endl;
                 cout << "prev\n";
@@ -272,6 +279,7 @@ void SpringsObject::Collide(int)
                 b->_p[2]->_position._position.Print("");
 
                 cout << "check b a " << TestTriangles(b, a) << endl;
+                */
             }
         }
     }

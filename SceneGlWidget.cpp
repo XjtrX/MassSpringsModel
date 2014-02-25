@@ -119,6 +119,20 @@ curr
     DrawableObject::DrawLine(b1n, b2n);
     DrawableObject::DrawLine(b2n, b0n);
 
+//    VerletParticle p(a1n, 1);
+//    VerletParticle b0(b0n, 1);
+//    VerletParticle b1(b1n, 1);
+//    VerletParticle b2(b2n, 1);
+//    ClothTriangle b(&b0, &b1, &b2);
+//    b.RecalculatePlane();
+//    Point3D<float> prN = b.CalculateProjection(a1n);
+//    cout << "isInTriangle " << b.isInTriangle(prN) << endl;
+
+//    Point3D<float> vecN = prN;
+//    vecN -= a1n;
+
+//    glColor3f(1, 0, 0);
+//    DrawableObject::DrawLine(prN, a1n);
     glEnd();
 //*/
 }
@@ -242,21 +256,34 @@ void SceneGLWidget::StopSimulation()
 
 void SceneGLWidget::NextIteration()
 {
-    VerletParticle p(ParticlePosition(Point3D<float>( 0, 1,  2)), 1);
-    VerletParticle a(ParticlePosition(Point3D<float>( 2, 0, -1)), 1);
-    VerletParticle b(ParticlePosition(Point3D<float>(-2, 0, -1)), 1);
-    VerletParticle c(ParticlePosition(Point3D<float>( 0, 0,  2)), 1);
-    ClothTriangle t(&a, &b, &c);
-    PointTriangleManifold m(&p, &t);
-    t.RecalculatePlane();
-    Point3D<float> pr = t.CalculateProjection(p._position._position);
-    pr.Print("projection ");
-    cout << "isInTriangle " << t.isInTriangle(pr) << endl;
-//    m.ResolveCollision();
-//    m._p->_appliedForce.Print("force P");
-//    m._t->_p[0]->_appliedForce.Print("force A");
-//    m._t->_p[1]->_appliedForce.Print("force B");
-//    m._t->_p[2]->_appliedForce.Print("force C");
+/*
+prev
+1.88671, -26.545, -12.1133
+0.953551, -22.2249, -6.67942
+2.11332, -26.545, -11.8867
+7.32061, -22.2249, -13.0464
+curr
+2.30141, -26.1831, -11.6986
+0.765492, -22.1173, -6.86826
+1.69862, -26.1831, -12.3014
+7.13177, -22.1173, -13.2345
+*/
+
+//    VerletParticle p(ParticlePosition(Point3D<float>( 0, 1,  2)), 1);
+//    VerletParticle a(ParticlePosition(Point3D<float>( 2, 0, -1)), 1);
+//    VerletParticle b(ParticlePosition(Point3D<float>(-2, 0, -1)), 1);
+//    VerletParticle c(ParticlePosition(Point3D<float>( 0, 0,  2)), 1);
+//    ClothTriangle t(&a, &b, &c);
+//    PointTriangleManifold m(&p, &t);
+//    t.RecalculatePlane();
+//    Point3D<float> pr = t.CalculateProjection(p._position._position);
+//    pr.Print("projection ");
+//    cout << "isInTriangle " << t.isInTriangle(pr) << endl;
+////    m.ResolveCollision();
+////    m._p->_appliedForce.Print("force P");
+////    m._t->_p[0]->_appliedForce.Print("force A");
+////    m._t->_p[1]->_appliedForce.Print("force B");
+////    m._t->_p[2]->_appliedForce.Print("force C");
     if (0 == _timer.isActive())
     {
         _timeToFrame = _repaintDelay;

@@ -4,10 +4,16 @@
 #include "3DMath/Point3D.h"
 #include <GL/glut.h>
 
+enum DrawType
+{
+    lines,
+    triangles
+};
+
 class DrawableObject
 {
 public:
-    virtual void Draw() = 0;
+    virtual void Draw(const DrawType& type) = 0;
 
     inline static void DrawLine(Point3D<float>& a, Point3D<float>& b)
     {

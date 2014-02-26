@@ -44,7 +44,7 @@ int Spring::Recalculate()
     return 0;
 }
 
-void Spring::Draw()
+void Spring::Draw(const DrawType&)
 {
     if (this->_highlighted)
     {

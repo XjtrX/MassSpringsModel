@@ -20,7 +20,7 @@ public:
     SpringsObject(int particlesCount, int springsCount, int structuralSpringsCount, int clothTrianglesCount);
     virtual ~SpringsObject();
 
-    virtual void Draw();
+    virtual void Draw(const DrawType &type);
 
     virtual void Iteration(float timeInterval) = 0;
 

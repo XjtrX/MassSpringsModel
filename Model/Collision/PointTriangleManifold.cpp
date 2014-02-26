@@ -54,7 +54,48 @@ void PointTriangleManifold::ResolveCollision()
     Point3D<float> dispVel = velP;
     dispVel -= velT;
 
-    float coeff = -5000 * sqrt(dispVel.getSquaredLength()) * _p->_massVolume;
+    float mP = _p->_massVolume;
+    float mT = _t->_p[0]->_massVolume + _t->_p[1]->_massVolume + _t->_p[2]->_massVolume;
+
+    Point3D<float> vPRes = (velP * (mP - mT) + velT * (2 * mT)) / (mP + mT);
+
+    Point3D<float> vTRes = (velT * (mT - mP) + velP * (2 * mP)) / (mP + mT);
+
+    if (!_p->_static)
+    {
+        _p->_prevPosition._position = _p->_position._position - vPRes / 25;
+    }
+
+    if (!_t->_p[0]->_static)
+    {
+        _t->_p[0]->_prevPosition._position = _t->_p[0]->_position._position - vTRes / 25 * bCPr._x;
+    }
+    if (!_t->_p[1]->_static)
+    {
+        _t->_p[1]->_prevPosition._position = _t->_p[1]->_position._position - vTRes / 25 * bCPr._y;
+    }
+    if (!_t->_p[2]->_static)
+    {
+        _t->_p[2]->_prevPosition._position = _t->_p[2]->_position._position - vTRes / 25 * bCPr._z;
+    }
+
+    return;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    float coeff = -500 * sqrt(dispVel.getSquaredLength()) * _p->_massVolume;
 
     disp *= coeff;
 

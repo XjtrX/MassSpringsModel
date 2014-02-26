@@ -33,7 +33,7 @@ public:
 
     int Recalculate();
 
-    void Draw();
+    void Draw(const DrawType& type);
 
     Particle* getParticleA();
     Particle* getParticleB();

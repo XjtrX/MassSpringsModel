@@ -41,12 +41,13 @@ SpringsObject::SpringsObject(int particlesCount, int springsCount, int structura
     _clothTriangles = vector<ClothTriangle*>(clothTrianglesCount);
 }
 
-void SpringsObject::Draw()
+void SpringsObject::Draw(const DrawType &type)
 {
+//    glBegin(GL_TRIANGLES);
     glBegin(GL_LINES);
     for (int i = 0; i < this->_clothTrianglesCount; i++)
     {
-        this->_clothTriangles[i]->Draw();
+        this->_clothTriangles[i]->Draw(type);
     }
     glEnd();
 }
@@ -145,6 +146,9 @@ void Print(const Vec3d& v, char* desc)
 }
 */
 
+#include <iostream>
+using namespace std;
+
 int SpringsObject::TestTriangles(ClothTriangle* a, ClothTriangle* b)
 {
     if (a->isNeighbour(*b))
@@ -242,9 +246,6 @@ int SpringsObject::TestTriangles(ClothTriangle* a, ClothTriangle* b)
     return result;
 }
 
-#include <iostream>
-using namespace std;
-
 void SpringsObject::Collide(int)
 {
     for (int n = 0; n < 1; n++)
@@ -300,11 +301,6 @@ void SpringsObject::FlushHighlighting()
 }
 
 
-#include <iostream>
-using namespace std;
-
-#include "Model/ModelSamples/VerletParticle.h"
-
 void SpringsObject::ResolveCollisions()
 {
     if (_manifolds.empty())
@@ -317,5 +313,4 @@ void SpringsObject::ResolveCollisions()
         _manifolds.pop_back();
     }
     this->Accelerate(1.0/25);
-//    this->Collide(0);
 }

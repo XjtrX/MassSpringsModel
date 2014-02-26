@@ -36,7 +36,7 @@ Scene::~Scene()
     }
 }
 
-void Scene::Draw()
+void Scene::Draw(const DrawType &type)
 {
     /*
     int l = _triangleObstacles.size();
@@ -56,7 +56,7 @@ void Scene::Draw()
     int l = _springsObjects.size();
     for (int i = 0; i < l; i++)
     {
-        _springsObjects.at(i)->Draw();
+        _springsObjects.at(i)->Draw(type);
     }
 
     /*

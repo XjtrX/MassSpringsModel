@@ -47,11 +47,15 @@ Point3D<float>& Particle::getPosition()
 
 void Particle::Accelerate(const float &timeStep)
 {
-        float koeff = timeStep * timeStep / 2 / _massVolume;
-        _position._position.PlusX(_appliedForce.getX() * koeff);
-        _position._position.PlusY(_appliedForce.getY() * koeff);
-        _position._position.PlusZ(_appliedForce.getZ() * koeff);
-        _appliedForce.set(0, 0, 0);
+    if (_static)
+    {
+        return;
+    }
+    float koeff = timeStep * timeStep / 2 / _massVolume;
+    _position._position.PlusX(_appliedForce.getX() * koeff);
+    _position._position.PlusY(_appliedForce.getY() * koeff);
+    _position._position.PlusZ(_appliedForce.getZ() * koeff);
+    _appliedForce.set(0, 0, 0);
 }
 
 void Particle::ApplyForce(const float &fX, const float &fY, const float &fZ)

@@ -8,7 +8,7 @@ class Scene: public SpringsObject
 public:
     Scene();
     virtual ~Scene();
-    void Draw();
+    virtual void Draw(const DrawType &type);
 
     /*
     void RecalculateSprings();

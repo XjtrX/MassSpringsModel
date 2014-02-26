@@ -133,7 +133,7 @@ public:
         return res;
     }
 
-    virtual void Draw()
+    virtual void Draw(const DrawType&)
     {
         if (this->_highlighted)
         {

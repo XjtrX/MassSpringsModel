@@ -10,7 +10,7 @@ public:
     Point3D<float> _appliedForce;
 
     VerletParticle();
-    VerletParticle(const ParticlePosition initialPosition
+    VerletParticle(const Point3D<float>& initialPosition
                    , const float massVolume, const float borderRadius = 1
                    , const int st = 0);
     virtual ~VerletParticle();

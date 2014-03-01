@@ -2,7 +2,7 @@
 #define PARTICLE_H
 
 #include "Model/Interfaces/DrawableObject.h"
-#include "3DMath/ParticlePosition.h"
+//#include "3DMath/ParticlePosition.h"
 
 #include "Model/Interfaces/MovableObject.h"
 
@@ -11,14 +11,16 @@ class Particle: public MovableObject
 public:
     Particle();
     Particle(const Particle& particle);
-    Particle(const ParticlePosition& initialPosition
+    Particle(const Point3D<float>& initialPosition
              , const float& massVolume, const float& borderRadius = 1, const int& st = 0);
     virtual ~Particle();
 
 public:
-    ParticlePosition _position;
-    ParticlePosition _prevPosition;
-//    Point3D<float> _averageVelocity;
+    Point3D<float> _position;
+    Point3D<float> _prevPosition;
+    Point3D<float> _velocity;
+    Point3D<float> _prevVelocity;
+    Point3D<float> _averageVelocity;
     Point3D<float> _appliedForce;
     float _massVolume;
     int _static;
@@ -40,7 +42,6 @@ public:
     virtual void CalculateAverageVelocity(const float &timestep);
     virtual void Accelerate(const float &timestep);
     virtual void Collide(int flag);
-
 };
 
 #endif // PARTICLE_H

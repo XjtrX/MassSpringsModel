@@ -36,10 +36,9 @@ RectVerletCloth::RectVerletCloth(int cols, int rows, float width, float height
         for (int c = 0; c < cols; c++)
         {
             _particles[r * cols + c] = new VerletParticle(
-                        ParticlePosition(
-                            m.RotateAndTranslatePoint(
-                                Point3D<float>(1.0 * width * c / cols, 1.0 * height * r / rows)
-                                , rotMatr, translation))
+                        m.RotateAndTranslatePoint(
+                            Point3D<float>(1.0 * width * c / cols, 1.0 * height * r / rows)
+                            , rotMatr, translation)
                         , massOfParticle, borderRadius);
             if (c > 0)
             {

@@ -117,20 +117,20 @@ int TestSprings(Spring* a, Spring* b)
         return 0;
     }
 
-    if (distance(&(a->_particleA->_position._position), &(b->_particleA->_position._position)) > 3)
+    if (distance(&(a->_particleA->_position), &(b->_particleA->_position)) > 3)
     {
         return 0;
     }
 
-    Point3D<float>& aAP = a->_particleA->_prevPosition._position;
-    Point3D<float>& aAC = a->_particleA->_position._position;
-    Point3D<float>& aBP = a->_particleB->_prevPosition._position;
-    Point3D<float>& aBC = a->_particleB->_position._position;
+    Point3D<float>& aAP = a->_particleA->_prevPosition;
+    Point3D<float>& aAC = a->_particleA->_position;
+    Point3D<float>& aBP = a->_particleB->_prevPosition;
+    Point3D<float>& aBC = a->_particleB->_position;
 
-    Point3D<float>& bAP = b->_particleA->_prevPosition._position;
-    Point3D<float>& bAC = b->_particleA->_position._position;
-    Point3D<float>& bBP = b->_particleB->_prevPosition._position;
-    Point3D<float>& bBC = b->_particleB->_position._position;
+    Point3D<float>& bAP = b->_particleA->_prevPosition;
+    Point3D<float>& bAC = b->_particleA->_position;
+    Point3D<float>& bBP = b->_particleB->_prevPosition;
+    Point3D<float>& bBC = b->_particleB->_position;
 
 
     Vec3d verts_old[4]={Vec3d(aAP._x,aAP._y,aAP._z),Vec3d(aBP._x,aBP._y,aBP._z),Vec3d(bAP._x,bAP._y,bAP._z),Vec3d(bBP._x,bBP._y,bBP._z)};
@@ -164,13 +164,13 @@ int SpringsObject::TestTriangles(ClothTriangle* a, ClothTriangle* b)
         return 0;
     }
 
-    Point3D<float>& b0P = b->_p[0]->_prevPosition._position;
-    Point3D<float>& b1P = b->_p[1]->_prevPosition._position;
-    Point3D<float>& b2P = b->_p[2]->_prevPosition._position;
+    Point3D<float>& b0P = b->_p[0]->_prevPosition;
+    Point3D<float>& b1P = b->_p[1]->_prevPosition;
+    Point3D<float>& b2P = b->_p[2]->_prevPosition;
 
-    Point3D<float>& b0C = b->_p[0]->_position._position;
-    Point3D<float>& b1C = b->_p[1]->_position._position;
-    Point3D<float>& b2C = b->_p[2]->_position._position;
+    Point3D<float>& b0C = b->_p[0]->_position;
+    Point3D<float>& b1C = b->_p[1]->_position;
+    Point3D<float>& b2C = b->_p[2]->_position;
 
 
     Vec3d vb0P(b0P._x, b0P._y, b0P._z);
@@ -186,8 +186,8 @@ int SpringsObject::TestTriangles(ClothTriangle* a, ClothTriangle* b)
     bool is_edge_edge = false;
     for (int i = 0; i < 3; i++)
     {      
-        Point3D<float>& aIP = a->_p[i]->_prevPosition._position;
-        Point3D<float>& aIC = a->_p[i]->_position._position;
+        Point3D<float>& aIP = a->_p[i]->_prevPosition;
+        Point3D<float>& aIC = a->_p[i]->_position;
 
         Vec3d vaIP(aIP._x, aIP._y, aIP._z);
         Vec3d vaIC(aIC._x, aIC._y, aIC._z);

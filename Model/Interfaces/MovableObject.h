@@ -1,6 +1,8 @@
 #ifndef MOVABLEOBJECT_H
 #define MOVABLEOBJECT_H
 
+#include "3DMath/Point3D.h"
+
 class MovableObject
 {
 public:
@@ -10,7 +12,6 @@ public:
     virtual void Accelerate(const float &timestep) = 0;
     virtual void Move() = 0;
     virtual void Collide(int flag) = 0;
-
 };
 
 #endif // MOVABLEOBJECT_H

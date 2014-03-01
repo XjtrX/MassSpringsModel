@@ -6,7 +6,6 @@ SOURCES += \
     SceneGlWidget.cpp \
     SceneWindow.cpp \
     Model/ModelSamples/RungeKuttaParticle.cpp \
-    Model/ModelSamples/Particle.cpp \
     Model/ModelSamples/Spring.cpp \
     Model/SpringsObjects/VerletSpringsObject.cpp \
     3DMath/ParticleState.cpp \
@@ -19,7 +18,8 @@ SOURCES += \
     Model/Collision/PointTriangleManifold.cpp \
     exact-ccd/expansion.cpp \
     exact-ccd/interval.cpp \
-    exact-ccd/rootparitycollisiontest.cpp
+    exact-ccd/rootparitycollisiontest.cpp \
+    Model/ModelSamples/Unresolved/Particle.cpp
 
 HEADERS += \
     Model/ModelSamples/Spring.h \

@@ -15,7 +15,7 @@ Particle::Particle(const Particle &particle)
     this->_static = particle._static;
 }
 
-Particle::Particle(const ParticlePosition& initialPosition
+Particle::Particle(const Point3D<float>& initialPosition
                    , const float& massVolume, const float& borderRadius, const int& st)
 {
     _position = initialPosition;
@@ -36,9 +36,9 @@ void Particle::Draw()
     GLUquadricObj* Sphere;
     Sphere = gluNewQuadric();
     glPushMatrix();
-        glTranslatef(_position._position.getX()
-                     , _position._position.getY()
-                     , _position._position.getZ());
+        glTranslatef(_position.getX()
+                     , _position.getY()
+                     , _position.getZ());
         gluSphere(Sphere, _borderRadius, 10, 10);
     glPopMatrix();
     gluDeleteQuadric(Sphere);
@@ -46,7 +46,7 @@ void Particle::Draw()
 
 Point3D<float>& Particle::getPosition()
 {
-    return _position._position;
+    return _position;
 }
 
 void Particle::ApplyForce(const float &fX, const float &fY, const float &fZ)
@@ -74,7 +74,7 @@ void Particle::Accelerate(const float &timestep)
         return;
     }
     float koeff = timestep * timestep / 2 / _massVolume;
-     _position._position += _appliedForce * koeff;
+     _position += _appliedForce * koeff;
       /*
     _position._position.PlusX(_appliedForce.getX() * koeff);
     _position._position.PlusY(_appliedForce.getY() * koeff);
@@ -86,7 +86,6 @@ void Particle::Accelerate(const float &timestep)
 void Particle::Collide(int)
 {
 }
-
 
 int Particle::isStatic()
 {

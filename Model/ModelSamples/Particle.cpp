@@ -8,6 +8,8 @@ Particle::Particle(const Particle &particle)
 {
     this->_position = particle._position;
     this->_prevPosition = particle._prevPosition;
+//    this->_averageVelocity = particle._averageVelocity;
+//    this->_appliedForce = particle._appliedForce;
     this->_massVolume = particle._massVolume;
     this->_borderRadius = particle._borderRadius;
     this->_static = particle._static;
@@ -18,6 +20,8 @@ Particle::Particle(const ParticlePosition& initialPosition
 {
     _position = initialPosition;
     _prevPosition = initialPosition;
+//    _averageVelocity.set(0, 0, 0);
+//    _appliedForce.set(0, 0, 0);
     _massVolume = massVolume;
     _borderRadius = borderRadius;
     _static = st;
@@ -45,19 +49,6 @@ Point3D<float>& Particle::getPosition()
     return _position._position;
 }
 
-void Particle::Accelerate(const float &timeStep)
-{
-    if (_static)
-    {
-        return;
-    }
-    float koeff = timeStep * timeStep / 2 / _massVolume;
-    _position._position.PlusX(_appliedForce.getX() * koeff);
-    _position._position.PlusY(_appliedForce.getY() * koeff);
-    _position._position.PlusZ(_appliedForce.getZ() * koeff);
-    _appliedForce.set(0, 0, 0);
-}
-
 void Particle::ApplyForce(const float &fX, const float &fY, const float &fZ)
 {
     _appliedForce.PlusX(fX);
@@ -70,6 +61,26 @@ void Particle::ApplyAcceleration(const float &aX, const float &aY, const float &
     _appliedForce.PlusX(aX * _massVolume);
     _appliedForce.PlusY(aY * _massVolume);
     _appliedForce.PlusZ(aZ * _massVolume);
+}
+
+void Particle::CalculateAverageVelocity(const float &timestep)
+{
+//    _averageVelocity = (_position._position - _prevPosition._position) / timestep;
+}
+
+void Particle::Accelerate(const float &timestep)
+{    if (_static)
+    {
+        return;
+    }
+    float koeff = timestep * timestep / 2 / _massVolume;
+     _position._position += _appliedForce * koeff;
+      /*
+    _position._position.PlusX(_appliedForce.getX() * koeff);
+    _position._position.PlusY(_appliedForce.getY() * koeff);
+    _position._position.PlusZ(_appliedForce.getZ() * koeff);
+     */
+    _appliedForce.set(0, 0, 0);
 }
 
 void Particle::Collide(int)

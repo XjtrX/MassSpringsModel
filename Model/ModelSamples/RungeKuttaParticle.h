@@ -58,6 +58,8 @@ public:
 
     virtual void ApplyForce(const float &fX, const float &fY, const float &fZ);
     virtual void ApplyAcceleration(const float &aX, const float &aY, const float &aZ);
+    virtual void Accelerate(const float &timestep);
+    virtual void CalculateAverageVelocity(const float &timestep);
 
     virtual ParticleState RKTransformation(const ParticleState particleState, float dt);
     virtual void ComputeK1(float timestep);
@@ -71,7 +73,8 @@ public:
     void RecalculateConnectionsAffort();
 
 public:
-//    Point3D<float> _velocity;
+    Point3D<float> _prevVelocity;
+    Point3D<float> _velocity;
     ParticleState _interm;
     ParticleState _k1;
     ParticleState _k2;

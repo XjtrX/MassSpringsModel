@@ -86,6 +86,16 @@ inline void RungeKuttaSpringsObject::ApplyAcceleration(const float &fX, const fl
     SpringsObject::ApplyAcceleration(fX, fY, fZ);
 }
 
+void RungeKuttaSpringsObject::Accelerate(const float &timestep)
+{
+    SpringsObject::CalculateAverageVelocity(timestep);
+}
+
+void RungeKuttaSpringsObject::CalculateAverageVelocity(const float &timestep)
+{
+    SpringsObject::CalculateAverageVelocity(timestep);
+}
+
 inline void RungeKuttaSpringsObject::Collide(int flag)
 {
     SpringsObject::Collide(flag);
@@ -98,22 +108,22 @@ void RungeKuttaSpringsObject::MoveEachOther(float timestep)
     for (int i = 0; i < _particlesCount; i++)
     {
         RungeKuttaParticle* rKP = dynamic_cast<RungeKuttaParticle*>(_particles.at(i));
-        Point3D<float> force = rKP->_appliedForce;
+//        Point3D<float> force = rKP->_appliedForce;
         rKP->ApplyAcceleration(0, -9.8, 0);
         rKP->RecalculateConnectionsAffort();
         rKP->ComputeK1(timestep);
 
-        rKP->_appliedForce = force;
+//        rKP->_appliedForce = force;
         rKP->ApplyAcceleration(0, -9.8, 0);
         rKP->RecalculateConnectionsAffort();
         rKP->ComputeK2(timestep);
 
-        rKP->_appliedForce = force;
+//        rKP->_appliedForce = force;
         rKP->ApplyAcceleration(0, -9.8, 0);
         rKP->RecalculateConnectionsAffort();
         rKP->ComputeK3(timestep);
 
-        rKP->_appliedForce = force;
+//        rKP->_appliedForce = force;
         rKP->ApplyAcceleration(0, -9.8, 0);
         rKP->RecalculateConnectionsAffort();
         rKP->ComputeK4(timestep);

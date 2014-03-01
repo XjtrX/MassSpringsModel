@@ -4,9 +4,9 @@
 #include "Model/Interfaces/DrawableObject.h"
 #include "3DMath/ParticlePosition.h"
 
-#include "Model/Interfaces/VerletObject.h"
+#include "Model/Interfaces/MovableObject.h"
 
-class Particle: public VerletObject
+class Particle: public MovableObject
 {
 public:
     Particle();
@@ -18,6 +18,7 @@ public:
 public:
     ParticlePosition _position;
     ParticlePosition _prevPosition;
+//    Point3D<float> _averageVelocity;
     Point3D<float> _appliedForce;
     float _massVolume;
     int _static;
@@ -34,10 +35,11 @@ public:
     Point3D<float>& getPosition();
 
     virtual void Move() = 0;
-    void Accelerate(const float &timeStep);
-    void ApplyForce(const float& fX, const float& fY, const float& fZ);
-    void ApplyAcceleration(const float &aX, const float &aY, const float &aZ);
-    void Collide(int flag);
+    virtual void ApplyForce(const float& fX, const float& fY, const float& fZ);
+    virtual void ApplyAcceleration(const float &aX, const float &aY, const float &aZ);
+    virtual void CalculateAverageVelocity(const float &timestep);
+    virtual void Accelerate(const float &timestep);
+    virtual void Collide(int flag);
 
 };
 

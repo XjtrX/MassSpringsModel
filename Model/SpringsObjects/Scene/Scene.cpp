@@ -118,12 +118,12 @@ void Scene::ApplyAcceleration(const float &fX, const float &fY, const float &fZ)
     }
 }
 
-void Scene::Accelerate(const float &timeStep)
+void Scene::Accelerate(const float &timestep)
 {
     int l = _particles.size();
     for (int i = 0; i < l; i++)
     {
-        _particles.at(i)->Accelerate(timeStep);
+        _particles.at(i)->Accelerate(timestep);
     }
 }
 

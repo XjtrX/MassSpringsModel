@@ -23,7 +23,7 @@ void PointTriangleManifold::ResolveCollision()
               this->_t->_p[0]->_position._position
             , this->_t->_p[1]->_position._position
             , this->_t->_p[2]->_position._position);
-    bCPr.Print("barycentricProjection");
+//    bCPr.Print("barycentricProjection");
     Point3D<float> disp = D;
     disp -= projection;
 

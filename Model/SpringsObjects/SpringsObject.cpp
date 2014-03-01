@@ -76,11 +76,19 @@ void SpringsObject::ApplyAcceleration(const float &fX, const float &fY, const fl
     }
 }
 
-void SpringsObject::Accelerate(const float &timeStep)
+void SpringsObject::Accelerate(const float &timestep)
 {
     for (int i = 0; i < _particlesCount; i++)
     {
-        _particles[i]->Accelerate(timeStep);
+        _particles[i]->Accelerate(timestep);
+    }
+}
+
+void SpringsObject::CalculateAverageVelocity(const float &timestep)
+{
+    for (int i = 0; i < _particlesCount; i++)
+    {
+        _particles[i]->CalculateAverageVelocity(timestep);
     }
 }
 
@@ -256,6 +264,10 @@ void SpringsObject::Collide(int)
         a->RecalculatePlane();
         for (int j = 0; j < _clothTrianglesCount; j++)
         {
+            if (i == j)
+            {
+                continue;
+            }
             ClothTriangle* b = _clothTriangles[j];
             if (TestTriangles(a, b))
             {
@@ -312,5 +324,4 @@ void SpringsObject::ResolveCollisions()
         _manifolds.back()->ResolveCollision();
         _manifolds.pop_back();
     }
-    this->Accelerate(1.0/25);
 }

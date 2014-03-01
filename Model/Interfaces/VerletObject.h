@@ -6,7 +6,6 @@
 class VerletObject: public MovableObject
 {
 public:
-    virtual void Accelerate(const float &timeStep) = 0;
     //virtual void Collide(int flag) = 0;
 };
 

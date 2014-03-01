@@ -15,7 +15,7 @@ public:
 
     void ApplyForce(const float &fX, const float &fY, const float &fZ);
     void ApplyAcceleration(const float &fX, const float &fY, const float &fZ);
-    void Accelerate(const float &timeStep);
+    void Accelerate(const float &timestep);
     void Move();
     void Collide(int flag);
     */

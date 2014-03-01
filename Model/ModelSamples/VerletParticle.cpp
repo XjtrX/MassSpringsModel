@@ -43,7 +43,12 @@ void VerletParticle::Move()
     _prevPosition *= (1 - coeff);
     _position -= _prevPosition;
     _prevPosition = temp;
-//    */
+    //    */
+}
+
+void VerletParticle::Accelerate(const float &timestep)
+{
+    Particle::Accelerate(timestep);
 }
 
 Point3D<float>& VerletParticle::PrevPosition()
@@ -53,4 +58,19 @@ Point3D<float>& VerletParticle::PrevPosition()
 
 void VerletParticle::Collide(int)
 {
+}
+
+void VerletParticle::ApplyForce(const float &fX, const float &fY, const float &fZ)
+{
+    Particle::ApplyForce(fX, fY, fZ);
+}
+
+void VerletParticle::ApplyAcceleration(const float &aX, const float &aY, const float &aZ)
+{
+    Particle::ApplyAcceleration(aX, aY, aZ);
+}
+
+void VerletParticle::CalculateAverageVelocity(const float &timestep)
+{
+    Particle::CalculateAverageVelocity(timestep);
 }

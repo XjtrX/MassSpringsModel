@@ -88,6 +88,7 @@ void SpringsObject::Accelerate(const float &timestep)
 
 void SpringsObject::CalculateAverageVelocity(const float &timestep)
 {
+    return;
     for (int i = 0; i < _particlesCount; i++)
     {
         _particles[i]->CalculateAverageVelocity(timestep);
@@ -322,8 +323,6 @@ int SpringsObject::MyTestTriangles(ClothTriangle *a, ClothTriangle *b)
 
 void SpringsObject::Collide(const float &timestep)
 {
-    for (int n = 0; n < 1; n++)
-    {
     for (int i = 0; i < _clothTrianglesCount; i++)
     {
         ClothTriangle* a = _clothTriangles[i];
@@ -366,8 +365,7 @@ void SpringsObject::Collide(const float &timestep)
             }
         }
     }
-    ResolveCollisions(timestep);
-    }
+    this->ResolveCollisions(timestep);
 }
 
 void SpringsObject::FlushHighlighting()
@@ -376,6 +374,20 @@ void SpringsObject::FlushHighlighting()
     {
         _clothTriangles[i]->_highlighted = 0;
     }
+}
+
+void SpringsObject::ResolveSelfCollision(const float &timestep)
+{
+    //1. select a collision timestep size
+    //2. advance to candidate position position and veloities an time t(n+1) with the cloth internal dynamics
+    //3. compute the average velocity
+//    this->SpringsObject::CalculateAverageVelocity(timestep);
+    //4. check for priximity, then apply repulsion impulses and friction to the average velocity to get approximate velocity
+    this->Collide(timestep);
+    //5. check linear trajectories for collusion
+    //6. compute the final position
+    this->ResolveCollisions(timestep);
+    //7.
 }
 
 

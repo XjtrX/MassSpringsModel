@@ -19,6 +19,7 @@ public:
     ParticleState _state;
     ParticleState _prevState;
     Point3D<float> _averageVelocity;
+    Point3D<float> _approximateVelocity;
     Point3D<float> _appliedForce;
     float _massVolume;
     int _static;

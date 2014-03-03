@@ -35,9 +35,14 @@ int Spring::Recalculate()
 
     float diff = _nLentght - distLen;
 
-    float fX = diff * dist.getX() / distLen * _stiffness;
-    float fY = diff * dist.getY() / distLen * _stiffness;
-    float fZ = diff * dist.getZ() / distLen * _stiffness;
+
+    float kDamp = 0.0;
+    Point3D<float> diffVel = _particleA->_state._velocity;
+    diffVel -= _particleB->_state._velocity;
+
+    float fX = diff * dist.getX() / distLen * _stiffness - diffVel.getX() * kDamp;
+    float fY = diff * dist.getY() / distLen * _stiffness - diffVel.getY() * kDamp;
+    float fZ = diff * dist.getZ() / distLen * _stiffness - diffVel.getZ() * kDamp;
 
     _particleA->ApplyForce(-fX, -fY, -fZ);
     _particleB->ApplyForce( fX,  fY,  fZ);

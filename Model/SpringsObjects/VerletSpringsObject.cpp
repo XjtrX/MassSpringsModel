@@ -35,6 +35,11 @@ void VerletSpringsObject::ApplyAcceleration(const float &fX, const float &fY, co
     SpringsObject::ApplyAcceleration(fX, fY, fZ);
 }
 
+void VerletSpringsObject::ResolveCollisions(const float &timestep)
+{
+    SpringsObject::ResolveCollisions(timestep);
+}
+
 void VerletSpringsObject::Iteration(float timeInterval)
 {
     /*

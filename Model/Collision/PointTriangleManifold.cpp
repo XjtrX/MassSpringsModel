@@ -18,31 +18,12 @@ void PointTriangleManifold::ResolveCollision(const float& timestep)
 
     this->_t->RecalculatePlane();
     Point3D<float> projection = _t->CalculateProjection(D);
-//    projection.Print("projection");
     Point3D<float> bCPr = projection.BarycentricCoordinates(
               this->_t->_p[0]->_state._position
             , this->_t->_p[1]->_state._position
             , this->_t->_p[2]->_state._position);
-//    bCPr.Print("barycentricProjection");
     Point3D<float> disp = D;
     disp -= projection;
-
-//    disp.Normalization();
-//    float coeff = -0.0000010;
-
-    /*
-    Point3D<float> velP = _p->_state._position;
-    velP -= _p->_prevState._position;
-
-    Point3D<float> velT0 = _t->_p[0]->_state._position;
-    velT0 -= _t->_p[0]->_prevState._position;
-
-    Point3D<float> velT1 = _t->_p[1]->_state._position;
-    velT1 -= _t->_p[1]->_prevState._position;
-
-    Point3D<float> velT2 = _t->_p[2]->_state._position;
-    velT2 -= _t->_p[2]->_prevState._position;
-    */
 
 //    /*
     Point3D<float> velP = _p->_state._velocity;
@@ -53,20 +34,21 @@ void PointTriangleManifold::ResolveCollision(const float& timestep)
 
     Point3D<float> velT2 = _t->_p[2]->_state._velocity;
 //    */
-
     /*
-    Point3D<float> velT0 = dynamic_cast<RungeKuttaParticle*>(_t->_p[0])->_interm._velocity;
+    Point3D<float> velP = _p->_averageVelocity;
 
-    Point3D<float> velT1 = dynamic_cast<RungeKuttaParticle*>(_t->_p[1])->_interm._velocity;
+    Point3D<float> velT0 = _t->_p[0]->_averageVelocity;
 
-    Point3D<float> velT2 = dynamic_cast<RungeKuttaParticle*>(_t->_p[2])->_interm._velocity;
+    Point3D<float> velT1 = _t->_p[1]->_averageVelocity;
+
+    Point3D<float> velT2 = _t->_p[2]->_averageVelocity;
     */
-
+//    /*
     velP *= timestep;
     velT0 *= timestep;
     velT1 *= timestep;
     velT2 *= timestep;
-
+//    */
     velT0 *= bCPr._x;
     velT1 *= bCPr._y;
     velT2 *= bCPr._z;
@@ -91,25 +73,6 @@ void PointTriangleManifold::ResolveCollision(const float& timestep)
     _t->_p[1]->setVelocity(vTRes * bCPr._y, timestep);
     _t->_p[2]->setVelocity(vTRes * bCPr._z, timestep);
 
-    /*
-    if (!_p->_static)
-    {
-        _p->_prevState._position = _p->_state._position - vPRes / 25;
-    }
-
-    if (!_t->_p[0]->_static)
-    {
-        _t->_p[0]->_prevState._position = _t->_p[0]->_state._position - vTRes / 25 * bCPr._x;
-    }
-    if (!_t->_p[1]->_static)
-    {
-        _t->_p[1]->_prevState._position = _t->_p[1]->_state._position - vTRes / 25 * bCPr._y;
-    }
-    if (!_t->_p[2]->_static)
-    {
-        _t->_p[2]->_prevState._position = _t->_p[2]->_state._position - vTRes / 25 * bCPr._z;
-    }
-    */
     return;
 
 

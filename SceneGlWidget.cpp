@@ -27,8 +27,8 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     _perspectiveAngle = 45;
     connect(&_timer, SIGNAL(timeout()), this, SLOT(UpdateScene()));
 
-    int rows = 5;
-    int cols = 5;
+    int rows = 11;
+    int cols = 11;
     float width = 30;
     float heigth = 30;
     float massVolume = 1;
@@ -205,7 +205,7 @@ void SceneGLWidget::UpdateScene()
 {
     _scene.FlushHighlighting();
     _scene.Iteration(_timeInterval);
-    _scene.Collide(_timeInterval);
+    _scene.ResolveSelfCollision(_timeInterval);
     this->repaint();
     return;
     _timeToFrame += _timeInterval;

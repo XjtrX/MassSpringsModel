@@ -8,8 +8,9 @@ Particle::Particle(const Particle &particle)
 {
     this->_state = particle._state;
     this->_prevState = particle._prevState;
-//    this->_averageVelocity = particle._averageVelocity;
-//    this->_appliedForce = particle._appliedForce;
+    this->_averageVelocity = particle._averageVelocity;
+    this->_approximateVelocity = particle._approximateVelocity;
+    this->_appliedForce = particle._appliedForce;
     this->_massVolume = particle._massVolume;
     this->_borderRadius = particle._borderRadius;
     this->_static = particle._static;
@@ -65,7 +66,7 @@ void Particle::ApplyAcceleration(const float &aX, const float &aY, const float &
 
 void Particle::CalculateAverageVelocity(const float &timestep)
 {
-//    _averageVelocity = (_position._position - _prevPosition._position) / timestep;
+    _averageVelocity = (_state._position - _prevState._position) / timestep;
 }
 
 void Particle::Accelerate(const float &timestep)

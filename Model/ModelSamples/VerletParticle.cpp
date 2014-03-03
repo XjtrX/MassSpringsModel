@@ -54,7 +54,7 @@ Point3D<float>& VerletParticle::PrevPosition()
     return _prevState._position;
 }
 
-void VerletParticle::Collide(const float &timestep)
+void VerletParticle::Collide(const float &)
 {
 }
 

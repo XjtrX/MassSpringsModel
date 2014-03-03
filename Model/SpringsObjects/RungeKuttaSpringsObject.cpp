@@ -111,6 +111,11 @@ inline void RungeKuttaSpringsObject::Collide(const float &timestep)
     SpringsObject::Collide(timestep);
 }
 
+void RungeKuttaSpringsObject::ResolveCollisions(const float &timestep)
+{
+    SpringsObject::ResolveCollisions(timestep);
+}
+
 void RungeKuttaSpringsObject::MoveEachOther(const float &timestep)
 {
 

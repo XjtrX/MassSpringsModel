@@ -118,27 +118,21 @@ void RungeKuttaSpringsObject::MoveEachOther(const float &timestep)
     for (int i = 0; i < _particlesCount; i++)
     {
         RungeKuttaParticle* rKP = dynamic_cast<RungeKuttaParticle*>(_particles.at(i));
-//        Point3D<float> force = rKP->_appliedForce;
         rKP->ApplyAcceleration(0, -9.8, 0);
         rKP->RecalculateConnectionsAffort();
         rKP->ComputeK1(timestep);
 
-//        rKP->_appliedForce = force;
         rKP->ApplyAcceleration(0, -9.8, 0);
         rKP->RecalculateConnectionsAffort();
         rKP->ComputeK2(timestep);
 
-//        rKP->_appliedForce = force;
         rKP->ApplyAcceleration(0, -9.8, 0);
         rKP->RecalculateConnectionsAffort();
         rKP->ComputeK3(timestep);
 
-//        rKP->_appliedForce = force;
         rKP->ApplyAcceleration(0, -9.8, 0);
         rKP->RecalculateConnectionsAffort();
         rKP->ComputeK4(timestep);
-
-        //rKP->Move();
     }
     Move(timestep);
 }

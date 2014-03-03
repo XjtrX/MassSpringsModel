@@ -47,9 +47,9 @@ void SpringsObject::Draw(const DrawType &type)
 {
 //    glBegin(GL_TRIANGLES);
     glBegin(GL_LINES);
-    for (int i = 0; i < this->_springsCount; i++)
+    for (int i = 0; i < this->_clothTrianglesCount; i++)
     {
-        this->_springs[i]->Draw(type);
+        this->_clothTriangles[i]->Draw(type);
     }
     glEnd();
 }
@@ -231,16 +231,16 @@ int SpringsObject::TestTriangles(ClothTriangle* a, ClothTriangle* b)
         }
 
         Point3D<float> prP = b->CalculatePrevProjection(aIP);
-        Point3D<float> prN = b->CalculateProjection(aIC);
+        Point3D<float> prC = b->CalculateProjection(aIC);
 
         Point3D<float> vecP = prP;
         vecP -= aIP;
 
-        Point3D<float> vecN = prN;
-        vecN -= aIC;
+        Point3D<float> vecC = prC;
+        vecC -= aIC;
 
         float dPP = vecP.DotProduct(b->_prevNormal);
-        float dPN = vecN.DotProduct(b->_normal);
+        float dPC = vecC.DotProduct(b->_normal);
         /*
         if (b->isInTriangle(prN))
         {
@@ -248,9 +248,10 @@ int SpringsObject::TestTriangles(ClothTriangle* a, ClothTriangle* b)
         }
         */
         if (  /* b->isInPrevTriangle(prP)
-            &&*/ b->isInTriangle(prN)
-            && (  ((dPP > 0) && (dPN < 0))
-               || ((dPP < 0) && (dPN > 0)))
+            &&*/ b->isInTriangle(prC)
+            && (vecC.getSquaredLength() <= (_thickness * _thickness))
+            && (  ((dPP > 0) && (dPC < 0))
+               || ((dPP < 0) && (dPC > 0)))
             )
         {
 //            myRes = 1;
@@ -294,20 +295,21 @@ int SpringsObject::MyTestTriangles(ClothTriangle *a, ClothTriangle *b)
 
 
         Point3D<float> prP = b->CalculatePrevProjection(aIP);
-        Point3D<float> prN = b->CalculateProjection(aIC);
+        Point3D<float> prC = b->CalculateProjection(aIC);
 
         Point3D<float> vecP = prP;
         vecP -= aIP;
 
-        Point3D<float> vecN = prN;
-        vecN -= aIC;
+        Point3D<float> vecC = prC;
+        vecC -= aIC;
 
         float dPP = vecP.DotProduct(b->_prevNormal);
-        float dPN = vecN.DotProduct(b->_normal);
+        float dPC = vecC.DotProduct(b->_normal);
         if (  /* b->isInPrevTriangle(prP)
-            &&*/ b->isInTriangle(prN)
-            && (  ((dPP > 0) && (dPN < 0))
-               || ((dPP < 0) && (dPN > 0)))
+            &&*/ b->isInTriangle(prC)
+            && (vecC.getSquaredLength() <= (_thickness * _thickness))
+            && (  ((dPP > 0) && (dPC < 0))
+               || ((dPP < 0) && (dPC > 0)))
             )
         {
             PointTriangleManifold* m = new PointTriangleManifold(a->_p[i], b);

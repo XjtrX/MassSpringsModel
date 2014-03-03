@@ -22,7 +22,7 @@ public:
     void Iteration(float timeInterval);
 
     void AddSpringsObject(SpringsObject* springsObject);
-    virtual void Collide(int flag);
+    virtual void Collide(const float &timestep);
     virtual void FlushHighlighting();
     //void AddTriangleObstacle(TriangleObstacle* triangleObstacle);
     //void AddVerletParticle(VerletParticle* particle);

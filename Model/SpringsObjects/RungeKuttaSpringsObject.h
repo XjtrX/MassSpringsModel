@@ -7,7 +7,7 @@
 class RungeKuttaSpringsObject: public SpringsObject, public RungeKuttaObject
 {
 public:
-    RungeKuttaSpringsObject(int particlesCount, int springsCount, int structuralSpringsCount, int clothTrianglesCount);
+    RungeKuttaSpringsObject(const int& particlesCount, const int& springsCount, const int& structuralSpringsCount, const int& clothTrianglesCount, const float& thickness);
     virtual ~RungeKuttaSpringsObject();
 
 public:
@@ -18,15 +18,17 @@ public:
 
     virtual void Iteration(float timeInterval);
 
-    virtual void Move();
+    virtual void Move(const float &timestep);
     virtual void ApplyForce(const float &fX, const float &fY, const float &fZ);
     virtual void ApplyAcceleration(const float &fX, const float &fY, const float &fZ);
     virtual void Accelerate(const float &timestep);
     virtual void CalculateAverageVelocity(const float &timestep);
+    virtual void setVelocity(const Point3D<float> &newVelocity, const float &timestep);
+    virtual Point3D<float> getVelocity();
 
-    virtual void Collide(int flag);
+    virtual void Collide(const float &timestep);
 
-    virtual void MoveEachOther(float timestep);
+    virtual void MoveEachOther(const float& timestep);
 
     void RecalculateConnectionsAffort();
 };

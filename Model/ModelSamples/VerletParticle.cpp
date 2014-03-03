@@ -14,7 +14,7 @@ VerletParticle::~VerletParticle()
 {
 }
 
-void VerletParticle::Move()
+void VerletParticle::Move(const float &timestep)
 {
     if (_static)
     {
@@ -39,8 +39,9 @@ void VerletParticle::Move()
     _state._position *= (1 - coeff / 2);
     _prevState._position *= (1 - coeff);
     _state._position -= _prevState._position;
+    _state._velocity = (_state._position - _prevState._position) / timestep;
     _prevState = tempState;
-    //    */
+//    */
 }
 
 void VerletParticle::Accelerate(const float &timestep)
@@ -53,7 +54,7 @@ Point3D<float>& VerletParticle::PrevPosition()
     return _prevState._position;
 }
 
-void VerletParticle::Collide(int)
+void VerletParticle::Collide(const float &timestep)
 {
 }
 
@@ -70,4 +71,20 @@ void VerletParticle::ApplyAcceleration(const float &aX, const float &aY, const f
 void VerletParticle::CalculateAverageVelocity(const float &timestep)
 {
     Particle::CalculateAverageVelocity(timestep);
+}
+
+void VerletParticle::setVelocity(const Point3D<float> &newVelocity, const float &timestep)
+{
+    if (!_static)
+    {
+        _prevState._position = newVelocity;
+        _prevState._position *= -timestep;
+        _prevState._position += _state._position;
+        _state._velocity = newVelocity;
+    }
+}
+
+Point3D<float> VerletParticle::getVelocity()
+{
+    return Particle::getVelocity();
 }

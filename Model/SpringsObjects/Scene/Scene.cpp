@@ -80,7 +80,7 @@ void Scene::Iteration(float timeInterval)
     return;
     for (int i = 0; i < l; i++)
     {
-        _springsObjects[i]->Move();
+        _springsObjects[i]->Move(timeInterval);
     }
 }
 
@@ -223,11 +223,11 @@ void Scene::AddSpringsObject(SpringsObject *springsObject)
     }
 }
 
-void Scene::Collide(int flag)
+void Scene::Collide(const float &timestep)
 {
     for (uint i = 0; i < _springsObjects.size(); i++)
     {
-        _springsObjects.at(i)->Collide(flag);
+        _springsObjects.at(i)->Collide(timestep);
     }
 }
 

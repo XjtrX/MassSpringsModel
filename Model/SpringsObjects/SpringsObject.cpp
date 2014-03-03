@@ -18,18 +18,18 @@ SpringsObject::~SpringsObject()
     {
         delete _clothTriangles[i];
     }
+    return;
     for (int i = 0; i < _particlesCount; i++)
     {
         delete _particles[i];
     }
-
     for (int i = 0; i < _springsCount; i++)
     {
         delete _springs[i];
     }
 }
 
-SpringsObject::SpringsObject(int particlesCount, int springsCount, int structuralSpringsCount, int clothTrianglesCount)
+SpringsObject::SpringsObject(const int &particlesCount, const int &springsCount, const int &structuralSpringsCount, const int &clothTrianglesCount, const float &thickness)
 {
     _particlesCount = particlesCount;
     _particles = vector<Particle*>(particlesCount);
@@ -39,15 +39,17 @@ SpringsObject::SpringsObject(int particlesCount, int springsCount, int structura
     _structuralSprings = vector<Spring*>(structuralSpringsCount);
     _clothTrianglesCount = clothTrianglesCount;
     _clothTriangles = vector<ClothTriangle*>(clothTrianglesCount);
+
+    _thickness = thickness;
 }
 
 void SpringsObject::Draw(const DrawType &type)
 {
 //    glBegin(GL_TRIANGLES);
     glBegin(GL_LINES);
-    for (int i = 0; i < this->_clothTrianglesCount; i++)
+    for (int i = 0; i < this->_springsCount; i++)
     {
-        this->_clothTriangles[i]->Draw(type);
+        this->_springs[i]->Draw(type);
     }
     glEnd();
 }
@@ -92,12 +94,26 @@ void SpringsObject::CalculateAverageVelocity(const float &timestep)
     }
 }
 
-void SpringsObject::Move()
+void SpringsObject::Move(const float &timestep)
 {
     for (int i = 0; i < _particlesCount; i++)
     {
-        _particles[i]->Move();
+        _particles[i]->Move(timestep);
     }
+}
+
+void SpringsObject::setVelocity(const Point3D<float> &newVelocity, const float &timestep)
+{
+    for (int i = 0; i < _particlesCount; i++)
+    {
+        _particles[i]->setVelocity(newVelocity, timestep);
+    }
+}
+
+Point3D<float> SpringsObject::getVelocity()
+{
+    //unresolved
+    return Point3D<float>(0, 0, 0);
 }
 
 inline float distance(Point3D<float>* p1, Point3D<float>* p2)
@@ -248,13 +264,61 @@ int SpringsObject::TestTriangles(ClothTriangle* a, ClothTriangle* b)
             {
                 cout << "yeah\n";
             }
+            cout.flush();
         }
 
     }
     return result;
 }
 
-void SpringsObject::Collide(int)
+int SpringsObject::MyTestTriangles(ClothTriangle *a, ClothTriangle *b)
+{
+    if (a->isNeighbour(*b))
+    {
+        return 0;
+    }
+/*
+    Point3D<float>& b0P = b->_p[0]->_prevState._position;
+    Point3D<float>& b1P = b->_p[1]->_prevState._position;
+    Point3D<float>& b2P = b->_p[2]->_prevState._position;
+
+    Point3D<float>& b0C = b->_p[0]->_state._position;
+    Point3D<float>& b1C = b->_p[1]->_state._position;
+    Point3D<float>& b2C = b->_p[2]->_state._position;
+*/
+    int result = 0;
+    for (int i = 0; i < 3; i++)
+    {
+        Point3D<float>& aIP = a->_p[i]->_prevState._position;
+        Point3D<float>& aIC = a->_p[i]->_state._position;
+
+
+        Point3D<float> prP = b->CalculatePrevProjection(aIP);
+        Point3D<float> prN = b->CalculateProjection(aIC);
+
+        Point3D<float> vecP = prP;
+        vecP -= aIP;
+
+        Point3D<float> vecN = prN;
+        vecN -= aIC;
+
+        float dPP = vecP.DotProduct(b->_prevNormal);
+        float dPN = vecN.DotProduct(b->_normal);
+        if (  /* b->isInPrevTriangle(prP)
+            &&*/ b->isInTriangle(prN)
+            && (  ((dPP > 0) && (dPN < 0))
+               || ((dPP < 0) && (dPN > 0)))
+            )
+        {
+            PointTriangleManifold* m = new PointTriangleManifold(a->_p[i], b);
+            _manifolds.push_back(m);
+            result = 1;
+        }
+    }
+    return result;
+}
+
+void SpringsObject::Collide(const float &timestep)
 {
     for (int n = 0; n < 1; n++)
     {
@@ -269,7 +333,7 @@ void SpringsObject::Collide(int)
                 continue;
             }
             ClothTriangle* b = _clothTriangles[j];
-            if (TestTriangles(a, b))
+            if (MyTestTriangles(a, b))
             {
                 a->_highlighted = 1;
                 b->_highlighted = 1;
@@ -300,7 +364,7 @@ void SpringsObject::Collide(int)
             }
         }
     }
-    ResolveCollisions();
+    ResolveCollisions(timestep);
     }
 }
 
@@ -313,7 +377,7 @@ void SpringsObject::FlushHighlighting()
 }
 
 
-void SpringsObject::ResolveCollisions()
+void SpringsObject::ResolveCollisions(const float& timestep)
 {
     if (_manifolds.empty())
     {
@@ -321,7 +385,7 @@ void SpringsObject::ResolveCollisions()
     }
     while(!_manifolds.empty())
     {
-        _manifolds.back()->ResolveCollision();
+        _manifolds.back()->ResolveCollision(timestep);
         _manifolds.pop_back();
     }
 }

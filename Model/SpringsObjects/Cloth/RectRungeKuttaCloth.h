@@ -7,7 +7,7 @@ class RectRungeKuttaCloth: public RungeKuttaSpringsObject
 {
 public:
     RectRungeKuttaCloth(int cols, int rows, float width, float height
-              , float massVolume, float stiffnes, float borderRadius
+              , float massVolume, float stiffnes, float thickness
               , Point3D<float> rotation, Point3D<float> translation, const int &withBendSprings);
     virtual ~RectRungeKuttaCloth();
 };

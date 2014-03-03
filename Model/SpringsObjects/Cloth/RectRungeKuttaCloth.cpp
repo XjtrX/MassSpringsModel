@@ -11,7 +11,7 @@ void ConnectParticles(Particle* p1, Particle* p2, Spring* s)
 
 RectRungeKuttaCloth::RectRungeKuttaCloth(int cols, int rows, float width, float height
                                          , float massVolume, float stiffnes
-                                         , float borderRadius
+                                         , float thickness
                                          , Point3D<float> rotation
                                          , Point3D<float> translation
                                          , const int &withBendSprings)
@@ -19,7 +19,7 @@ RectRungeKuttaCloth::RectRungeKuttaCloth(int cols, int rows, float width, float 
                               , (cols - 1) * rows + cols * (rows - 1) + 2 * (cols - 1) * (rows - 1)
                               + ((cols - 2) * rows + cols * (rows - 2)) * (withBendSprings == 1 ? 1 : 0)
                               , (cols - 1) * rows + cols * (rows - 1)
-                              , (cols - 1) * (rows - 1) * 2)
+                              , (cols - 1) * (rows - 1) * 2, thickness)
 {
     //_particlesCount = cols * rows;: SpringsObject(particlesCount, springsCount)
     //_springsCount = (cols - 1) * rows + cols * (rows - 1) + 2 * (cols - 1) * (rows - 1);
@@ -50,7 +50,7 @@ RectRungeKuttaCloth::RectRungeKuttaCloth(int cols, int rows, float width, float 
                             m.RotateAndTranslatePoint(
                                 Point3D<float>(1.0 * width * c / cols, 1.0 * height * r / rows)
                                 , rotMatr, translation), Point3D<float>(0, 0, 0))
-                        , massOfParticle, borderRadius);
+                        , massOfParticle);
             if (c > 0)
             {
                 _springs[i++] = new Spring(_particles[r * cols + c - 1]

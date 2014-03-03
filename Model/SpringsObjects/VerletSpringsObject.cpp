@@ -1,7 +1,7 @@
 #include "VerletSpringsObject.h"
 
-VerletSpringsObject::VerletSpringsObject(int particlesCount, int springsCount, int structuralSpringsCount, int clothTrianglesCount)
-    : SpringsObject(particlesCount, springsCount, structuralSpringsCount, clothTrianglesCount)
+VerletSpringsObject::VerletSpringsObject(const int &particlesCount, const int &springsCount, const int &structuralSpringsCount, const int &clothTrianglesCount, const float &thickness)
+    : SpringsObject(particlesCount, springsCount, structuralSpringsCount, clothTrianglesCount, thickness)
 {
 }
 
@@ -20,9 +20,9 @@ void VerletSpringsObject::Accelerate(const float &timestep)
     SpringsObject::Accelerate(timestep);
 }
 
-void VerletSpringsObject::Move()
+void VerletSpringsObject::Move(const float &timestep)
 {
-    SpringsObject::Move();
+    SpringsObject::Move(timestep);
 }
 
 void VerletSpringsObject::ApplyForce(const float &fX, const float &fY, const float &fZ)
@@ -52,6 +52,6 @@ void VerletSpringsObject::Iteration(float timeInterval)
     this->RecalculateSprings();
 //    this->Accelerate(timeInterval);
 //    this->Move();
-    this->Move();
+    this->Move(timeInterval);
     this->Accelerate(timeInterval);
 }

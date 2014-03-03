@@ -17,7 +17,7 @@ class SpringsObject: public MovableObject, public DrawableObject
 public:
     SpringsObject();
 
-    SpringsObject(int particlesCount, int springsCount, int structuralSpringsCount, int clothTrianglesCount);
+    SpringsObject(const int& particlesCount, const int& springsCount, const int& structuralSpringsCount, const int& clothTrianglesCount, const float& thickness);
     virtual ~SpringsObject();
 
     virtual void Draw(const DrawType &type);
@@ -30,12 +30,15 @@ public:
     virtual void ApplyAcceleration(const float &fX, const float &fY, const float &fZ);
     virtual void Accelerate(const float &timestep);
     virtual void CalculateAverageVelocity(const float &timestep);
-    virtual void Move();
-    virtual void Collide(int flag);
+    virtual void Move(const float &timestep);
+    virtual void setVelocity(const Point3D<float> &newVelocity, const float &timestep);
+    virtual Point3D<float> getVelocity();
+    virtual void Collide(const float &timestep);
     virtual void FlushHighlighting();
 
     int TestTriangles(ClothTriangle* a, ClothTriangle* b);
-    void ResolveCollisions();
+    int MyTestTriangles(ClothTriangle* a, ClothTriangle* b);
+    void ResolveCollisions(const float& timestep);
 
 public:
     int _particlesCount;
@@ -46,6 +49,8 @@ public:
     vector<Spring*> _springs;
     vector<Spring*> _structuralSprings;
     vector<ClothTriangle*> _clothTriangles;
+
+    float _thickness;
 
     list<PointTriangleManifold*> _manifolds;
 };

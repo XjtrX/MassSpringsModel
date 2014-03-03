@@ -15,13 +15,15 @@ public:
                    , const int st = 0);
     virtual ~VerletParticle();
 
-    virtual void Move();
+    virtual void Move(const float &timestep);
     virtual void Accelerate(const float &timestep);
-    virtual void Collide(int flag);
+    virtual void Collide(const float &timestep);
 
     virtual void ApplyForce(const float &fX, const float &fY, const float &fZ);
     virtual void ApplyAcceleration(const float &aX, const float &aY, const float &aZ);
     virtual void CalculateAverageVelocity(const float &timestep);
+    virtual void setVelocity(const Point3D<float> &newVelocity, const float &timestep);
+    virtual Point3D<float> getVelocity();
 
     Point3D<float>& PrevPosition();
 };

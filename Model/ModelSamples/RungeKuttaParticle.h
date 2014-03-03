@@ -54,12 +54,15 @@ public:
                        , const int st = 0);
     virtual ~RungeKuttaParticle();
 
-    virtual void Move();
+    virtual void Move(const float &timestep);
 
     virtual void ApplyForce(const float &fX, const float &fY, const float &fZ);
     virtual void ApplyAcceleration(const float &aX, const float &aY, const float &aZ);
     virtual void Accelerate(const float &timestep);
     virtual void CalculateAverageVelocity(const float &timestep);
+
+    virtual void setVelocity(const Point3D<float> &newVelocity, const float &timestep);
+    virtual Point3D<float> getVelocity();
 
     virtual ParticleState RKTransformation(const ParticleState particleState, float dt);
     virtual void ComputeK1(float timestep);
@@ -67,7 +70,7 @@ public:
     virtual void ComputeK3(float timestep);
     virtual void ComputeK4(float timestep);
 
-    virtual void Collide(int flag);
+    virtual void Collide(const float &timestep);
 
     void AddConnection(Spring* spring, Particle* particle);
     void RecalculateConnectionsAffort();

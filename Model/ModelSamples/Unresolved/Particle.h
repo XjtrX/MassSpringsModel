@@ -34,12 +34,15 @@ public:
 
     Point3D<float>& getPosition();
 
-    virtual void Move() = 0;
+    virtual void Move(const float &timestep) = 0;
     virtual void ApplyForce(const float& fX, const float& fY, const float& fZ);
     virtual void ApplyAcceleration(const float &aX, const float &aY, const float &aZ);
     virtual void CalculateAverageVelocity(const float &timestep);
     virtual void Accelerate(const float &timestep);
-    virtual void Collide(int flag);
+    virtual void Collide(const float &timestep);
+
+    virtual void setVelocity(const Point3D<float> &newVelocity, const float &timestep) = 0;
+    virtual Point3D<float> getVelocity();
 };
 
 #endif // PARTICLE_H

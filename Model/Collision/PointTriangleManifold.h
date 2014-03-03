@@ -13,7 +13,7 @@ public:
     PointTriangleManifold(Particle* p, ClothTriangle* t);
     virtual ~PointTriangleManifold();
 
-    void ResolveCollision();
+    void ResolveCollision(const float &timestep);
 };
 
 #endif // POINTTRIANGLEMANIFOLD_H

@@ -12,7 +12,7 @@ PointTriangleManifold::~PointTriangleManifold()
 {
 }
 
-void PointTriangleManifold::ResolveCollision()
+void PointTriangleManifold::ResolveCollision(const float& timestep)
 {
     Point3D<float>& D = _p->_state._position;
 
@@ -30,6 +30,7 @@ void PointTriangleManifold::ResolveCollision()
 //    disp.Normalization();
 //    float coeff = -0.0000010;
 
+    /*
     Point3D<float> velP = _p->_state._position;
     velP -= _p->_prevState._position;
 
@@ -41,7 +42,30 @@ void PointTriangleManifold::ResolveCollision()
 
     Point3D<float> velT2 = _t->_p[2]->_state._position;
     velT2 -= _t->_p[2]->_prevState._position;
+    */
 
+//    /*
+    Point3D<float> velP = _p->_state._velocity;
+
+    Point3D<float> velT0 = _t->_p[0]->_state._velocity;
+
+    Point3D<float> velT1 = _t->_p[1]->_state._velocity;
+
+    Point3D<float> velT2 = _t->_p[2]->_state._velocity;
+//    */
+
+    /*
+    Point3D<float> velT0 = dynamic_cast<RungeKuttaParticle*>(_t->_p[0])->_interm._velocity;
+
+    Point3D<float> velT1 = dynamic_cast<RungeKuttaParticle*>(_t->_p[1])->_interm._velocity;
+
+    Point3D<float> velT2 = dynamic_cast<RungeKuttaParticle*>(_t->_p[2])->_interm._velocity;
+    */
+
+    velP *= timestep;
+    velT0 *= timestep;
+    velT1 *= timestep;
+    velT2 *= timestep;
 
     velT0 *= bCPr._x;
     velT1 *= bCPr._y;
@@ -61,6 +85,13 @@ void PointTriangleManifold::ResolveCollision()
 
     Point3D<float> vTRes = (velT * (mT - mP) + velP * (2 * mP)) / (mP + mT);
 
+
+    _p->setVelocity(vPRes, timestep);
+    _t->_p[0]->setVelocity(vTRes * bCPr._x, timestep);
+    _t->_p[1]->setVelocity(vTRes * bCPr._y, timestep);
+    _t->_p[2]->setVelocity(vTRes * bCPr._z, timestep);
+
+    /*
     if (!_p->_static)
     {
         _p->_prevState._position = _p->_state._position - vPRes / 25;
@@ -78,7 +109,7 @@ void PointTriangleManifold::ResolveCollision()
     {
         _t->_p[2]->_prevState._position = _t->_p[2]->_state._position - vTRes / 25 * bCPr._z;
     }
-
+    */
     return;
 
 

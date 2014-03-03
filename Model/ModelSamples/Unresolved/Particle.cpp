@@ -80,8 +80,13 @@ void Particle::Accelerate(const float &timestep)
      _appliedForce.set(0, 0, 0);
 }
 
-void Particle::Collide(int)
+void Particle::Collide(const float &timestep)
 {
+}
+
+Point3D<float> Particle::getVelocity()
+{
+    return _state._velocity;
 }
 
 int Particle::isStatic()

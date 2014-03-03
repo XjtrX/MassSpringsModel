@@ -5,8 +5,8 @@
 #include "omp.h"
 using namespace std;
 
-RungeKuttaSpringsObject::RungeKuttaSpringsObject(int particlesCount, int springsCount, int structuralSpringsCount, int clothTrianglesCount)
-    : SpringsObject(particlesCount, springsCount, structuralSpringsCount, clothTrianglesCount)
+RungeKuttaSpringsObject::RungeKuttaSpringsObject(const int &particlesCount, const int &springsCount, const int &structuralSpringsCount, const int &clothTrianglesCount, const float &thickness)
+    : SpringsObject(particlesCount, springsCount, structuralSpringsCount, clothTrianglesCount, thickness)
 {
 }
 
@@ -71,9 +71,9 @@ void RungeKuttaSpringsObject::Iteration(float timeInterval)
 */
 }
 
-void RungeKuttaSpringsObject::Move()
+void RungeKuttaSpringsObject::Move(const float &timestep)
 {
-    SpringsObject::Move();
+    SpringsObject::Move(timestep);
 }
 
 inline void RungeKuttaSpringsObject::ApplyForce(const float &fX, const float &fY, const float &fZ)
@@ -96,12 +96,22 @@ void RungeKuttaSpringsObject::CalculateAverageVelocity(const float &timestep)
     SpringsObject::CalculateAverageVelocity(timestep);
 }
 
-inline void RungeKuttaSpringsObject::Collide(int flag)
+void RungeKuttaSpringsObject::setVelocity(const Point3D<float> &newVelocity, const float &timestep)
 {
-    SpringsObject::Collide(flag);
+    SpringsObject::setVelocity(newVelocity, timestep);
 }
 
-void RungeKuttaSpringsObject::MoveEachOther(float timestep)
+Point3D<float> RungeKuttaSpringsObject::getVelocity()
+{
+    return SpringsObject::getVelocity();
+}
+
+inline void RungeKuttaSpringsObject::Collide(const float &timestep)
+{
+    SpringsObject::Collide(timestep);
+}
+
+void RungeKuttaSpringsObject::MoveEachOther(const float &timestep)
 {
 
     #pragma omp parallel for
@@ -130,7 +140,7 @@ void RungeKuttaSpringsObject::MoveEachOther(float timestep)
 
         //rKP->Move();
     }
-    Move();
+    Move(timestep);
 }
 
 void RungeKuttaSpringsObject::RecalculateConnectionsAffort()

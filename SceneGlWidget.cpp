@@ -27,8 +27,8 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     _perspectiveAngle = 45;
     connect(&_timer, SIGNAL(timeout()), this, SLOT(UpdateScene()));
 
-    int rows = 9;
-    int cols = 9;
+    int rows = 5;
+    int cols = 5;
     float width = 30;
     float heigth = 30;
     float massVolume = 1;
@@ -36,7 +36,7 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     float borderRadius = 1;
     int withBendSpring = 0;
 
-    SpringsObject* rC = new RectVerletCloth(cols, rows
+    SpringsObject* rC = new RectRungeKuttaCloth(cols, rows
                                                 , width, heigth
                                                 , massVolume, stiffness, borderRadius
                                   , Point3D<float>(90, 0, 0)
@@ -131,7 +131,7 @@ curr
 //    Point3D<float> prN = b.CalculateProjection(a1n);
 //    cout << "isInTriangle " << b.isInTriangle(prN) << endl;
 
-//    Point3D<float> vecN = prN;
+//    Point3D<fVerletClothloat> vecN = prN;
 //    vecN -= a1n;
 
 //    glColor3f(1, 0, 0);
@@ -205,9 +205,9 @@ void SceneGLWidget::UpdateScene()
 {
     _scene.FlushHighlighting();
     _scene.Iteration(_timeInterval);
-//    _scene.Collide(0);
-    //this->repaint();
-    //return;
+    _scene.Collide(0);
+    this->repaint();
+    return;
     _timeToFrame += _timeInterval;
     if (_timeToFrame >= _repaintDelay)
     {

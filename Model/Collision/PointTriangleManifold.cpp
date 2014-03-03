@@ -14,15 +14,15 @@ PointTriangleManifold::~PointTriangleManifold()
 
 void PointTriangleManifold::ResolveCollision()
 {
-    Point3D<float>& D = _p->_position;
+    Point3D<float>& D = _p->_state._position;
 
     this->_t->RecalculatePlane();
     Point3D<float> projection = _t->CalculateProjection(D);
 //    projection.Print("projection");
     Point3D<float> bCPr = projection.BarycentricCoordinates(
-              this->_t->_p[0]->_position
-            , this->_t->_p[1]->_position
-            , this->_t->_p[2]->_position);
+              this->_t->_p[0]->_state._position
+            , this->_t->_p[1]->_state._position
+            , this->_t->_p[2]->_state._position);
 //    bCPr.Print("barycentricProjection");
     Point3D<float> disp = D;
     disp -= projection;
@@ -30,17 +30,17 @@ void PointTriangleManifold::ResolveCollision()
 //    disp.Normalization();
 //    float coeff = -0.0000010;
 
-    Point3D<float> velP = _p->_position;
-    velP -= _p->_prevPosition;
+    Point3D<float> velP = _p->_state._position;
+    velP -= _p->_prevState._position;
 
-    Point3D<float> velT0 = _t->_p[0]->_position;
-    velT0 -= _t->_p[0]->_prevPosition;
+    Point3D<float> velT0 = _t->_p[0]->_state._position;
+    velT0 -= _t->_p[0]->_prevState._position;
 
-    Point3D<float> velT1 = _t->_p[1]->_position;
-    velT1 -= _t->_p[1]->_prevPosition;
+    Point3D<float> velT1 = _t->_p[1]->_state._position;
+    velT1 -= _t->_p[1]->_prevState._position;
 
-    Point3D<float> velT2 = _t->_p[2]->_position;
-    velT2 -= _t->_p[2]->_prevPosition;
+    Point3D<float> velT2 = _t->_p[2]->_state._position;
+    velT2 -= _t->_p[2]->_prevState._position;
 
 
     velT0 *= bCPr._x;
@@ -63,20 +63,20 @@ void PointTriangleManifold::ResolveCollision()
 
     if (!_p->_static)
     {
-        _p->_prevPosition = _p->_position - vPRes / 25;
+        _p->_prevState._position = _p->_state._position - vPRes / 25;
     }
 
     if (!_t->_p[0]->_static)
     {
-        _t->_p[0]->_prevPosition = _t->_p[0]->_position - vTRes / 25 * bCPr._x;
+        _t->_p[0]->_prevState._position = _t->_p[0]->_state._position - vTRes / 25 * bCPr._x;
     }
     if (!_t->_p[1]->_static)
     {
-        _t->_p[1]->_prevPosition = _t->_p[1]->_position - vTRes / 25 * bCPr._y;
+        _t->_p[1]->_prevState._position = _t->_p[1]->_state._position - vTRes / 25 * bCPr._y;
     }
     if (!_t->_p[2]->_static)
     {
-        _t->_p[2]->_prevPosition = _t->_p[2]->_position - vTRes / 25 * bCPr._z;
+        _t->_p[2]->_prevState._position = _t->_p[2]->_state._position - vTRes / 25 * bCPr._z;
     }
 
     return;

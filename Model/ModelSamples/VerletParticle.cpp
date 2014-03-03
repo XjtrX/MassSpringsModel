@@ -4,12 +4,10 @@ VerletParticle::VerletParticle()
 {
 }
 
-VerletParticle::VerletParticle(const Point3D<float> &initialPosition
+VerletParticle::VerletParticle(const ParticleState &initialState
                                , const float massVolume, const float borderRadius, const int st)
-    : Particle(initialPosition, massVolume, borderRadius, st)
+    : Particle(initialState, massVolume, borderRadius, st)
 {
-    _prevPosition = initialPosition;
-    _appliedForce.set(0, 0, 0);
 }
 
 VerletParticle::~VerletParticle()
@@ -20,12 +18,12 @@ void VerletParticle::Move()
 {
     if (_static)
     {
-        _position = _prevPosition;
+        _state._position = _prevState._position;
         _appliedForce.set(0, 0, 0);
         return;
     }
 
-    Point3D<float> tempPoisition = _position;
+    ParticleState tempState = _state;
     /*
     //_position.Plus(_position);
     _position += _position;
@@ -37,11 +35,11 @@ void VerletParticle::Move()
     */
 //    /*
     float coeff = 0.02;
-    _position += _position;
-    _position *= (1 - coeff / 2);
-    _prevPosition *= (1 - coeff);
-    _position -= _prevPosition;
-    _prevPosition = tempPoisition;
+    _state._position += _state._position;
+    _state._position *= (1 - coeff / 2);
+    _prevState._position *= (1 - coeff);
+    _state._position -= _prevState._position;
+    _prevState = tempState;
     //    */
 }
 
@@ -52,7 +50,7 @@ void VerletParticle::Accelerate(const float &timestep)
 
 Point3D<float>& VerletParticle::PrevPosition()
 {
-    return _prevPosition;
+    return _prevState._position;
 }
 
 void VerletParticle::Collide(int)

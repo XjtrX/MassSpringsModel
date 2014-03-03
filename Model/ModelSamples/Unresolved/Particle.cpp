@@ -6,8 +6,8 @@ Particle::Particle()
 
 Particle::Particle(const Particle &particle)
 {
-    this->_position = particle._position;
-    this->_prevPosition = particle._prevPosition;
+    this->_state = particle._state;
+    this->_prevState = particle._prevState;
 //    this->_averageVelocity = particle._averageVelocity;
 //    this->_appliedForce = particle._appliedForce;
     this->_massVolume = particle._massVolume;
@@ -15,11 +15,11 @@ Particle::Particle(const Particle &particle)
     this->_static = particle._static;
 }
 
-Particle::Particle(const Point3D<float>& initialPosition
+Particle::Particle(const ParticleState& initialState
                    , const float& massVolume, const float& borderRadius, const int& st)
 {
-    _position = initialPosition;
-    _prevPosition = initialPosition;
+    _state = initialState;
+    _prevState = initialState;
 //    _averageVelocity.set(0, 0, 0);
 //    _appliedForce.set(0, 0, 0);
     _massVolume = massVolume;
@@ -36,9 +36,9 @@ void Particle::Draw()
     GLUquadricObj* Sphere;
     Sphere = gluNewQuadric();
     glPushMatrix();
-        glTranslatef(_position.getX()
-                     , _position.getY()
-                     , _position.getZ());
+        glTranslatef(_state._position.getX()
+                     , _state._position.getY()
+                     , _state._position.getZ());
         gluSphere(Sphere, _borderRadius, 10, 10);
     glPopMatrix();
     gluDeleteQuadric(Sphere);
@@ -46,7 +46,7 @@ void Particle::Draw()
 
 Point3D<float>& Particle::getPosition()
 {
-    return _position;
+    return _state._position;
 }
 
 void Particle::ApplyForce(const float &fX, const float &fY, const float &fZ)
@@ -74,13 +74,10 @@ void Particle::Accelerate(const float &timestep)
         return;
     }
     float koeff = timestep * timestep / 2 / _massVolume;
-     _position += _appliedForce * koeff;
-      /*
-    _position._position.PlusX(_appliedForce.getX() * koeff);
-    _position._position.PlusY(_appliedForce.getY() * koeff);
-    _position._position.PlusZ(_appliedForce.getZ() * koeff);
-     */
-    _appliedForce.set(0, 0, 0);
+    _state._position += _appliedForce * koeff;
+    _state._velocity += _appliedForce / _massVolume * timestep;
+
+     _appliedForce.set(0, 0, 0);
 }
 
 void Particle::Collide(int)

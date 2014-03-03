@@ -2,7 +2,7 @@
 #define PARTICLE_H
 
 #include "Model/Interfaces/DrawableObject.h"
-//#include "3DMath/ParticlePosition.h"
+#include "3DMath/ParticleState.h"
 
 #include "Model/Interfaces/MovableObject.h"
 
@@ -11,15 +11,13 @@ class Particle: public MovableObject
 public:
     Particle();
     Particle(const Particle& particle);
-    Particle(const Point3D<float>& initialPosition
+    Particle(const ParticleState& initialState
              , const float& massVolume, const float& borderRadius = 1, const int& st = 0);
     virtual ~Particle();
 
 public:
-    Point3D<float> _position;
-    Point3D<float> _prevPosition;
-    Point3D<float> _velocity;
-    Point3D<float> _prevVelocity;
+    ParticleState _state;
+    ParticleState _prevState;
     Point3D<float> _averageVelocity;
     Point3D<float> _appliedForce;
     float _massVolume;

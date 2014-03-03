@@ -36,9 +36,9 @@ public:
     {
         _prevNormal = _normal;
         _prevDCoeff = _DCoeff;
-        Point3D<float>& A = this->_p[0]->_position;
-        Point3D<float>& B = this->_p[1]->_position;
-        Point3D<float>& C = this->_p[2]->_position;
+        Point3D<float>& A = this->_p[0]->_state._position;
+        Point3D<float>& B = this->_p[1]->_state._position;
+        Point3D<float>& C = this->_p[2]->_state._position;
 
         Point3D<float> AB = B;
         AB -= A;
@@ -64,19 +64,19 @@ public:
 
     int isInTriangle(const Point3D<float>& p)
     {
-        Point3D<float> AB = _p[1]->_position;
-        AB -= _p[0]->_position;
-        Point3D<float> BC = _p[2]->_position;
-        BC -= _p[1]->_position;
-        Point3D<float> CA = _p[0]->_position;
-        CA -= _p[2]->_position;
+        Point3D<float> AB = _p[1]->_state._position;
+        AB -= _p[0]->_state._position;
+        Point3D<float> BC = _p[2]->_state._position;
+        BC -= _p[1]->_state._position;
+        Point3D<float> CA = _p[0]->_state._position;
+        CA -= _p[2]->_state._position;
 
         Point3D<float> AP = p;
-        AP -= _p[0]->_position;
+        AP -= _p[0]->_state._position;
         Point3D<float> BP = p;
-        BP -= _p[1]->_position;
+        BP -= _p[1]->_state._position;
         Point3D<float> CP = p;
-        CP -= _p[2]->_position;
+        CP -= _p[2]->_state._position;
 
         Point3D<float> cPA = Point3D<float>::CrossProduct(AB, AP);
         Point3D<float> cPB = Point3D<float>::CrossProduct(BC, BP);
@@ -94,19 +94,19 @@ public:
 
     int isInPrevTriangle(const Point3D<float>& p)
     {
-        Point3D<float> AB = _p[1]->_prevPosition;
-        AB -= _p[0]->_prevPosition;
-        Point3D<float> BC = _p[2]->_prevPosition;
-        BC -= _p[1]->_prevPosition;
-        Point3D<float> CA = _p[0]->_prevPosition;
-        CA -= _p[2]->_prevPosition;
+        Point3D<float> AB = _p[1]->_prevState._position;
+        AB -= _p[0]->_prevState._position;
+        Point3D<float> BC = _p[2]->_prevState._position;
+        BC -= _p[1]->_prevState._position;
+        Point3D<float> CA = _p[0]->_prevState._position;
+        CA -= _p[2]->_prevState._position;
 
         Point3D<float> AP = p;
-        AP -= _p[0]->_prevPosition;
+        AP -= _p[0]->_prevState._position;
         Point3D<float> BP = p;
-        BP -= _p[1]->_prevPosition;
+        BP -= _p[1]->_prevState._position;
         Point3D<float> CP = p;
-        CP -= _p[2]->_prevPosition;
+        CP -= _p[2]->_prevState._position;
 
         Point3D<float> cPA = Point3D<float>::CrossProduct(AB, AP);
         Point3D<float> cPB = Point3D<float>::CrossProduct(BC, BP);
@@ -147,9 +147,9 @@ public:
 
     inline void DrawTriangle()
     {
-        DrawLine(_p[0]->_position, _p[1]->_position);
-        DrawLine(_p[1]->_position, _p[2]->_position);
-        DrawLine(_p[2]->_position, _p[0]->_position);
+        DrawLine(_p[0]->_state._position, _p[1]->_state._position);
+        DrawLine(_p[1]->_state._position, _p[2]->_state._position);
+        DrawLine(_p[2]->_state._position, _p[0]->_state._position);
     }
 
     inline int isNeighbour(const ClothTriangle& other)

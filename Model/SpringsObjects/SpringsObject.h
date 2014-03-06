@@ -36,11 +36,11 @@ public:
     virtual void Collide(const float &timestep);
     virtual void FlushHighlighting();
 
-    void ResolveSelfCollision(const float& timestep);
+    virtual void ResolveSelfCollision(const float& timestep);
 
     int TestTriangles(ClothTriangle* a, ClothTriangle* b);
     int MyTestTriangles(ClothTriangle* a, ClothTriangle* b);
-    virtual void ResolveCollisions(const float& timestep);
+    void ResolveCollisions(const float& timestep);
 
 public:
     int _particlesCount;

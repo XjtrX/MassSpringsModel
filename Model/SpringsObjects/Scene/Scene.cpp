@@ -210,6 +210,7 @@ void Scene::Collide(int flag)
 void Scene::AddSpringsObject(SpringsObject *springsObject)
 {
     _springsObjects.push_back(springsObject);
+    /*
     for (vector<Particle*>::iterator it = springsObject->_particles.begin();
          it != springsObject->_particles.end(); ++it)
     {
@@ -221,6 +222,7 @@ void Scene::AddSpringsObject(SpringsObject *springsObject)
     {
         _springs.push_back(*it);
     }
+    */
 }
 
 void Scene::Collide(const float &timestep)
@@ -236,6 +238,14 @@ void Scene::FlushHighlighting()
     for (uint i = 0; i < _springsObjects.size(); i++)
     {
         _springsObjects.at(i)->FlushHighlighting();
+    }
+}
+
+void Scene::ResolveSelfCollision(const float &timestep)
+{
+    for (uint i = 0; i < _springsObjects.size(); i++)
+    {
+        _springsObjects.at(i)->ResolveSelfCollision(timestep);
     }
 }
 

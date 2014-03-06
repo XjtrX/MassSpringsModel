@@ -26,6 +26,8 @@ public:
     virtual void FlushHighlighting();
     //void AddTriangleObstacle(TriangleObstacle* triangleObstacle);
     //void AddVerletParticle(VerletParticle* particle);
+
+    virtual void ResolveSelfCollision(const float &timestep);
 private:
     vector<Particle*> _particles;
 //    vector<Particle*> _freeParticles;

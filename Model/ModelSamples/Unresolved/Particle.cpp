@@ -81,7 +81,7 @@ void Particle::Accelerate(const float &timestep)
      _appliedForce.set(0, 0, 0);
 }
 
-void Particle::Collide(const float &timestep)
+void Particle::Collide(const float &)
 {
 }
 

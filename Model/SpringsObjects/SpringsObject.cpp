@@ -14,11 +14,11 @@ SpringsObject::SpringsObject()
 
 SpringsObject::~SpringsObject()
 {
+    return;
     for (int i = 0; i < _clothTrianglesCount; i++)
     {
         delete _clothTriangles[i];
     }
-    return;
     for (int i = 0; i < _particlesCount; i++)
     {
         delete _particles[i];
@@ -365,7 +365,7 @@ void SpringsObject::Collide(const float &timestep)
             }
         }
     }
-    this->ResolveCollisions(timestep);
+    //this->ResolveCollisions(timestep);
 }
 
 void SpringsObject::FlushHighlighting()
@@ -393,10 +393,6 @@ void SpringsObject::ResolveSelfCollision(const float &timestep)
 
 void SpringsObject::ResolveCollisions(const float& timestep)
 {
-    if (_manifolds.empty())
-    {
-        return;
-    }
     while(!_manifolds.empty())
     {
         _manifolds.back()->ResolveCollision(timestep);

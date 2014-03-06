@@ -53,7 +53,7 @@ Point3D<float> RungeKuttaParticle::getVelocity()
     return _state._velocity;
 }
 
-void RungeKuttaParticle::Move(const float &timestep)
+void RungeKuttaParticle::Move(const float &)
 {
     if (_static)
     {
@@ -116,7 +116,7 @@ void RungeKuttaParticle::ComputeK4(float timestep)
     _k4 = RKTransformation(_interm + _k3, timestep) * timestep;
 }
 
-void RungeKuttaParticle::Collide(const float &timestep)
+void RungeKuttaParticle::Collide(const float &)
 {
 }
 

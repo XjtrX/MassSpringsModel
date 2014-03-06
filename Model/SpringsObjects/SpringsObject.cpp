@@ -185,7 +185,7 @@ int SpringsObject::TestTriangles(ClothTriangle* a, ClothTriangle* b)
 {
     if (a->isNeighbour(*b))
     {
-        return 0;
+        return -1;
     }
 
     Point3D<float>& b0P = b->_p[0]->_prevState._position;
@@ -330,6 +330,7 @@ int SpringsObject::MyTestTriangles(ClothTriangle *a, ClothTriangle *b)
 
 void SpringsObject::Collide(const float &)
 {
+    this->FlushZones();
     for (int i = 0; i < _clothTrianglesCount; i++)
     {
         ClothTriangle* a = _clothTriangles[i];
@@ -341,7 +342,12 @@ void SpringsObject::Collide(const float &)
                 continue;
             }
             ClothTriangle* b = _clothTriangles[j];
-            if (MyTestTriangles(a, b))
+            int testRes = MyTestTriangles(a, b);
+            if (testRes)
+            {
+                MergeTriangles(a, b);
+            }
+            if (1 == testRes)
             {
                 a->_highlighted = 1;
                 b->_highlighted = 1;
@@ -392,6 +398,12 @@ void SpringsObject::ResolveSelfCollision(const float &timestep)
     this->Collide(timestep);
     this->ResolveCollisions(timestep);
     //5. check linear trajectories for collusion
+//    this->MergingToZones();
+    if (_impactZones.size())
+    {
+        cout << "zones: " << _impactZones.size() << endl;
+    }
+    this->ResolveImpactZones();
     //6. compute the final position
     this->ComputeFinalPosition(timestep);
     //7.
@@ -405,4 +417,136 @@ void SpringsObject::ResolveCollisions(const float& timestep)
         _manifolds.back()->ResolveCollisionByProvot(timestep);
         _manifolds.pop_back();
     }
+}
+
+int SpringsObject::CheckProximity(ClothTriangle *a, ClothTriangle *b)
+{
+    if (a->isNeighbour(*b))
+    {
+        return -1;
+    }
+    for (int i = 0; i < 3; i++)
+    {
+        Point3D<float>& aIP = a->_p[i]->_prevState._position;
+        Point3D<float>& aIC = a->_p[i]->_state._position;
+
+
+        Point3D<float> prP = b->CalculatePrevProjection(aIP);
+        Point3D<float> prC = b->CalculateProjection(aIC);
+
+        Point3D<float> vecP = prP;
+        vecP -= aIP;
+
+        Point3D<float> vecC = prC;
+        vecC -= aIC;
+
+        float dPP = vecP.DotProduct(b->_prevNormal);
+        float dPC = vecC.DotProduct(b->_normal);
+        if (  /* b->isInPrevTriangle(prP)
+            &&*/ b->isInTriangle(prC)
+            && (vecC.getSquaredLength() <= (_thickness * _thickness))
+            && (  ((dPP > 0) && (dPC < 0))
+               || ((dPP < 0) && (dPC > 0)))
+            )
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+void SpringsObject::FlushZones()
+{
+    for (int i = 0; i < _clothTrianglesCount; i++)
+    {
+        _clothTriangles[i]->_zoneNum = -1;
+    }
+}
+
+void SpringsObject::MergingToZones()
+{
+    this->FlushZones();
+    for (int i = 0; i < _clothTrianglesCount; i++)
+    {
+        for (int j = 0; j < _clothTrianglesCount; j++)
+        {
+            if (j == i)
+            {
+                continue;
+            }
+            if (CheckProximity(_clothTriangles[i], _clothTriangles[j]))
+            {
+                MergeTriangles(_clothTriangles[i], _clothTriangles[j]);
+            }
+        }
+    }
+}
+
+void SpringsObject::MergeTriangles(ClothTriangle *a, ClothTriangle *b)
+{
+    if (a->_zoneNum != -1 && a->_zoneNum == b->_zoneNum)
+    {
+        return;
+    }
+    if (-1 == a->_zoneNum && -1 == b->_zoneNum)
+    {
+        int zoneNum = _impactZones.size();
+        a->_zoneNum = zoneNum;
+        a->_zoneNum = zoneNum;
+        _impactZones.push_back(vector<ClothTriangle*>());
+        _impactZones.back().push_back(a);
+        _impactZones.back().push_back(b);
+        return;
+    }
+    if (-1 != a->_zoneNum && -1 == b->_zoneNum)
+    {
+        int zoneNum = a->_zoneNum;
+        b->_zoneNum = zoneNum;
+        _impactZones[zoneNum].push_back(b);
+        return;
+    }
+    if (-1 == a->_zoneNum && -1 != b->_zoneNum)
+    {
+        int zoneNum = b->_zoneNum;
+        a->_zoneNum = zoneNum;
+        _impactZones[zoneNum].push_back(a);
+        return;
+    }
+    MergeZones(a->_zoneNum, b->_zoneNum);
+}
+
+void SpringsObject::MergeZones(int a, int b)
+{
+    if (    a == b
+        || -1 == a || -1 == b
+        || (int)_impactZones.size() <= a
+        || (int)_impactZones.size() <= b)
+    {
+        return;
+    }
+    if (a > b)
+    {
+        int tmp = a;
+        a = b;
+        b = tmp;
+    }
+    for (vector<ClothTriangle*>::iterator it = _impactZones[b].begin(); it != _impactZones[b].end(); ++it)
+    {
+        (*it)->_zoneNum = a;
+    }
+    _impactZones[a].insert(_impactZones[a].end(), _impactZones[b].begin(), _impactZones[b].end());
+
+    _impactZones.erase(_impactZones.begin() + b);
+}
+
+void SpringsObject::ResolveImpactZones()
+{
+    vector<vector<ClothTriangle*> >::iterator it;
+    for (it = _impactZones.begin(); it != _impactZones.end(); ++it)
+    {
+        //
+        it->erase(it->begin(), it->end());
+    }
+    _impactZones.erase(_impactZones.begin(), _impactZones.end());
+
 }

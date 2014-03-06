@@ -22,12 +22,15 @@ public:
 
     int _highlighted;
 
+    int _zoneNum;
+
     ClothTriangle(Particle* p1, Particle* p2, Particle *p3)
     {
         _p[0] = p1;
         _p[1] = p2;
         _p[2] = p3;
         _highlighted = 0;
+        _zoneNum = -1;
     }
 
     virtual ~ClothTriangle()

@@ -121,12 +121,12 @@ void PointTriangleManifold::ResolveCollisionByProvot(const float &timestep)
     if (dispVTp.getSquaredLength() >= kf * kf * dispVNp.getSquaredLength())
     {
         _p->_approximateVelocity = dispVTp * (1 - kf * sqrt(dispVNp.getSquaredLength() / dispVTp.getSquaredLength())) - dispVNp * kd + velT;
-        cout << "sliding\n";
+//        cout << "sliding\n";
     }
     else
     {
         _p->_approximateVelocity = dispVNp * (-1 * kd) + velT;
-        cout << "non-sliding\n";
+//        cout << "non-sliding\n";
     }
     cout.flush();
 }

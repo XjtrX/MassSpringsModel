@@ -44,6 +44,14 @@ public:
     int TestTriangles(ClothTriangle* a, ClothTriangle* b);
     int MyTestTriangles(ClothTriangle* a, ClothTriangle* b);
     void ResolveCollisions(const float& timestep);
+    int CheckProximity(ClothTriangle* a, ClothTriangle* b);
+
+    void FlushZones();
+    void MergingToZones();
+    void MergeTriangles(ClothTriangle* a, ClothTriangle* b);
+    void MergeZones(int a, int b);
+
+    void ResolveImpactZones();
 
 public:
     int _particlesCount;
@@ -58,7 +66,7 @@ public:
     float _thickness;
 
     list<PointTriangleManifold*> _manifolds;
-    list<list<ClothTriangle*> > _impactZones;
+    vector<vector<ClothTriangle*> > _impactZones;
 };
 
 #endif // SPRINGSOBJECT_H

@@ -50,6 +50,7 @@ public:
     void MergingToZones();
     void MergeTriangles(ClothTriangle* a, ClothTriangle* b);
     void MergeZones(int a, int b);
+    void CombineZones();
 
     void ResolveImpactZones();
 

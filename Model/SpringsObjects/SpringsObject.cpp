@@ -284,7 +284,7 @@ int SpringsObject::MyTestTriangles(ClothTriangle *a, ClothTriangle *b)
 {
     if (a->isNeighbour(*b))
     {
-        return 0;
+        return -1;
     }
 /*
     Point3D<float>& b0P = b->_p[0]->_prevState._position;
@@ -343,7 +343,7 @@ void SpringsObject::Collide(const float &)
             }
             ClothTriangle* b = _clothTriangles[j];
             int testRes = MyTestTriangles(a, b);
-            if (testRes)
+            if (1 == testRes)
             {
                 MergeTriangles(a, b);
             }
@@ -401,7 +401,9 @@ void SpringsObject::ResolveSelfCollision(const float &timestep)
 //    this->MergingToZones();
     if (_impactZones.size())
     {
-        cout << "zones: " << _impactZones.size() << endl;
+        cout << "zones: " << _impactZones.size() << " ";
+        this->CombineZones();
+        cout << _impactZones.size() << endl;
     }
     this->ResolveImpactZones();
     //6. compute the final position
@@ -474,7 +476,8 @@ void SpringsObject::MergingToZones()
             {
                 continue;
             }
-            if (CheckProximity(_clothTriangles[i], _clothTriangles[j]))
+            int testRes = CheckProximity(_clothTriangles[i], _clothTriangles[j]);
+            if (1 == testRes)
             {
                 MergeTriangles(_clothTriangles[i], _clothTriangles[j]);
             }
@@ -537,6 +540,37 @@ void SpringsObject::MergeZones(int a, int b)
     _impactZones[a].insert(_impactZones[a].end(), _impactZones[b].begin(), _impactZones[b].end());
 
     _impactZones.erase(_impactZones.begin() + b);
+}
+
+void SpringsObject::CombineZones()
+{
+    for (uint i = 0; i < _impactZones.size(); i++)
+    {
+        int res = 0;
+        for (uint j = i + 1; j < _impactZones.size(); j++)
+        {
+            for (vector<ClothTriangle*>::iterator a = _impactZones.at(i).begin(); a != _impactZones.at(i).end(); ++a)
+            {
+                for (vector<ClothTriangle*>::iterator b = _impactZones.at(j).begin(); b != _impactZones.at(j).end(); ++b)
+                {
+                    if ((*a)->isNeighbour(**b))
+                    {
+                        this->MergeZones(i, j);
+                        res = 1;
+                        break;
+                    }
+                }
+                if (res)
+                {
+                    break;
+                }
+            }
+            if (res)
+            {
+                break;
+            }
+        }
+    }
 }
 
 void SpringsObject::ResolveImpactZones()

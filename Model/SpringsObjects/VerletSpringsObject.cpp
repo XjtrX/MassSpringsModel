@@ -10,9 +10,9 @@ VerletSpringsObject::~VerletSpringsObject()
 
 }
 
-void VerletSpringsObject::Collide(int flag)
+void VerletSpringsObject::Collide(const float &timestep)
 {
-    SpringsObject::Collide(flag);
+    SpringsObject::Collide(timestep);
 }
 
 void VerletSpringsObject::Accelerate(const float &timestep)
@@ -33,6 +33,26 @@ void VerletSpringsObject::ApplyForce(const float &fX, const float &fY, const flo
 void VerletSpringsObject::ApplyAcceleration(const float &fX, const float &fY, const float &fZ)
 {
     SpringsObject::ApplyAcceleration(fX, fY, fZ);
+}
+
+void VerletSpringsObject::setVelocity(const Point3D<float> &newVelocity, const float &timestep)
+{
+    SpringsObject::setVelocity(newVelocity, timestep);
+}
+
+Point3D<float> VerletSpringsObject::getVelocity()
+{
+    return SpringsObject::getVelocity();
+}
+
+void VerletSpringsObject::CalculateAverageVelocity(const float &timestep)
+{
+    SpringsObject::CalculateAverageVelocity(timestep);
+}
+
+void VerletSpringsObject::ComputeFinalPosition(const float &timestep)
+{
+    SpringsObject::ComputeFinalPosition(timestep);
 }
 
 void VerletSpringsObject::ResolveCollisions(const float &timestep)

@@ -22,10 +22,11 @@ void PointTriangleManifold::ResolveCollision(const float& timestep)
               this->_t->_p[0]->_state._position
             , this->_t->_p[1]->_state._position
             , this->_t->_p[2]->_state._position);
+
     Point3D<float> disp = D;
     disp -= projection;
 
-//    /*
+    /*
     Point3D<float> velP = _p->_state._velocity;
 
     Point3D<float> velT0 = _t->_p[0]->_state._velocity;
@@ -33,8 +34,8 @@ void PointTriangleManifold::ResolveCollision(const float& timestep)
     Point3D<float> velT1 = _t->_p[1]->_state._velocity;
 
     Point3D<float> velT2 = _t->_p[2]->_state._velocity;
-//    */
-    /*
+    */
+//    /*
     Point3D<float> velP = _p->_averageVelocity;
 
     Point3D<float> velT0 = _t->_p[0]->_averageVelocity;
@@ -42,7 +43,7 @@ void PointTriangleManifold::ResolveCollision(const float& timestep)
     Point3D<float> velT1 = _t->_p[1]->_averageVelocity;
 
     Point3D<float> velT2 = _t->_p[2]->_averageVelocity;
-    */
+//    */
 //    /*
     velP *= timestep;
     velT0 *= timestep;
@@ -67,12 +68,21 @@ void PointTriangleManifold::ResolveCollision(const float& timestep)
 
     Point3D<float> vTRes = (velT * (mT - mP) + velP * (2 * mP)) / (mP + mT);
 
-
+    /*
     _p->setVelocity(vPRes, timestep);
     _t->_p[0]->setVelocity(vTRes * bCPr._x, timestep);
     _t->_p[1]->setVelocity(vTRes * bCPr._y, timestep);
     _t->_p[2]->setVelocity(vTRes * bCPr._z, timestep);
+    */
+    _p->_approximateVelocity = vPRes;
+    _t->_p[0]->_approximateVelocity = vTRes * bCPr._x;
+    _t->_p[1]->_approximateVelocity = vTRes * bCPr._y;
+    _t->_p[2]->_approximateVelocity = vTRes * bCPr._z;
 
+    _p->_collided = 1;
+    _t->_p[0]->_collided = 1;
+    _t->_p[1]->_collided = 1;
+    _t->_p[2]->_collided = 1;
     return;
 
 

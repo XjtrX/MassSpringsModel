@@ -53,6 +53,11 @@ Point3D<float> RungeKuttaParticle::getVelocity()
     return _state._velocity;
 }
 
+void RungeKuttaParticle::ComputeFinalPosition(const float &timestep)
+{
+    Particle::ComputeFinalPosition(timestep);
+}
+
 void RungeKuttaParticle::Move(const float &)
 {
     if (_static)
@@ -143,7 +148,7 @@ void RungeKuttaParticle::RecalculateConnectionsAffort()
 
         float diff = s->_nLentght - distLen;
 
-        float kDamp = 0.01;
+        float kDamp = 0.0;
 
         Point3D<float> diffVel = this->_state._velocity;
         diffVel -= p->_state._velocity;

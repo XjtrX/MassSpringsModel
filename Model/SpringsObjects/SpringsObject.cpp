@@ -88,7 +88,6 @@ void SpringsObject::Accelerate(const float &timestep)
 
 void SpringsObject::CalculateAverageVelocity(const float &timestep)
 {
-    return;
     for (int i = 0; i < _particlesCount; i++)
     {
         _particles[i]->CalculateAverageVelocity(timestep);
@@ -115,6 +114,14 @@ Point3D<float> SpringsObject::getVelocity()
 {
     //unresolved
     return Point3D<float>(0, 0, 0);
+}
+
+void SpringsObject::ComputeFinalPosition(const float &timestep)
+{
+    for (int i = 0; i < _particlesCount; i++)
+    {
+        _particles[i]->ComputeFinalPosition(timestep);
+    }
 }
 
 inline float distance(Point3D<float>* p1, Point3D<float>* p2)
@@ -321,7 +328,7 @@ int SpringsObject::MyTestTriangles(ClothTriangle *a, ClothTriangle *b)
     return result;
 }
 
-void SpringsObject::Collide(const float &timestep)
+void SpringsObject::Collide(const float &)
 {
     for (int i = 0; i < _clothTrianglesCount; i++)
     {
@@ -380,12 +387,13 @@ void SpringsObject::ResolveSelfCollision(const float &timestep)
     //1. select a collision timestep size
     //2. advance to candidate position position and veloities an time t(n+1) with the cloth internal dynamics
     //3. compute the average velocity
-    this->SpringsObject::CalculateAverageVelocity(timestep);
+    this->CalculateAverageVelocity(timestep);
     //4. check for priximity, then apply repulsion impulses and friction to the average velocity to get approximate velocity
     this->Collide(timestep);
+    this->ResolveCollisions(timestep);
     //5. check linear trajectories for collusion
     //6. compute the final position
-    this->ResolveCollisions(timestep);
+    this->ComputeFinalPosition(timestep);
     //7.
 }
 

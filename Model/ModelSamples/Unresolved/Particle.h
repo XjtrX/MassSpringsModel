@@ -24,6 +24,7 @@ public:
     float _massVolume;
     int _static;
     float _borderRadius;
+    int _collided;
 
 public:
     virtual void Draw();
@@ -44,6 +45,8 @@ public:
 
     virtual void setVelocity(const Point3D<float> &newVelocity, const float &timestep) = 0;
     virtual Point3D<float> getVelocity();
+
+    virtual void ComputeFinalPosition(const float &timestep);
 };
 
 #endif // PARTICLE_H

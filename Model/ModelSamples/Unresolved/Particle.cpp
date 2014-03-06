@@ -67,6 +67,8 @@ void Particle::ApplyAcceleration(const float &aX, const float &aY, const float &
 void Particle::CalculateAverageVelocity(const float &timestep)
 {
     _averageVelocity = (_state._position - _prevState._position) / timestep;
+    _approximateVelocity = _averageVelocity;
+    _collided = 0;
 }
 
 void Particle::Accelerate(const float &timestep)
@@ -88,6 +90,15 @@ void Particle::Collide(const float &)
 Point3D<float> Particle::getVelocity()
 {
     return _state._velocity;
+}
+
+void Particle::ComputeFinalPosition(const float &timestep)
+{
+    if (_collided)
+    {
+        _state._position = _prevState._position + _approximateVelocity * timestep;
+        _state._velocity = _approximateVelocity * 2 - _prevState._velocity;
+    }
 }
 
 int Particle::isStatic()

@@ -31,8 +31,12 @@ public:
     virtual void Accelerate(const float &timestep);
     virtual void CalculateAverageVelocity(const float &timestep);
     virtual void Move(const float &timestep);
+
     virtual void setVelocity(const Point3D<float> &newVelocity, const float &timestep);
     virtual Point3D<float> getVelocity();
+
+    virtual void ComputeFinalPosition(const float &timestep);
+
     virtual void Collide(const float &timestep);
     virtual void FlushHighlighting();
 

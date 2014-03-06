@@ -88,3 +88,8 @@ Point3D<float> VerletParticle::getVelocity()
 {
     return Particle::getVelocity();
 }
+
+void VerletParticle::ComputeFinalPosition(const float &timestep)
+{
+    Particle::ComputeFinalPosition(timestep);
+}

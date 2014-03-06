@@ -22,8 +22,11 @@ public:
     virtual void ApplyForce(const float &fX, const float &fY, const float &fZ);
     virtual void ApplyAcceleration(const float &aX, const float &aY, const float &aZ);
     virtual void CalculateAverageVelocity(const float &timestep);
+
     virtual void setVelocity(const Point3D<float> &newVelocity, const float &timestep);
     virtual Point3D<float> getVelocity();
+
+    virtual void ComputeFinalPosition(const float &timestep);
 
     Point3D<float>& PrevPosition();
 };

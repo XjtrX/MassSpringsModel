@@ -106,6 +106,11 @@ Point3D<float> RungeKuttaSpringsObject::getVelocity()
     return SpringsObject::getVelocity();
 }
 
+void RungeKuttaSpringsObject::ComputeFinalPosition(const float &timestep)
+{
+    SpringsObject::ComputeFinalPosition(timestep);
+}
+
 inline void RungeKuttaSpringsObject::Collide(const float &timestep)
 {
     SpringsObject::Collide(timestep);

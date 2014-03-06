@@ -4,19 +4,25 @@
 #include "Model/Interfaces/VerletObject.h"
 #include "Model/SpringsObjects/SpringsObject.h"
 
-class VerletSpringsObject: public SpringsObject//, public VerletObject
+class VerletSpringsObject: public SpringsObject, public VerletObject
 {
 public:
     VerletSpringsObject(const int& particlesCount, const int& springsCount, const int& structuralSpringsCount, const int& clothTrianglesCount, const float& thickness);
     virtual ~VerletSpringsObject();
 
-    virtual void Collide(int flag);
+    virtual void Collide(const float &timestep);
 
     virtual void Accelerate(const float &timestep);
     virtual void Move(const float &timestep);
     virtual void ApplyForce(const float &fX, const float &fY, const float &fZ);
     virtual void ApplyAcceleration(const float &fX, const float &fY, const float &fZ);
-//    virtual void setVelocity(const Point3D<float> &newVelocity, const float &timestep);
+    virtual void setVelocity(const Point3D<float> &newVelocity, const float &timestep);
+    virtual Point3D<float> getVelocity();
+
+    virtual void CalculateAverageVelocity(const float &timestep);
+
+    virtual void ComputeFinalPosition(const float &timestep);
+
     virtual void ResolveCollisions(const float &timestep);
 
     virtual void Iteration(float timeInterval);

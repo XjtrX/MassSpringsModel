@@ -402,7 +402,8 @@ void SpringsObject::ResolveCollisions(const float& timestep)
 {
     while(!_manifolds.empty())
     {
-        _manifolds.back()->ResolveCollision(timestep);
+//        _manifolds.back()->ResolveCollisionByMomentumConversation(timestep);
+        _manifolds.back()->ResolveCollisionByProvot(timestep);
         _manifolds.pop_back();
     }
 }

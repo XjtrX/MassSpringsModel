@@ -365,7 +365,6 @@ void SpringsObject::Collide(const float &timestep)
             }
         }
     }
-    //this->ResolveCollisions(timestep);
 }
 
 void SpringsObject::FlushHighlighting()
@@ -381,7 +380,7 @@ void SpringsObject::ResolveSelfCollision(const float &timestep)
     //1. select a collision timestep size
     //2. advance to candidate position position and veloities an time t(n+1) with the cloth internal dynamics
     //3. compute the average velocity
-//    this->SpringsObject::CalculateAverageVelocity(timestep);
+    this->SpringsObject::CalculateAverageVelocity(timestep);
     //4. check for priximity, then apply repulsion impulses and friction to the average velocity to get approximate velocity
     this->Collide(timestep);
     //5. check linear trajectories for collusion

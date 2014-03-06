@@ -5,6 +5,9 @@
 #include "Model/Interfaces/DrawableObject.h"
 #include "Model/ModelSamples/Unresolved/Particle.h"
 
+#include <math.h>
+using namespace std;
+
 class ClothTriangle: public DrawableObject
 {
 public:
@@ -47,6 +50,7 @@ public:
         AC -= A;
 
         this->_normal = Point3D<float>::CrossProduct(AB, AC);
+        this->_normal /= sqrt(this->_normal.getSquaredLength());
 
         _DCoeff = -1 * this->_normal.DotProduct(A);
     }

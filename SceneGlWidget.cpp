@@ -27,8 +27,8 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     _perspectiveAngle = 45;
     connect(&_timer, SIGNAL(timeout()), this, SLOT(UpdateScene()));
 
-    int rows = 11;
-    int cols = 11;
+    int rows = 9;
+    int cols = 9;
     float width = 30;
     float heigth = 30;
     float massVolume = 1;

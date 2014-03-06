@@ -23,9 +23,6 @@ void PointTriangleManifold::ResolveCollisionByMomentumConversation(const float& 
             , this->_t->_p[1]->_state._position
             , this->_t->_p[2]->_state._position);
 
-//    Point3D<float> disp = D;
-//    disp -= projection;
-
     /*
     Point3D<float> velP = _p->_state._velocity;
 
@@ -43,12 +40,6 @@ void PointTriangleManifold::ResolveCollisionByMomentumConversation(const float& 
     Point3D<float> velT1 = _t->_p[1]->_averageVelocity;
 
     Point3D<float> velT2 = _t->_p[2]->_averageVelocity;
-//    */
-//    /*
-    velP *= timestep;
-    velT0 *= timestep;
-    velT1 *= timestep;
-    velT2 *= timestep;
 //    */
     velT0 *= bCPr._x;
     velT1 *= bCPr._y;
@@ -83,22 +74,6 @@ void PointTriangleManifold::ResolveCollisionByMomentumConversation(const float& 
     _t->_p[0]->_collided = 1;
     _t->_p[1]->_collided = 1;
     _t->_p[2]->_collided = 1;
-    return;
-    /*
-
-    float coeff = -500 * sqrt(dispVel.getSquaredLength()) * _p->_massVolume;
-
-    disp *= coeff;
-
-
-
-    _p->ApplyForce(disp._x, disp._y, disp._z);
-//    return;
-    disp *= -1;
-    _t->_p[0]->ApplyForce(disp._x * bCPr._x, disp._y * bCPr._x, disp._z * bCPr._x);
-    _t->_p[1]->ApplyForce(disp._x * bCPr._y, disp._y * bCPr._y, disp._z * bCPr._y);
-    _t->_p[2]->ApplyForce(disp._x * bCPr._z, disp._y * bCPr._z, disp._z * bCPr._z);
-    */
 }
 
 #include <iostream>
@@ -123,11 +98,6 @@ void PointTriangleManifold::ResolveCollisionByProvot(const float &timestep)
 
     Point3D<float> velT2 = _t->_p[2]->_averageVelocity;
 
-    velP *= timestep;
-    velT0 *= timestep;
-    velT1 *= timestep;
-    velT2 *= timestep;
-
     velT0 *= bCPr._x;
     velT1 *= bCPr._y;
     velT2 *= bCPr._z;
@@ -139,7 +109,7 @@ void PointTriangleManifold::ResolveCollisionByProvot(const float &timestep)
     Point3D<float> dispVel = velP;
     dispVel -= velT;
 
-    Point3D<float>& normal = _t->_normal;
+    Point3D<float> normal = _t->_normal;
     Point3D<float> dispVNp = normal * normal.DotProduct(dispVel);
     Point3D<float> dispVTp = dispVel - dispVNp;
 

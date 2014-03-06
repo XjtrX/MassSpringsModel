@@ -38,8 +38,7 @@ public:
     virtual void ComputeFinalPosition(const float &timestep);
 
     virtual void Collide(const float &timestep);
-    virtual void FlushHighlighting();
-
+    void FlushHighlighting();
     virtual void ResolveSelfCollision(const float& timestep);
 
     int TestTriangles(ClothTriangle* a, ClothTriangle* b);
@@ -59,6 +58,7 @@ public:
     float _thickness;
 
     list<PointTriangleManifold*> _manifolds;
+    list<list<ClothTriangle*> > _impactZones;
 };
 
 #endif // SPRINGSOBJECT_H

@@ -397,7 +397,6 @@ void SpringsObject::ResolveSelfCollision(const float &timestep)
     //7.
 }
 
-
 void SpringsObject::ResolveCollisions(const float& timestep)
 {
     while(!_manifolds.empty())

@@ -7,6 +7,7 @@
 #include "Model/Interfaces/MovableObject.h"
 #include "Model/ModelSamples/ClothTriangle.h"
 #include "Model/Collision/PointTriangleManifold.h"
+#include "Model/Collision/TrianglesManifold.h"
 
 #include <vector>
 #include <list>
@@ -66,7 +67,8 @@ public:
 
     float _thickness;
 
-    list<PointTriangleManifold*> _manifolds;
+    list<PointTriangleManifold*> _ptManifolds;
+    list<TrianglesManifold*> _tManifolds;
     vector<vector<ClothTriangle*> > _impactZones;
 };
 

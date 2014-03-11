@@ -223,7 +223,7 @@ int SpringsObject::TestTriangles(ClothTriangle* a, ClothTriangle* b)
         if (testResult)
         {
             PointTriangleManifold* m = new PointTriangleManifold(a->_p[i], b);
-            _manifolds.push_back(m);
+            _ptManifolds.push_back(m);
             result = 1;
 /*
             Print(vaIP, "prev\n");
@@ -267,7 +267,7 @@ int SpringsObject::TestTriangles(ClothTriangle* a, ClothTriangle* b)
             {
                 cout << "error\n";
                 PointTriangleManifold* m = new PointTriangleManifold(a->_p[i], b);
-                _manifolds.push_back(m);
+                _ptManifolds.push_back(m);
             }
             else
             {
@@ -321,7 +321,7 @@ int SpringsObject::MyTestTriangles(ClothTriangle *a, ClothTriangle *b)
             )
         {
             PointTriangleManifold* m = new PointTriangleManifold(a->_p[i], b);
-            _manifolds.push_back(m);
+            _ptManifolds.push_back(m);
             result = 1;
         }
     }
@@ -413,11 +413,11 @@ void SpringsObject::ResolveSelfCollision(const float &timestep)
 
 void SpringsObject::ResolveCollisions(const float& timestep)
 {
-    while(!_manifolds.empty())
+    while(!_ptManifolds.empty())
     {
-        _manifolds.back()->ResolveCollisionByMomentumConversation(timestep);
+        _ptManifolds.back()->ResolveCollisionByMomentumConversation(timestep);
 //        _manifolds.back()->ResolveCollisionByProvot(timestep);
-        _manifolds.pop_back();
+        _ptManifolds.pop_back();
     }
 }
 
@@ -578,7 +578,7 @@ void SpringsObject::ResolveImpactZones()
     vector<vector<ClothTriangle*> >::iterator it;
     for (it = _impactZones.begin(); it != _impactZones.end(); ++it)
     {
-        //
+
         it->erase(it->begin(), it->end());
     }
     _impactZones.erase(_impactZones.begin(), _impactZones.end());

@@ -12,6 +12,7 @@ RungeKuttaSpringsObject::RungeKuttaSpringsObject(const int &particlesCount, cons
 
 RungeKuttaSpringsObject::~RungeKuttaSpringsObject()
 {
+
 }
 
 void RungeKuttaSpringsObject::ComputeK1(float timestep)

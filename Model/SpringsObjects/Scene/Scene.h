@@ -3,6 +3,8 @@
 
 #include "Model/SpringsObjects/SpringsObject.h"
 
+#include <string>
+
 class Scene: public SpringsObject
 {
 public:
@@ -26,14 +28,21 @@ public:
     virtual void FlushHighlighting();
     //void AddTriangleObstacle(TriangleObstacle* triangleObstacle);
     //void AddVerletParticle(VerletParticle* particle);
+//    void WriteToFile(const string* filename);
+    string getDirectrory();
+    void setDirectory(string directory);
+    void WriteToFile();
 
     virtual void ResolveSelfCollision(const float &timestep);
 private:
-    vector<Particle*> _particles;
+//    vector<Particle*> _particles;
 //    vector<Particle*> _freeParticles;
-    vector<Spring*> _springs;
+//    vector<Spring*> _springs;
     vector<SpringsObject*> _springsObjects;
 //    vector<TriangleObstacle*> _triangleObstacles;
+
+    string _directory;
+    int _iteration;
 };
 
 #endif // SCENE_H

@@ -14,15 +14,16 @@ SpringsObject::SpringsObject()
 
 SpringsObject::~SpringsObject()
 {
-    return;
     for (int i = 0; i < _clothTrianglesCount; i++)
     {
         delete _clothTriangles[i];
     }
+/*
     for (int i = 0; i < _particlesCount; i++)
     {
         delete _particles[i];
     }
+*/
     for (int i = 0; i < _springsCount; i++)
     {
         delete _springs[i];

@@ -2,8 +2,6 @@
 #define PARTICLEPOSITION_H
 
 #include "Point3D.h"
-#include <glm/glm/glm.hpp>
-
 class ParticlePosition
 {
 public:

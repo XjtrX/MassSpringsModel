@@ -135,4 +135,8 @@ RectRungeKuttaCloth::RectRungeKuttaCloth(int cols, int rows, float width, float 
 
 RectRungeKuttaCloth::~RectRungeKuttaCloth()
 {
+    for (int i = 0; i < _particlesCount; i++)
+    {
+        delete _particles[i];
+    }
 }

@@ -19,7 +19,8 @@ SOURCES += \
     exact-ccd/expansion.cpp \
     exact-ccd/interval.cpp \
     exact-ccd/rootparitycollisiontest.cpp \
-    Model/ModelSamples/Unresolved/Particle.cpp
+    Model/ModelSamples/Unresolved/Particle.cpp \
+    Model/Collision/TrianglesManifold.cpp
 
 HEADERS += \
     Model/ModelSamples/Spring.h \
@@ -54,7 +55,8 @@ HEADERS += \
     exact-ccd/interval_base.h \
     exact-ccd/interval.h \
     exact-ccd/vec.h \
-    exact-ccd/rootparitycollisiontest.h
+    exact-ccd/rootparitycollisiontest.h \
+    Model/Collision/TrianglesManifold.h
 
 FORMS += \
     scenewindow.ui
@@ -64,6 +66,7 @@ FORMS += \
 #QMAKE_LIBDIR += /home/lord/projects/qt/MassSpringsModel/exact-ccd
 #INCLUDEPATH += /home/lord/projects/qt/MassSpringsModel/exact-ccd
 
+INCLUDEPATH += "./glm"
 
 LIBS += -lglut -lGL -lGLU# -lexact-ccd
 

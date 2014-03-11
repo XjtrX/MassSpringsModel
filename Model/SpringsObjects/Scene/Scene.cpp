@@ -1,7 +1,14 @@
 #include "Scene.h"
 
+#include <stdlib.h>
+
+#include <fstream>
+using namespace std;
+
 Scene::Scene()
 {
+    _directory = "/home";
+    _iteration = 0;
 }
 
 Scene::~Scene()
@@ -12,28 +19,28 @@ Scene::~Scene()
         SpringsObject* sO = _springsObjects.at(i);
         delete sO;
     }
-    /*
-    l = _triangleObstacles.size();
-    for (int i = 0; i < l; i++)
-    {
-        TriangleObstacle* tO = _triangleObstacles.at(i);
-        delete tO;
-    }
-    */
+//    /*
+//    l = _triangleObstacles.size();
+//    for (int i = 0; i < l; i++)
+//    {
+//        TriangleObstacle* tO = _triangleObstacles.at(i);
+//        delete tO;
+//    }
+//    */
 
-    l = _particles.size();
-    for (int i = 0; i < l; i++)
-    {
-        Particle* p = _particles.at(i);
-        delete p;
-    }
+//    l = _particles.size();
+//    for (int i = 0; i < l; i++)
+//    {
+//        Particle* p = _particles.at(i);
+//        delete p;
+//    }
 
-    l = _springs.size();
-    for (int i = 0; i < l; i++)
-    {
-        Spring* s = _springs.at(i);
-        delete s;
-    }
+//    l = _springs.size();
+//    for (int i = 0; i < l; i++)
+//    {
+//        Spring* s = _springs.at(i);
+//        delete s;
+//    }
 }
 
 void Scene::Draw(const DrawType &type)
@@ -77,11 +84,7 @@ void Scene::Iteration(float timeInterval)
     {
         _springsObjects.at(i)->Iteration(timeInterval);
     }
-    return;
-    for (int i = 0; i < l; i++)
-    {
-        _springsObjects[i]->Move(timeInterval);
-    }
+    _iteration++;
 }
 
 /*
@@ -103,7 +106,7 @@ void Scene::RecalculateSprings()
 void Scene::ApplyForce(const float &fX, const float &fY, const float &fZ)
 {
     int l = _particles.size();
-    for (int i = 0; i < l; i++)
+    for (int i = 0ui->widget->; i < l; i++)
     {
         _particles.at(i)->ApplyForce(fX, fY, fZ);
     }
@@ -239,6 +242,33 @@ void Scene::FlushHighlighting()
     {
         _springsObjects.at(i)->FlushHighlighting();
     }
+}
+
+string Scene::getDirectrory()
+{
+    return this->_directory;
+}
+
+void Scene::setDirectory(string directory)
+{
+    if ("" == directory)
+    {
+        this->_directory = "/home";
+        return;
+    }
+    this->_directory = directory;
+}
+
+void Scene::WriteToFile()
+{
+    char buffer[10];
+
+    ofstream myFile;
+    sprintf(buffer, "%d", _iteration);
+    myFile.open((_directory + "/" + buffer + ".springsobject").c_str());
+    myFile << "Iteration " << _iteration << endl;
+    myFile << "ParticlesCount " << _particlesCount << endl;
+    myFile.close();
 }
 
 void Scene::ResolveSelfCollision(const float &timestep)

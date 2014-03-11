@@ -125,4 +125,8 @@ RectVerletCloth::RectVerletCloth(int cols, int rows, float width, float height
 
 RectVerletCloth::~RectVerletCloth()
 {
+    for (int i = 0; i < _particlesCount; i++)
+    {
+        delete _particles[i];
+    }
 }

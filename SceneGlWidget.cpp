@@ -12,6 +12,8 @@ using namespace std;
 #include "3DMath/MathRotation.h"
 #include "Model/ModelSamples/VerletParticle.h"
 
+#include <QFileDialog>
+
 #include <ctime>
 using namespace std;
 
@@ -49,6 +51,13 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
 //    rC->_particles[(rows / 2) * cols]->setStatic(1);
 //    rC->_particles[(rows / 2 + 1) * cols - 1]->setStatic(1);
     _scene.AddSpringsObject(rC);
+
+    QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory")
+                                                    , "/home"
+                                                    ,   QFileDialog::ShowDirsOnly
+                                                      | QFileDialog::DontResolveSymlinks);
+    string directory = dir.toUtf8().constData();
+    _scene.setDirectory(directory);
 }
 
 void SceneGLWidget::initializeGL()
@@ -207,6 +216,7 @@ void SceneGLWidget::UpdateScene()
     _scene.Iteration(_timeInterval);
     _scene.ResolveSelfCollision(_timeInterval);
     this->repaint();
+    _scene.WriteToFile();
     return;
     _timeToFrame += _timeInterval;
     if (_timeToFrame >= _repaintDelay)

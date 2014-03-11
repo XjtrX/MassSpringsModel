@@ -2,7 +2,6 @@
 #define PARTICLEPOSITION_H
 
 #include "Point3D.h"
-
 class ParticlePosition
 {
 public:

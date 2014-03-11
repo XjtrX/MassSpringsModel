@@ -94,7 +94,7 @@ Point3D<float> Particle::getVelocity()
 
 void Particle::ComputeFinalPosition(const float &timestep)
 {
-    if (_collided)
+    if (1 || _collided)
     {
         _state._position = _prevState._position + _approximateVelocity * timestep;
         this->setVelocity((_approximateVelocity + _prevState._velocity) / 2, timestep);

@@ -32,11 +32,11 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     float width = 30;
     float heigth = 30;
     float massVolume = 1;
-    float stiffness = 1;
+    float stiffness = 2;
     float thickness = 1;
-    int withBendSpring = 1;
+    int withBendSpring = 0;
 
-    SpringsObject* rC = new RectRungeKuttaCloth(cols, rows
+    SpringsObject* rC = new RectVerletCloth(cols, rows
                                                 , width, heigth
                                                 , massVolume, stiffness, thickness
                                   , Point3D<float>(90, 0, 0)

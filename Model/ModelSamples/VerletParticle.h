@@ -7,7 +7,7 @@
 class VerletParticle: public Particle, public VerletObject
 {
 public:
-    Point3D<float> _appliedForce;
+//    Point3D<float> _appliedForce;
 
     VerletParticle();
     VerletParticle(const ParticleState &initialState

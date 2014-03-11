@@ -38,7 +38,7 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     float thickness = 1;
     int withBendSpring = 0;
 
-    SpringsObject* rC = new RectVerletCloth(cols, rows
+    SpringsObject* rC = new RectRungeKuttaCloth(cols, rows
                                                 , width, heigth
                                                 , massVolume, stiffness, thickness
                                   , Point3D<float>(90, 0, 0)

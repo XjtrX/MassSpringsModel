@@ -97,9 +97,9 @@ void Particle::ComputeFinalPosition(const float &timestep)
     if (1 || _collided)
     {
         _state._position = _prevState._position + _approximateVelocity * timestep;
-//        this->setVelocity((_approximateVelocity + _prevState._velocity) / 2, timestep);
+        this->setVelocity((_approximateVelocity + _prevState._velocity) / 2, timestep);
 //        this->setVelocity((this->_state._position - this->_prevState._position) / timestep, timestep);
-        this->setVelocity(_approximateVelocity, timestep);
+//        this->setVelocity(_approximateVelocity, timestep);
     }
 }
 

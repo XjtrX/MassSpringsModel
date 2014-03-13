@@ -93,6 +93,19 @@ public:
         res._a11 = 1;
         res._a22 = 1;
         res._a33 = 1;
+
+        return res;
+    }
+
+    static Matrix3x3D getDelta(const Point3D<A>& p)
+    {
+        Matrix3x3D res;
+        res.setZeros();
+        res._a11 = p._x;
+        res._a22 = p._y;
+        res._a33 = p._z;
+
+        return res;
     }
 
     Matrix3x3D(const Matrix3x3D& other)
@@ -216,6 +229,20 @@ public:
                 res._a[i][j] = sum;
             }
         }
+        return res;
+    }
+
+    static Point3D<A> Mult(const Matrix3x3D& m, const Point3D<A>& p)
+    {
+        Point3D<A> res;
+        A x = p._x;
+        A y = p._y;
+        A z = p._z;
+
+        res._x = m._a11 * x + m._a21 * y + m._a31 * z;
+        res._y = m._a12 * x + m._a22 * y + m._a32 * z;
+        res._z = m._a13 * x + m._a23 * y + m._a33 * z;
+
         return res;
     }
 

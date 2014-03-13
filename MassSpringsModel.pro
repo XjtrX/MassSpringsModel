@@ -48,7 +48,6 @@ HEADERS += \
     Model/SpringsObjects/Cloth/RectVerletCloth.h \
     Model/SpringsObjects/Cloth/RectRungeKuttaCloth.h \
     Model/Interfaces/MovableObject.h \
-    ResolveCollision.h \
     Model/ModelSamples/ClothTriangle.h \
     Model/Collision/PointTriangleManifold.h \
     exact-ccd/expansion.h \
@@ -56,7 +55,10 @@ HEADERS += \
     exact-ccd/interval.h \
     exact-ccd/vec.h \
     exact-ccd/rootparitycollisiontest.h \
-    Model/Collision/TrianglesManifold.h
+    Model/Collision/TrianglesManifold.h \
+    3DMath/Matrix3x3D.h \
+    CustomException.h \
+    Model/Collision/ResolveCollision.h
 
 FORMS += \
     scenewindow.ui

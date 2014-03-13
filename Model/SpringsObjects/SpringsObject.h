@@ -53,7 +53,7 @@ public:
     void MergeZones(int a, int b);
     void CombineZones();
 
-    void ResolveImpactZones();
+    void ResolveImpactZones(const float& timestep);
 
 public:
     int _particlesCount;

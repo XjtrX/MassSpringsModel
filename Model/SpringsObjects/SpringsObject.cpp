@@ -409,9 +409,9 @@ void SpringsObject::ResolveSelfCollision(const float &timestep)
         this->CombineZones();
         cout << _impactZones.size() << endl;
     }
-    this->ResolveImpactZones();
+//    this->ComputeFinalPosition(timestep);
+    this->ResolveImpactZones(timestep);
     //6. compute the final position
-    this->ComputeFinalPosition(timestep);
     //7.
 }
 
@@ -577,12 +577,14 @@ void SpringsObject::CombineZones()
     }
 }
 
-void SpringsObject::ResolveImpactZones()
+void SpringsObject::ResolveImpactZones(const float &timestep)
 {
     vector<vector<ClothTriangle*> >::iterator it;
     for (it = _impactZones.begin(); it != _impactZones.end(); ++it)
     {
-
+        PointsManifold pM(*it);
+        pM.ComputeAngularMomentum();
+        pM.RecalculatePoinsState(timestep);
         it->erase(it->begin(), it->end());
     }
     _impactZones.erase(_impactZones.begin(), _impactZones.end());

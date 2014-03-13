@@ -74,7 +74,9 @@ void PointsManifold::RecalculatePoinsState(const float &timestep)
         Point3D<float> xF = p->_prevState._position - _xCM;
         Point3D<float> xR = p->_prevState._position - _xCM -xF;
 
+        p->_state._position.Print("position: ");
         p->_state._position = _xCM + _vCM * timestep + xR * cos(angle) + Point3D<float>::CrossProduct(_omega.getUnit() * sin(angle), xR);
         p->_averageVelocity = (p->_state._position - p->_prevState._position) / timestep;
+        p->_state._position.Print("        : ");
     }
 }

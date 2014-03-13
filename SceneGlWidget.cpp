@@ -216,7 +216,7 @@ void SceneGLWidget::UpdateScene()
     _scene.Iteration(_timeInterval);
     _scene.ResolveSelfCollision(_timeInterval);
     this->repaint();
-    _scene.WriteToFile();
+//    _scene.WriteToFile();
     return;
     _timeToFrame += _timeInterval;
     if (_timeToFrame >= _repaintDelay)

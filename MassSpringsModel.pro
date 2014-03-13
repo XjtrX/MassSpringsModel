@@ -20,7 +20,7 @@ SOURCES += \
     exact-ccd/interval.cpp \
     exact-ccd/rootparitycollisiontest.cpp \
     Model/ModelSamples/Unresolved/Particle.cpp \
-    Model/Collision/TrianglesManifold.cpp
+    Model/Collision/PointsManifold.cpp
 
 HEADERS += \
     Model/ModelSamples/Spring.h \
@@ -55,10 +55,10 @@ HEADERS += \
     exact-ccd/interval.h \
     exact-ccd/vec.h \
     exact-ccd/rootparitycollisiontest.h \
-    Model/Collision/TrianglesManifold.h \
     3DMath/Matrix3x3D.h \
     CustomException.h \
-    Model/Collision/ResolveCollision.h
+    Model/Collision/ResolveCollision.h \
+    Model/Collision/PointsManifold.h
 
 FORMS += \
     scenewindow.ui

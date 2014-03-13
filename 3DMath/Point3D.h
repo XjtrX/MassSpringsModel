@@ -2,6 +2,7 @@
 #define POINT3D_H
 
 #include <iostream>
+#include <math.h>
 using namespace std;
 
 template<class A>
@@ -261,6 +262,22 @@ public:
     A getSquaredLength()
     {
         return _x * _x + _y * _y + _z * _z;
+    }
+
+    A getLength()
+    {
+        return sqrt(_x * _x + _y * _y + _z * _z);
+    }
+
+    Point3D getUnit()
+    {
+        Point3D res(*this);
+        A len = sqrt(_x * _x + _y * _y + _z * _z);
+        res._x /= len;
+        res._y /= len;
+        res._z /= len;
+
+        return res;
     }
 };
 

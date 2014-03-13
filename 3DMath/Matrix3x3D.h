@@ -213,6 +213,80 @@ public:
         return res;
     }
 
+    Matrix3x3D operator +(const Matrix3x3D& other)
+    {
+        Matrix3x3D res = *this;
+
+        res._a11 += other._a11;
+        res._a12 += other._a12;
+        res._a13 += other._a13;
+
+        res._a21 += other._a21;
+        res._a22 += other._a22;
+        res._a23 += other._a23;
+
+        res._a31 += other._a31;
+        res._a32 += other._a32;
+        res._a33 += other._a33;
+
+        return res;
+    }
+
+    Matrix3x3D operator +=(const Matrix3x3D& other)
+    {
+        this->_a11 += other._a11;
+        this->_a12 += other._a12;
+        this->_a13 += other._a13;
+
+        this->_a21 += other._a21;
+        this->_a22 += other._a22;
+        this->_a23 += other._a23;
+
+        this->_a31 += other._a31;
+        this->_a32 += other._a32;
+        this->_a33 += other._a33;
+
+        return *this;
+    }
+
+    Matrix3x3D operator -(const Matrix3x3D& other)
+    {
+        Matrix3x3D res = *this;
+
+        res._a11 -= other._a11;
+        res._a12 -= other._a12;
+        res._a13 -= other._a13;
+
+        res._a21 -= other._a21;
+        res._a22 -= other._a22;
+        res._a23 -= other._a23;
+
+        res._a31 -= other._a31;
+        res._a32 -= other._a32;
+        res._a33 -= other._a33;
+
+        return res;
+    }
+
+    Matrix3x3D operator *(const float& n)
+    {
+        Matrix3x3D res = *this;
+
+        res._a11 *= n;
+        res._a12 *= n;
+        res._a13 *= n;
+
+        res._a21 *= n;
+        res._a22 *= n;
+        res._a23 *= n;
+
+        res._a31 *= n;
+        res._a32 *= n;
+        res._a33 *= n;
+
+        return res;
+    }
+
     Matrix3x3D operator *(const Matrix3x3D& other)
     {
         Matrix3x3D res;
@@ -246,7 +320,25 @@ public:
         return res;
     }
 
-    static Matrix3x3D Kronecker_Product(const Point3D<A>& p1, const Point3D<A>& p2)
+    static Matrix3x3D KroneckerProduct(const Point3D<A>& p1)
+    {
+        Matrix3x3D res(p1, p1, p1);
+        res._a11 *= p1._x;
+        res._a12 *= p1._x;
+        res._a13 *= p1._x;
+
+        res._a21 *= p1._y;
+        res._a22 *= p1._y;
+        res._a23 *= p1._y;
+
+        res._a31 *= p1._z;
+        res._a32 *= p1._z;
+        res._a33 *= p1._z;
+
+        return res;
+    }
+
+    static Matrix3x3D KroneckerProduct(const Point3D<A>& p1, const Point3D<A>& p2)
     {
         Matrix3x3D res(p2, p2, p2);
         res._a11 *= p1._x;

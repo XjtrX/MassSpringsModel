@@ -86,6 +86,15 @@ public:
 
     }
 
+    static Matrix3x3D getDelta()
+    {
+        Matrix3x3D res;
+        res.setZeros();
+        res._a11 = 1;
+        res._a22 = 1;
+        res._a33 = 1;
+    }
+
     Matrix3x3D(const Matrix3x3D& other)
     {
         this->_a11 = other._a11;
@@ -209,6 +218,25 @@ public:
         }
         return res;
     }
+
+    static Matrix3x3D Kronecker_Product(const Point3D<A>& p1, const Point3D<A>& p2)
+    {
+        Matrix3x3D res(p2, p2, p2);
+        res._a11 *= p1._x;
+        res._a12 *= p1._x;
+        res._a13 *= p1._x;
+
+        res._a21 *= p1._y;
+        res._a22 *= p1._y;
+        res._a23 *= p1._y;
+
+        res._a31 *= p1._z;
+        res._a32 *= p1._z;
+        res._a33 *= p1._z;
+
+        return res;
+    }
+
 };
 
 #endif // MATRIX3X3D_H

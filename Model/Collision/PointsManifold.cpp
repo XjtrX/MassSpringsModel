@@ -62,6 +62,13 @@ void PointsManifold::ComputeAngularMomentum()
     }
 
     _omega = Matrix3x3D<float>::Mult(_I.getInverse(), _L);
+
+    _vCM.Print("vCM: ");
+    _xCM.Print("xCM: ");
+    _L.Print("L: ");
+    _I.Print("I: ");
+    _omega.Print("omega: ");
+    cout.flush();
 }
 
 void PointsManifold::RecalculatePoinsState(const float &timestep)

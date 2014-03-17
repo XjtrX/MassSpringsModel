@@ -7,6 +7,7 @@ using namespace std;
 #define PI 3.14159265
 
 #include "Model/SpringsObjects/RungeKuttaSpringsObject.h"
+#include "Model/SpringsObjects/VerletSpringsObject.h"
 #include "Model/ModelSamples/TriangleObstacle.h"
 #include "3DMath/MathRotation.h"
 
@@ -34,7 +35,7 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     float thickness = 1;
     int withBendSpring = 0;
 
-    SpringsObject* rC = new RungeKuttaSpringsObject(cols, rows
+    SpringsObject* rC = new VerletSpringsObject(cols, rows
                                                 , width, heigth
                                                 , massVolume, stiffness, thickness
                                   , Point3D<float>(90, 0, 0)

@@ -1,5 +1,4 @@
 #include "RungeKuttaSpringsObject.h"
-#include "Model/ModelSamples/RungeKuttaParticle.h"
 
 #include "3DMath/MathRotation.h"
 
@@ -26,6 +25,8 @@ RungeKuttaSpringsObject::RungeKuttaSpringsObject(const int &cols, const int &row
                    , (cols - 1) * rows + cols * (rows - 1)
                    , (cols - 1) * (rows - 1) * 2, thickness)
 {
+    _rKParticles = vector<RungeKuttaParticle*>(this->_particlesCount);
+
     float massOfParticle = massVolume / _particlesCount;
 
     MathRotation m;
@@ -36,12 +37,19 @@ RungeKuttaSpringsObject::RungeKuttaSpringsObject(const int &cols, const int &row
     {
         for (int c = 0; c < cols; c++)
         {
-            _particles[r * cols + c] = new RungeKuttaParticle(
+            _rKParticles[r * cols + c] = new RungeKuttaParticle(
                         ParticleState(
                             m.RotateAndTranslatePoint(
                                 Point3D<float>(1.0 * width * c / cols, 1.0 * height * r / rows)
                                 , rotMatr, translation), Point3D<float>(0, 0, 0))
                         , massOfParticle);
+            _particles[r * cols + c] = _rKParticles[r * cols + c];
+//            _particles[r * cols + c] = new RungeKuttaParticle(
+//                        ParticleState(
+//                            m.RotateAndTranslatePoint(
+//                                Point3D<float>(1.0 * width * c / cols, 1.0 * height * r / rows)
+//                                , rotMatr, translation), Point3D<float>(0, 0, 0))
+//                        , massOfParticle);
         }
     }
     delete[] rotMatr;
@@ -65,7 +73,7 @@ void RungeKuttaSpringsObject::ComputeK1(float timestep)
 {
     for (int i = 0; i < _particlesCount; i++)
     {
-        dynamic_cast<RungeKuttaParticle*>(_particles[i])->ComputeK1(timestep);
+        _rKParticles[i]->ComputeK1(timestep);
     }
 }
 
@@ -73,7 +81,7 @@ void RungeKuttaSpringsObject::ComputeK2(float timestep)
 {
     for (int i = 0; i < _particlesCount; i++)
     {
-        dynamic_cast<RungeKuttaParticle*>(_particles[i])->ComputeK2(timestep);
+        _rKParticles[i]->ComputeK2(timestep);
     }
 }
 
@@ -81,7 +89,7 @@ void RungeKuttaSpringsObject::ComputeK3(float timestep)
 {
     for (int i = 0; i < _particlesCount; i++)
     {
-        dynamic_cast<RungeKuttaParticle*>(_particles[i])->ComputeK3(timestep);
+        _rKParticles[i]->ComputeK3(timestep);
     }
 }
 
@@ -89,7 +97,7 @@ void RungeKuttaSpringsObject::ComputeK4(float timestep)
 {
     for (int i = 0; i < _particlesCount; i++)
     {
-        dynamic_cast<RungeKuttaParticle*>(_particles[i])->ComputeK4(timestep);
+        _rKParticles[i]->ComputeK4(timestep);
     }
 }
 
@@ -174,7 +182,7 @@ void RungeKuttaSpringsObject::MoveEachOther(const float &timestep)
     #pragma omp parallel for
     for (int i = 0; i < _particlesCount; i++)
     {
-        RungeKuttaParticle* rKP = dynamic_cast<RungeKuttaParticle*>(_particles.at(i));
+        RungeKuttaParticle* rKP = _rKParticles.at(i);
         rKP->ApplyAcceleration(0, -9.8, 0);
         rKP->RecalculateConnectionsAffort();
         rKP->ComputeK1(timestep);
@@ -198,6 +206,6 @@ void RungeKuttaSpringsObject::RecalculateConnectionsAffort()
 {
     for (int i = 0; i < _particlesCount; i++)
     {
-        dynamic_cast<RungeKuttaParticle*>(_particles[i])->RecalculateConnectionsAffort();
+        _rKParticles[i]->RecalculateConnectionsAffort();
     }
 }

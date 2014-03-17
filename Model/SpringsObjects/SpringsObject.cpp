@@ -110,18 +110,14 @@ void SpringsObject::ConnectParticles(const int &cols, const int &rows, const flo
 
 SpringsObject::~SpringsObject()
 {
-    return;
     for (int i = 0; i < _clothTrianglesCount; i++)
     {
         delete _clothTriangles[i];
     }
-/*
     for (int i = 0; i < _particlesCount; i++)
     {
         delete _particles[i];
     }
-*/
-    return;
     for (int i = 0; i < _springsCount; i++)
     {
         delete _springs[i];
@@ -431,7 +427,7 @@ void SpringsObject::Collide(const float &)
             int testRes = MyTestTriangles(a, b);
             if (1 == testRes)
             {
-                MergeTriangles(a, b);
+//                MergeTriangles(a, b);
             }
             if (1 == testRes)
             {
@@ -492,7 +488,7 @@ void SpringsObject::ResolveSelfCollision(const float &timestep)
         cout << _impactZones.size() << endl;
     }
 
-    this->EraseImpactZones();
+//    this->EraseImpactZones();
     this->ComputeFinalPosition(timestep);
 //    this->ResolveImpactZones(timestep);
     //6. compute the final position

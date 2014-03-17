@@ -4,8 +4,13 @@
 #include "Model/Interfaces/RungeKuttaObject.h"
 #include "Model/SpringsObjects/SpringsObject.h"
 
+#include "Model/ModelSamples/RungeKuttaParticle.h"
+
 class RungeKuttaSpringsObject: public SpringsObject, public RungeKuttaObject
 {
+public:
+    vector<RungeKuttaParticle*> _rKParticles;
+
 public:
     RungeKuttaSpringsObject(const int &cols, const int &rows, const float &width, const float &height
                   , const float &massVolume, const float &stiffnes, const float &thickness

@@ -6,16 +6,12 @@
 using namespace std;
 #define PI 3.14159265
 
-#include "Model/SpringsObjects/Cloth/RectRungeKuttaCloth.h"
-#include "Model/SpringsObjects/Cloth/RectVerletCloth.h"
+#include "Model/SpringsObjects/RungeKuttaSpringsObject.h"
 #include "Model/ModelSamples/TriangleObstacle.h"
 #include "3DMath/MathRotation.h"
-#include "Model/ModelSamples/VerletParticle.h"
 
 #include <QFileDialog>
 
-#include <ctime>
-using namespace std;
 
 #include <iostream>
 using namespace std;
@@ -38,7 +34,7 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     float thickness = 1;
     int withBendSpring = 0;
 
-    SpringsObject* rC = new RectRungeKuttaCloth(cols, rows
+    SpringsObject* rC = new RungeKuttaSpringsObject(cols, rows
                                                 , width, heigth
                                                 , massVolume, stiffness, thickness
                                   , Point3D<float>(90, 0, 0)

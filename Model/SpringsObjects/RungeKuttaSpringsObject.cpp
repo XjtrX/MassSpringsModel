@@ -1,13 +1,59 @@
 #include "RungeKuttaSpringsObject.h"
 #include "Model/ModelSamples/RungeKuttaParticle.h"
 
+#include "3DMath/MathRotation.h"
+
 #include <iostream>
 #include "omp.h"
 using namespace std;
 
-RungeKuttaSpringsObject::RungeKuttaSpringsObject(const int &particlesCount, const int &springsCount, const int &structuralSpringsCount, const int &clothTrianglesCount, const float &thickness)
-    : SpringsObject(particlesCount, springsCount, structuralSpringsCount, clothTrianglesCount, thickness)
+void AddConnections(Particle* p1, Particle* p2, Spring* s)
 {
+    dynamic_cast<RungeKuttaParticle*>(p1)->AddConnection(s, p2);
+    dynamic_cast<RungeKuttaParticle*>(p2)->AddConnection(s, p1);
+}
+
+RungeKuttaSpringsObject::RungeKuttaSpringsObject(const int &cols, const int &rows
+                                                 , const float &width, const float &height
+                                                 , const float &massVolume, const float &stiffnes
+                                                 , const float &thickness
+                                                 , const Point3D<float> &rotation
+                                                 , const Point3D<float> &translation
+                                                 , const int &withBendSprings)
+    :SpringsObject(cols * rows
+                   ,   (cols - 1) * rows + cols * (rows - 1) + 2 * (cols - 1) * (rows - 1)
+                     + ((cols - 2) * rows + cols * (rows - 2)) * (withBendSprings == 1 ? 1 : 0)
+                   , (cols - 1) * rows + cols * (rows - 1)
+                   , (cols - 1) * (rows - 1) * 2, thickness)
+{
+    float massOfParticle = massVolume / _particlesCount;
+
+    MathRotation m;
+    float* rotMatr = m.RotationMatrix(rotation._x
+                                                 , rotation._y
+                                                 , rotation._z);
+    for (int r = 0; r < rows; r++)
+    {
+        for (int c = 0; c < cols; c++)
+        {
+            _particles[r * cols + c] = new RungeKuttaParticle(
+                        ParticleState(
+                            m.RotateAndTranslatePoint(
+                                Point3D<float>(1.0 * width * c / cols, 1.0 * height * r / rows)
+                                , rotMatr, translation), Point3D<float>(0, 0, 0))
+                        , massOfParticle);
+        }
+    }
+    delete[] rotMatr;
+
+    this->ConnectParticles(cols, rows, width, height, massVolume, stiffnes, thickness, rotation, translation
+                           , withBendSprings);
+
+    for (int i = 0; i < _springsCount; i++)
+    {
+        Spring* s = _springs[i];
+        AddConnections(s->_particleA, s->_particleB, s);
+    }
 }
 
 RungeKuttaSpringsObject::~RungeKuttaSpringsObject()

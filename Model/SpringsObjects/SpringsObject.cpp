@@ -7,9 +7,105 @@ using namespace std;
 //#include "exact-ccd/rootparitycollisiontest.h"
 
 #include "3DMath/ParticleState.h"
+#include "3DMath/MathRotation.h"
 
 SpringsObject::SpringsObject()
 {
+}
+
+SpringsObject::SpringsObject(const int &particlesCount, const int &springsCount, const int &structuralSpringsCount, const int &clothTrianglesCount, const float &thickness)
+{
+    _particlesCount = particlesCount;
+    _particles = vector<Particle*>(particlesCount);
+    _springsCount = springsCount;
+    _springs = vector<Spring*>(springsCount);
+    _structuralSpringsCount = structuralSpringsCount;
+    _structuralSprings = vector<Spring*>(structuralSpringsCount);
+    _clothTrianglesCount = clothTrianglesCount;
+    _clothTriangles = vector<ClothTriangle*>(clothTrianglesCount);
+
+    _thickness = thickness;
+}
+
+void SpringsObject::ConnectParticles(const int &cols, const int &rows, const float &width, const float &height
+                             , const float &massVolume, const float &stiffnes, const float &thickness
+                             , const Point3D<float> &rotation, const Point3D<float> &translation
+                             , const int &withBendSprings)
+{
+
+    float sW = 1.0 * width / (cols - 1);
+//    float sMW = sW * 2;
+    float sH = 1.0 * height / (rows - 1);
+//    float sMH = sH * 2;
+    int structSpnNum = 0;
+
+    int i = 0;
+
+    int t = 0;
+    for (int c = 0; c < cols; c++)
+    {
+        for (int r = 0; r < rows; r++)
+        {
+            if (c > 0)
+            {
+                _springs[i++] = new Spring(_particles[r * cols + c - 1]
+                        , _particles[r * cols + c]
+                        , stiffnes, sW);
+
+                _structuralSprings[structSpnNum++] = _springs[i - 1];
+            }
+            if (r > 0)
+            {
+                _springs[i++] = new Spring(_particles[r * cols + c]
+                        , _particles[(r - 1) * cols + c]
+                        , stiffnes, sH);
+
+                _structuralSprings[structSpnNum++] = _springs[i - 1];
+            }
+            if (c > 0 && r > 0)
+            {
+                _springs[i++] = new Spring(_particles[r * cols + c]
+                        , _particles[(r - 1) * cols + c - 1]
+                        , stiffnes, 0, shear);
+
+
+                _springs[i++] = new Spring(_particles[r * cols + c - 1]
+                        , _particles[(r - 1) * cols + c]
+                        , stiffnes, 0, shear);
+
+            }
+
+
+            //---------------------triangleCloth
+            if (c > 0 && r > 0)
+            {
+                _clothTriangles[t++] = new ClothTriangle(_particles[(r - 1) * cols + c - 1], _particles[(r - 1) * cols + c], _particles[r * cols + c]);
+                _clothTriangles[t++] = new ClothTriangle(_particles[(r - 1) * cols + c - 1], _particles[r * cols + c - 1], _particles[r * cols + c]);
+            }
+
+
+            //---------------------------------------------------
+            if (!withBendSprings)
+            {
+                continue;
+            }
+
+            if (c > 1)
+            {
+                _springs[i++] = new Spring(_particles[r * cols + c]
+                        , _particles[r * cols + c - 2]
+                        , stiffnes / 4, sW * 2, bend);
+
+            }
+            if (r > 1)
+            {
+                _springs[i++] = new Spring(_particles[r * cols + c]
+                        , _particles[(r - 2) * cols + c]
+                        , stiffnes / 4, sH * 2, bend);
+
+            }
+        }
+    }
 }
 
 SpringsObject::~SpringsObject()
@@ -30,20 +126,6 @@ SpringsObject::~SpringsObject()
     {
         delete _springs[i];
     }
-}
-
-SpringsObject::SpringsObject(const int &particlesCount, const int &springsCount, const int &structuralSpringsCount, const int &clothTrianglesCount, const float &thickness)
-{
-    _particlesCount = particlesCount;
-    _particles = vector<Particle*>(particlesCount);
-    _springsCount = springsCount;
-    _springs = vector<Spring*>(springsCount);
-    _structuralSpringsCount = structuralSpringsCount;
-    _structuralSprings = vector<Spring*>(structuralSpringsCount);
-    _clothTrianglesCount = clothTrianglesCount;
-    _clothTriangles = vector<ClothTriangle*>(clothTrianglesCount);
-
-    _thickness = thickness;
 }
 
 void SpringsObject::Draw(const DrawType &type)
@@ -210,7 +292,7 @@ int SpringsObject::TestTriangles(ClothTriangle* a, ClothTriangle* b)
 
     int result = 0;
 //    int myRes = 0;
-    bool is_edge_edge = false;
+//    bool is_edge_edge = false;
     for (int i = 0; i < 3; i++)
     {      
         Point3D<float>& aIP = a->_p[i]->_prevState._position;
@@ -409,8 +491,10 @@ void SpringsObject::ResolveSelfCollision(const float &timestep)
         this->CombineZones();
         cout << _impactZones.size() << endl;
     }
-//    this->ComputeFinalPosition(timestep);
-    this->ResolveImpactZones(timestep);
+
+    this->EraseImpactZones();
+    this->ComputeFinalPosition(timestep);
+//    this->ResolveImpactZones(timestep);
     //6. compute the final position
     //7.
 }
@@ -588,5 +672,13 @@ void SpringsObject::ResolveImpactZones(const float &timestep)
         it->erase(it->begin(), it->end());
     }
     _impactZones.erase(_impactZones.begin(), _impactZones.end());
+}
 
+void SpringsObject::EraseImpactZones()
+{    vector<vector<ClothTriangle*> >::iterator it;
+     for (it = _impactZones.begin(); it != _impactZones.end(); ++it)
+     {
+         it->erase(it->begin(), it->end());
+     }
+     _impactZones.erase(_impactZones.begin(), _impactZones.end());
 }

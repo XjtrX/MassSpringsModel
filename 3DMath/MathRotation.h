@@ -92,22 +92,22 @@ static float* MultRotMatr(const float* m1, const float* m2)
     return res;
 }
 
-static Point3D<float>& RotatePoint(Point3D<float> p, const float *rotMart)
+static Point3D<float>& RotatePoint(const Point3D<float> &p, const float *rotMart)
 {
     Point3D<float>* res = new Point3D<float>();
-    res->setX(p.getX() * rotMart[0] + p.getY() * rotMart[1] + p.getZ() * rotMart[2]);
-    res->setY(p.getX() * rotMart[3] + p.getY() * rotMart[4] + p.getZ() * rotMart[5]);
-    res->setZ(p.getX() * rotMart[6] + p.getY() * rotMart[7] + p.getZ() * rotMart[8]);
+    res->setX(p._x * rotMart[0] + p._y * rotMart[1] + p._z * rotMart[2]);
+    res->setY(p._x * rotMart[3] + p._y * rotMart[4] + p._z * rotMart[5]);
+    res->setZ(p._x * rotMart[6] + p._y * rotMart[7] + p._z * rotMart[8]);
     return *res;
 }
 
 static Point3D<float>& RotateAndTranslatePoint(Point3D<float> p, const float *rotMart
-                                        , Point3D<float> &tr)
+                                        , Point3D<float> tr)
 {
     Point3D<float>* res = new Point3D<float>();
-    res->setX(p.getX() * rotMart[0] + p.getY() * rotMart[1] + p.getZ() * rotMart[2] + tr.getX());
-    res->setY(p.getX() * rotMart[3] + p.getY() * rotMart[4] + p.getZ() * rotMart[5] + tr.getY());
-    res->setZ(p.getX() * rotMart[6] + p.getY() * rotMart[7] + p.getZ() * rotMart[8] + tr.getZ());
+    res->setX(p._x * rotMart[0] + p._y * rotMart[1] + p._z * rotMart[2] + tr._x);
+    res->setY(p._x * rotMart[3] + p._y * rotMart[4] + p._z * rotMart[5] + tr._y);
+    res->setZ(p._x * rotMart[6] + p._y * rotMart[7] + p._z * rotMart[8] + tr._z);
     return *res;
 }
 

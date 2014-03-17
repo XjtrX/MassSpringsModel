@@ -17,8 +17,18 @@ class SpringsObject: public MovableObject, public DrawableObject
 {
 public:
     SpringsObject();
+    SpringsObject(const int& particlesCount, const int& springsCount, const int& structuralSpringsCount
+                  , const int& clothTrianglesCount, const float& thickness);
+    void ConnectParticles(const int &cols, const int &rows, const float &width, const float &height
+                  , const float &massVolume, const float &stiffnes, const float &thickness
+                  , const Point3D<float> &rotation, const Point3D<float> &translation
+                  , const int &withBendSprings);
 
-    SpringsObject(const int& particlesCount, const int& springsCount, const int& structuralSpringsCount, const int& clothTrianglesCount, const float& thickness);
+//    RectRungeKuttaCloth(int cols, int rows, float width, float height
+//              , float massVolume, float stiffnes, float thickness
+//              , Point3D<float> rotation, Point3D<float> translation, const int &withBendSprings);
+
+
     virtual ~SpringsObject();
 
     virtual void Draw(const DrawType &type);
@@ -54,6 +64,7 @@ public:
     void CombineZones();
 
     void ResolveImpactZones(const float& timestep);
+    void EraseImpactZones();
 
 public:
     int _particlesCount;

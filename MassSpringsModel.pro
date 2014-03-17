@@ -13,8 +13,6 @@ SOURCES += \
     Model/SpringsObjects/Scene/Scene.cpp \
     Model/SpringsObjects/RungeKuttaSpringsObject.cpp \
     Model/SpringsObjects/SpringsObject.cpp \
-    Model/SpringsObjects/Cloth/RectVerletCloth.cpp \
-    Model/SpringsObjects/Cloth/RectRungeKuttaCloth.cpp \
     Model/Collision/PointTriangleManifold.cpp \
     exact-ccd/expansion.cpp \
     exact-ccd/interval.cpp \
@@ -45,8 +43,6 @@ HEADERS += \
     3DMath/ParticlePosition.h \
     Model/SpringsObjects/RungeKuttaSpringsObject.h \
     Model/SpringsObjects/SpringsObject.h \
-    Model/SpringsObjects/Cloth/RectVerletCloth.h \
-    Model/SpringsObjects/Cloth/RectRungeKuttaCloth.h \
     Model/Interfaces/MovableObject.h \
     Model/ModelSamples/ClothTriangle.h \
     Model/Collision/PointTriangleManifold.h \

@@ -1,8 +1,39 @@
 #include "VerletSpringsObject.h"
+#include "Model/ModelSamples/VerletParticle.h"
+#include "3DMath/MathRotation.h"
 
-VerletSpringsObject::VerletSpringsObject(const int &particlesCount, const int &springsCount, const int &structuralSpringsCount, const int &clothTrianglesCount, const float &thickness)
-    : SpringsObject(particlesCount, springsCount, structuralSpringsCount, clothTrianglesCount, thickness)
-{
+VerletSpringsObject::VerletSpringsObject(const int &cols, const int &rows, const float &width, const float &height
+                                         , const float &massVolume, const float &stiffnes, const float &thickness
+                                         , const Point3D<float> &rotation, const Point3D<float> &translation
+                                         , const int &withBendSprings)
+    :SpringsObject(cols * rows
+                   ,   (cols - 1) * rows + cols * (rows - 1) + 2 * (cols - 1) * (rows - 1)
+                     + ((cols - 2) * rows + cols * (rows - 2)) * (withBendSprings == 1 ? 1 : 0)
+                   , (cols - 1) * rows + cols * (rows - 1)
+                   , (cols - 1) * (rows - 1) * 2, thickness)
+ {
+     float massOfParticle = massVolume / _particlesCount;
+
+     MathRotation m;
+     float* rotMatr = m.RotationMatrix(rotation._x
+                                                  , rotation._y
+                                                  , rotation._z);
+     for (int r = 0; r < rows; r++)
+     {
+         for (int c = 0; c < cols; c++)
+         {
+             _particles[r * cols + c] = new VerletParticle(
+                         ParticleState(
+                             m.RotateAndTranslatePoint(
+                                 Point3D<float>(1.0 * width * c / cols, 1.0 * height * r / rows)
+                                 , rotMatr, translation), Point3D<float>(0, 0, 0))
+                         , massOfParticle);
+         }
+     }
+     delete[] rotMatr;
+
+     this->ConnectParticles(cols, rows, width, height, massVolume, stiffnes, thickness, rotation, translation
+                            , withBendSprings);
 }
 
 VerletSpringsObject::~VerletSpringsObject()

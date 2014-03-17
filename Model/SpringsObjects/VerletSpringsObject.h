@@ -7,7 +7,10 @@
 class VerletSpringsObject: public SpringsObject, public VerletObject
 {
 public:
-    VerletSpringsObject(const int& particlesCount, const int& springsCount, const int& structuralSpringsCount, const int& clothTrianglesCount, const float& thickness);
+    VerletSpringsObject(const int &cols, const int &rows, const float &width, const float &height
+                  , const float &massVolume, const float &stiffnes, const float &thickness
+                  , const Point3D<float> &rotation, const Point3D<float> &translation
+                  , const int &withBendSprings);
     virtual ~VerletSpringsObject();
 
     virtual void Collide(const float &timestep);

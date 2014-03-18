@@ -10,7 +10,7 @@ public:
     virtual void ApplyAcceleration(const float &aX, const float &aY, const float &aZ) = 0;
     virtual void CalculateAverageVelocity(const float& timestep) = 0;
     virtual void Accelerate(const float &timestep) = 0;
-    virtual void Move(const float& timestep) = 0;
+    virtual void Inertia(const float& timestep) = 0;
 //    virtual void Collide(const float& timestep) = 0;
     virtual void setVelocity(const Point3D<float>& newVelocity, const float& timestep) = 0;
     virtual void ComputeFinalPosition(const float& timestep) = 0;

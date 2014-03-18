@@ -27,8 +27,8 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     _perspectiveAngle = 45;
     connect(&_timer, SIGNAL(timeout()), this, SLOT(UpdateScene()));
 
-    int rows = 5;
-    int cols = 5;
+    int rows = 11;
+    int cols = 11;
     float width = 30;
     float heigth = 30;
     float massVolume = 1;
@@ -50,12 +50,12 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
 //    rC->_particles[(rows / 2 + 1) * cols - 1]->setStatic(1);
     _scene.AddSpringsObject(rC);
 
-    QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory")
-                                                    , "/home"
-                                                    ,   QFileDialog::ShowDirsOnly
-                                                      | QFileDialog::DontResolveSymlinks);
-    string directory = dir.toUtf8().constData();
-    _scene.setDirectory(directory);
+//    QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory")
+//                                                    , "/home"
+//                                                    ,   QFileDialog::ShowDirsOnly
+//                                                      | QFileDialog::DontResolveSymlinks);
+//    string directory = dir.toUtf8().constData();
+//    _scene.setDirectory(directory);
 }
 
 void SceneGLWidget::initializeGL()

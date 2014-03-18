@@ -68,14 +68,15 @@ void Particle::CalculateAverageVelocity(const float &timestep)
 }
 
 void Particle::Accelerate(const float &timestep)
-{    if (_static)
+{
+    if (_static)
     {
         return;
     }
 
     Point3D<float> acceleration = _appliedForce / _massVolume;
-    _state._position += acceleration * timestep *  timestep / 2;
     _state._velocity += acceleration * timestep;
+    _state._position += acceleration * timestep *  timestep / 2;
 
      _appliedForce.set(0, 0, 0);
 }

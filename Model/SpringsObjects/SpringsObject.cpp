@@ -24,9 +24,7 @@ SpringsObject::SpringsObject(const int &particlesCount, const int &springsCount,
 }
 
 void SpringsObject::ConnectParticles(const int &cols, const int &rows, const float &width, const float &height
-                             , const float &massVolume, const float &stiffnes, const float &thickness
-                             , const Point3D<float> &rotation, const Point3D<float> &translation
-                             , const int &withBendSprings)
+                             , const float &stiffnes, const int &withBendSprings)
 {
 
     float sW = 1.0 * width / (cols - 1);
@@ -171,11 +169,11 @@ void SpringsObject::CalculateAverageVelocity(const float &timestep)
     }
 }
 
-void SpringsObject::Move(const float &timestep)
+void SpringsObject::Inertia(const float &timestep)
 {
     for (int i = 0; i < _particlesCount; i++)
     {
-        _particles[i]->Move(timestep);
+        _particles[i]->Inertia(timestep);
     }
 }
 

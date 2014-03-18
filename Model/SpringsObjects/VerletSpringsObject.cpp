@@ -32,8 +32,7 @@ VerletSpringsObject::VerletSpringsObject(const int &cols, const int &rows, const
      }
      delete[] rotMatr;
 
-     this->ConnectParticles(cols, rows, width, height, massVolume, stiffnes, thickness, rotation, translation
-                            , withBendSprings);
+     this->ConnectParticles(cols, rows, width, height, stiffnes, withBendSprings);
 }
 
 VerletSpringsObject::~VerletSpringsObject()
@@ -51,9 +50,9 @@ void VerletSpringsObject::Accelerate(const float &timestep)
     SpringsObject::Accelerate(timestep);
 }
 
-void VerletSpringsObject::Move(const float &timestep)
+void VerletSpringsObject::Inertia(const float &timestep)
 {
-    SpringsObject::Move(timestep);
+    SpringsObject::Inertia(timestep);
 }
 
 void VerletSpringsObject::ApplyForce(const float &fX, const float &fY, const float &fZ)
@@ -108,6 +107,6 @@ void VerletSpringsObject::Iteration(float timeInterval)
     this->RecalculateSprings();
 //    this->Accelerate(timeInterval);
 //    this->Move();
-    this->Move(timeInterval);
     this->Accelerate(timeInterval);
+    this->Inertia(timeInterval);
 }

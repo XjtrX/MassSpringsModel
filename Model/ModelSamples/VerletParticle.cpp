@@ -10,7 +10,7 @@ VerletParticle::~VerletParticle()
 {
 }
 
-void VerletParticle::Move(const float &timestep)
+void VerletParticle::Inertia(const float &timestep)
 {
     if (_static)
     {

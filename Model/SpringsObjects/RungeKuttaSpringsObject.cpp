@@ -54,8 +54,7 @@ RungeKuttaSpringsObject::RungeKuttaSpringsObject(const int &cols, const int &row
     }
     delete[] rotMatr;
 
-    this->ConnectParticles(cols, rows, width, height, massVolume, stiffnes, thickness, rotation, translation
-                           , withBendSprings);
+    this->ConnectParticles(cols, rows, width, height, stiffnes, withBendSprings);
 
     for (int i = 0; i < _springsCount; i++)
     {
@@ -126,9 +125,9 @@ void RungeKuttaSpringsObject::Iteration(float timeInterval)
 */
 }
 
-void RungeKuttaSpringsObject::Move(const float &timestep)
+void RungeKuttaSpringsObject::Inertia(const float &timestep)
 {
-    SpringsObject::Move(timestep);
+    SpringsObject::Inertia(timestep);
 }
 
 inline void RungeKuttaSpringsObject::ApplyForce(const float &fX, const float &fY, const float &fZ)
@@ -199,7 +198,7 @@ void RungeKuttaSpringsObject::MoveEachOther(const float &timestep)
         rKP->RecalculateConnectionsAffort();
         rKP->ComputeK4(timestep);
     }
-    Move(timestep);
+    Inertia(timestep);
 }
 
 void RungeKuttaSpringsObject::RecalculateConnectionsAffort()

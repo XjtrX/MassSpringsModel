@@ -19,8 +19,7 @@ public:
     SpringsObject(const int& particlesCount, const int& springsCount, const int& structuralSpringsCount
                   , const int& clothTrianglesCount, const float& thickness);
     void ConnectParticles(const int &cols, const int &rows, const float &width, const float &height
-                  , const float &massVolume, const float &stiffnes, const float &thickness
-                  , const Point3D<float> &rotation, const Point3D<float> &translation
+                  , const float &stiffnes
                   , const int &withBendSprings);
 
 //    RectRungeKuttaCloth(int cols, int rows, float width, float height
@@ -40,7 +39,7 @@ public:
     virtual void ApplyAcceleration(const float &aX, const float &aY, const float &aZ);
     virtual void Accelerate(const float &timestep);
     virtual void CalculateAverageVelocity(const float &timestep);
-    virtual void Move(const float &timestep);
+    virtual void Inertia(const float &timestep);
 
     virtual void setVelocity(const Point3D<float> &newVelocity, const float &timestep);
     virtual Point3D<float> getVelocity();

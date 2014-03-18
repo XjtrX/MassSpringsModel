@@ -14,7 +14,7 @@ public:
                    , const int &st = 0);
     virtual ~VerletParticle();
 
-    virtual void Move(const float &timestep);
+    virtual void Inertia(const float &timestep);
     virtual void Accelerate(const float &timestep);
 
     virtual void ApplyForce(const float &fX, const float &fY, const float &fZ);

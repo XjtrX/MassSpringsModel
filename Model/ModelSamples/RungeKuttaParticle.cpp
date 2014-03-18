@@ -53,7 +53,7 @@ void RungeKuttaParticle::ComputeFinalPosition(const float &timestep)
     Particle::ComputeFinalPosition(timestep);
 }
 
-void RungeKuttaParticle::Move(const float &)
+void RungeKuttaParticle::Inertia(const float &)
 {
     if (_static)
     {

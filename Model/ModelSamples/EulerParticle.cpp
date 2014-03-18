@@ -31,7 +31,7 @@ void EulerParticle::Accelerate(const float &timestep)
     Particle::Accelerate(timestep);
 }
 
-void EulerParticle::Move(const float &timestep)
+void EulerParticle::Inertia(const float &timestep)
 {
     if (_static)
     {
@@ -41,11 +41,15 @@ void EulerParticle::Move(const float &timestep)
         return;
     }
 
-    _prevState = _state;
+    ParticleState tmp = _state;
+
+    _state._position += (_state._velocity + _prevState._velocity) * timestep / 2;
+
+    _prevState = tmp;
 
 }
 
-void EulerParticle::setVelocity(const Point3D<float> &newVelocity, const float &timestep)
+void EulerParticle::setVelocity(const Point3D<float> &newVelocity, const float &)
 {
     _state._velocity = newVelocity;
 }

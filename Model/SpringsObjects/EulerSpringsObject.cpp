@@ -31,8 +31,7 @@ EulerSpringsObject::EulerSpringsObject(const int &cols, const int &rows, const f
     }
     delete[] rotMatr;
 
-    this->ConnectParticles(cols, rows, width, height, massVolume, stiffnes, thickness, rotation, translation
-                           , withBendSprings);
+    this->ConnectParticles(cols, rows, width, height, stiffnes, withBendSprings);
 }
 
 EulerSpringsObject::~EulerSpringsObject()
@@ -59,9 +58,9 @@ void EulerSpringsObject::Accelerate(const float &timestep)
     SpringsObject::Accelerate(timestep);
 }
 
-void EulerSpringsObject::Move(const float &timestep)
+void EulerSpringsObject::Inertia(const float &timestep)
 {
-    SpringsObject::Move(timestep);
+    SpringsObject::Inertia(timestep);
 }
 
 void EulerSpringsObject::setVelocity(const Point3D<float> &newVelocity, const float &timestep)
@@ -80,6 +79,6 @@ void EulerSpringsObject::Iteration(float timeInterval)
     this->RecalculateSprings();
 //    this->Accelerate(timeInterval);
 //    this->Move();
-    this->Move(timeInterval);
     this->Accelerate(timeInterval);
+    this->Inertia(timeInterval);
 }

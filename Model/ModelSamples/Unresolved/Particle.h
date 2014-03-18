@@ -35,7 +35,7 @@ public:
 
     Point3D<float>& getPosition();
 
-    virtual void Move(const float &timestep) = 0;
+    virtual void Inertia(const float &timestep) = 0;
     virtual void ApplyForce(const float& fX, const float& fY, const float& fZ);
     virtual void ApplyAcceleration(const float &aX, const float &aY, const float &aZ);
     virtual void CalculateAverageVelocity(const float &timestep);

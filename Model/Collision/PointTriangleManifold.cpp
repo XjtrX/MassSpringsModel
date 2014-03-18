@@ -63,7 +63,7 @@ void PointTriangleManifold::ResolveCollisionByMomentumConversation(const float& 
 #include <iostream>
 using namespace std;
 
-void PointTriangleManifold::ResolveCollisionByProvot(const float &timestep)
+void PointTriangleManifold::ResolveCollisionByProvot(const float &)
 {
     Point3D<float>& D = _p->_state._position;
 

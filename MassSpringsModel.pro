@@ -18,7 +18,9 @@ SOURCES += \
     exact-ccd/interval.cpp \
     exact-ccd/rootparitycollisiontest.cpp \
     Model/ModelSamples/Unresolved/Particle.cpp \
-    Model/Collision/PointsManifold.cpp
+    Model/Collision/PointsManifold.cpp \
+    Model/ModelSamples/EulerParticle.cpp \
+    Model/SpringsObjects/EulerSpringsObject.cpp
 
 HEADERS += \
     Model/ModelSamples/Spring.h \
@@ -54,7 +56,10 @@ HEADERS += \
     3DMath/Matrix3x3D.h \
     CustomException.h \
     Model/Collision/ResolveCollision.h \
-    Model/Collision/PointsManifold.h
+    Model/Collision/PointsManifold.h \
+    Model/ModelSamples/EulerParticle.h \
+    Model/Interfaces/EulerObject.h \
+    Model/SpringsObjects/EulerSpringsObject.h
 
 FORMS += \
     scenewindow.ui

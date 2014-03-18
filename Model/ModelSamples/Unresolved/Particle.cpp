@@ -1,9 +1,5 @@
 #include "Model/ModelSamples/Unresolved/Particle.h"
 
-Particle::Particle()
-{
-}
-
 Particle::Particle(const Particle &particle)
 {
     this->_state = particle._state;
@@ -76,15 +72,12 @@ void Particle::Accelerate(const float &timestep)
     {
         return;
     }
-    float koeff = timestep * timestep / 2 / _massVolume;
-    _state._position += _appliedForce * koeff;
-    _state._velocity += _appliedForce / _massVolume * timestep;
+
+    Point3D<float> acceleration = _appliedForce / _massVolume;
+    _state._position += acceleration * timestep *  timestep / 2;
+    _state._velocity += acceleration * timestep;
 
      _appliedForce.set(0, 0, 0);
-}
-
-void Particle::Collide(const float &)
-{
 }
 
 Point3D<float> Particle::getVelocity()

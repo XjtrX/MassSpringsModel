@@ -3,13 +3,8 @@
 #include <iostream>
 using namespace std;
 
-RungeKuttaParticle::RungeKuttaParticle()
-{
-}
-
-RungeKuttaParticle::RungeKuttaParticle(const ParticleState &initialState
-                                       , const float massVolume
-                                       , const float borderRadius, const int st)
+RungeKuttaParticle::RungeKuttaParticle(const ParticleState &initialState, const float &massVolume
+                                       , const float &borderRadius, const int &st)
     : Particle(initialState, massVolume, borderRadius, st)
 {
     _interm = initialState;
@@ -119,10 +114,6 @@ void RungeKuttaParticle::ComputeK4(float timestep)
         return;
     }
     _k4 = RKTransformation(_interm + _k3, timestep) * timestep;
-}
-
-void RungeKuttaParticle::Collide(const float &)
-{
 }
 
 void RungeKuttaParticle::AddConnection(Spring* spring, Particle* particle)

@@ -6,6 +6,7 @@
 using namespace std;
 
 Scene::Scene()
+    :SpringsObject(0, 0, 0, 0, 0)
 {
     _directory = "/home";
     _iteration = 0;

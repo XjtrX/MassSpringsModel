@@ -9,7 +9,6 @@
 class Particle: public MovableObject
 {
 public:
-    Particle();
     Particle(const Particle& particle);
     Particle(const ParticleState& initialState
              , const float& massVolume, const float& borderRadius = 1, const int& st = 0);
@@ -41,7 +40,7 @@ public:
     virtual void ApplyAcceleration(const float &aX, const float &aY, const float &aZ);
     virtual void CalculateAverageVelocity(const float &timestep);
     virtual void Accelerate(const float &timestep);
-    virtual void Collide(const float &timestep);
+//    virtual void Collide(const float &timestep);
 
     virtual void setVelocity(const Point3D<float> &newVelocity, const float &timestep) = 0;
     virtual Point3D<float> getVelocity();

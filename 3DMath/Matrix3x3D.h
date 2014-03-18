@@ -61,7 +61,7 @@ public:
         _a33 = 0;
     }
 
-    void Print(char* description)
+    void Print(const char* description)
     {
         cout << description << endl;
         for (int j = 0; j < 3; j++)

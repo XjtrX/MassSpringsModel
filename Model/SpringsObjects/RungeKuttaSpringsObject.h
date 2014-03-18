@@ -28,7 +28,7 @@ public:
 
     virtual void Move(const float &timestep);
     virtual void ApplyForce(const float &fX, const float &fY, const float &fZ);
-    virtual void ApplyAcceleration(const float &fX, const float &fY, const float &fZ);
+    virtual void ApplyAcceleration(const float &aX, const float &aY, const float &aZ);
     virtual void Accelerate(const float &timestep);
     virtual void CalculateAverageVelocity(const float &timestep);
 

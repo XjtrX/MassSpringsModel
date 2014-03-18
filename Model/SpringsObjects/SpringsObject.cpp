@@ -9,10 +9,6 @@ using namespace std;
 #include "3DMath/ParticleState.h"
 #include "3DMath/MathRotation.h"
 
-SpringsObject::SpringsObject()
-{
-}
-
 SpringsObject::SpringsObject(const int &particlesCount, const int &springsCount, const int &structuralSpringsCount, const int &clothTrianglesCount, const float &thickness)
 {
     _particlesCount = particlesCount;
@@ -151,11 +147,11 @@ void SpringsObject::ApplyForce(const float &fX, const float &fY, const float &fZ
     }
 }
 
-void SpringsObject::ApplyAcceleration(const float &fX, const float &fY, const float &fZ)
+void SpringsObject::ApplyAcceleration(const float &aX, const float &aY, const float &aZ)
 {
     for (int i = 0; i < _particlesCount; i++)
     {
-        _particles[i]->ApplyAcceleration(fX, fY ,fZ);
+        _particles[i]->ApplyAcceleration(aX, aY ,aZ);
     }
 }
 

@@ -1,11 +1,7 @@
 #include "VerletParticle.h"
 
-VerletParticle::VerletParticle()
-{
-}
-
 VerletParticle::VerletParticle(const ParticleState &initialState
-                               , const float massVolume, const float borderRadius, const int st)
+                               , const float &massVolume, const float &borderRadius, const int &st)
     : Particle(initialState, massVolume, borderRadius, st)
 {
 }
@@ -19,6 +15,7 @@ void VerletParticle::Move(const float &timestep)
     if (_static)
     {
         _state._position = _prevState._position;
+        _state._velocity.set(0, 0, 0);
         _appliedForce.set(0, 0, 0);
         return;
     }
@@ -52,10 +49,6 @@ void VerletParticle::Accelerate(const float &timestep)
 Point3D<float>& VerletParticle::PrevPosition()
 {
     return _prevState._position;
-}
-
-void VerletParticle::Collide(const float &)
-{
 }
 
 void VerletParticle::ApplyForce(const float &fX, const float &fY, const float &fZ)

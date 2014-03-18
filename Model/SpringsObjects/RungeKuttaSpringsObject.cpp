@@ -136,9 +136,9 @@ inline void RungeKuttaSpringsObject::ApplyForce(const float &fX, const float &fY
     SpringsObject::ApplyForce(fX, fY, fZ);
 }
 
-inline void RungeKuttaSpringsObject::ApplyAcceleration(const float &fX, const float &fY, const float &fZ)
+inline void RungeKuttaSpringsObject::ApplyAcceleration(const float &aX, const float &aY, const float &aZ)
 {
-    SpringsObject::ApplyAcceleration(fX, fY, fZ);
+    SpringsObject::ApplyAcceleration(aX, aY, aZ);
 }
 
 void RungeKuttaSpringsObject::Accelerate(const float &timestep)

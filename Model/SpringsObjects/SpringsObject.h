@@ -16,7 +16,6 @@ using namespace std;
 class SpringsObject: public MovableObject, public DrawableObject
 {
 public:
-    SpringsObject();
     SpringsObject(const int& particlesCount, const int& springsCount, const int& structuralSpringsCount
                   , const int& clothTrianglesCount, const float& thickness);
     void ConnectParticles(const int &cols, const int &rows, const float &width, const float &height
@@ -38,7 +37,7 @@ public:
     virtual void RecalculateSprings();
 
     virtual void ApplyForce(const float &fX, const float &fY, const float &fZ);
-    virtual void ApplyAcceleration(const float &fX, const float &fY, const float &fZ);
+    virtual void ApplyAcceleration(const float &aX, const float &aY, const float &aZ);
     virtual void Accelerate(const float &timestep);
     virtual void CalculateAverageVelocity(const float &timestep);
     virtual void Move(const float &timestep);

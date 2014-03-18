@@ -9,15 +9,13 @@ class VerletParticle: public Particle, public VerletObject
 public:
 //    Point3D<float> _appliedForce;
 
-    VerletParticle();
     VerletParticle(const ParticleState &initialState
-                   , const float massVolume, const float borderRadius = 1
-                   , const int st = 0);
+                   , const float &massVolume, const float &borderRadius = 1
+                   , const int &st = 0);
     virtual ~VerletParticle();
 
     virtual void Move(const float &timestep);
     virtual void Accelerate(const float &timestep);
-    virtual void Collide(const float &timestep);
 
     virtual void ApplyForce(const float &fX, const float &fY, const float &fZ);
     virtual void ApplyAcceleration(const float &aX, const float &aY, const float &aZ);

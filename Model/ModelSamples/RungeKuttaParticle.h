@@ -48,10 +48,9 @@ struct TriangleToCollide
 class RungeKuttaParticle: public Particle, public RungeKuttaObject
 {
 public:
-    RungeKuttaParticle();
     RungeKuttaParticle(const ParticleState& initialState
-                       , const float massVolume, const float borderRadius = 1
-                       , const int st = 0);
+                       , const float &massVolume, const float &borderRadius = 1
+                       , const int &st = 0);
     virtual ~RungeKuttaParticle();
 
     virtual void Move(const float &timestep);
@@ -70,8 +69,6 @@ public:
     virtual void ComputeK2(float timestep);
     virtual void ComputeK3(float timestep);
     virtual void ComputeK4(float timestep);
-
-    virtual void Collide(const float &timestep);
 
     void AddConnection(Spring* spring, Particle* particle);
     void RecalculateConnectionsAffort();

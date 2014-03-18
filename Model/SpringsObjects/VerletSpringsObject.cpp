@@ -61,9 +61,9 @@ void VerletSpringsObject::ApplyForce(const float &fX, const float &fY, const flo
     SpringsObject::ApplyForce(fX, fY, fZ);
 }
 
-void VerletSpringsObject::ApplyAcceleration(const float &fX, const float &fY, const float &fZ)
+void VerletSpringsObject::ApplyAcceleration(const float &aX, const float &aY, const float &aZ)
 {
-    SpringsObject::ApplyAcceleration(fX, fY, fZ);
+    SpringsObject::ApplyAcceleration(aX, aY, aZ);
 }
 
 void VerletSpringsObject::setVelocity(const Point3D<float> &newVelocity, const float &timestep)

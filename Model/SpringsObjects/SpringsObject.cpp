@@ -474,7 +474,7 @@ void SpringsObject::ResolveSelfCollision(const float &timestep)
     this->Collide(timestep);
     this->ResolveCollisions(timestep);
     //5. check linear trajectories for collusion
-//    this->MergingToZones();
+    this->MergingToZones();
     if (_impactZones.size())
     {
         cout << "zones: " << _impactZones.size() << " ";
@@ -482,9 +482,9 @@ void SpringsObject::ResolveSelfCollision(const float &timestep)
         cout << _impactZones.size() << endl;
     }
 
-//    this->EraseImpactZones();
+    this->ResolveImpactZones(timestep);
+    this->EraseImpactZones();
     this->ComputeFinalPosition(timestep);
-//    this->ResolveImpactZones(timestep);
     //6. compute the final position
     //7.
 }

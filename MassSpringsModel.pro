@@ -69,7 +69,7 @@ FORMS += \
 #QMAKE_LIBDIR += /home/lord/projects/qt/MassSpringsModel/exact-ccd
 #INCLUDEPATH += /home/lord/projects/qt/MassSpringsModel/exact-ccd
 
-INCLUDEPATH += "./glm"
+#INCLUDEPATH += "./glm"
 
 LIBS += -lglut -lGL -lGLU# -lexact-ccd
 

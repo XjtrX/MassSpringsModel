@@ -12,7 +12,7 @@ PointTriangleManifold::~PointTriangleManifold()
 {
 }
 
-void PointTriangleManifold::ResolveCollisionByMomentumConversation(const float& timestep)
+void PointTriangleManifold::ResolveCollisionByMomentumConversation(const float&)
 {
     Point3D<float>& D = _p->_state._position;
 

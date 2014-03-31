@@ -59,3 +59,8 @@ void EulerParticle::ComputeFinalPosition(const float &timestep)
 {
     Particle::ComputeFinalPosition(timestep);
 }
+
+void EulerParticle::ApplyCorrection(const float &timestep)
+{
+    Particle::ApplyCorrection(timestep);
+}

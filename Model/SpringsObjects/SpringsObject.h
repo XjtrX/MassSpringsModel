@@ -3,7 +3,7 @@
 
 #include "Model/Interfaces/DrawableObject.h"
 #include "Model/ModelSamples/Spring.h"
-#include "Model/ModelSamples/Unresolved/Particle.h"
+#include "Model/ModelSamples/Particle.h"
 #include "Model/Interfaces/MovableObject.h"
 #include "Model/ModelSamples/ClothTriangle.h"
 #include "Model/Collision/PointTriangleManifold.h"
@@ -45,6 +45,7 @@ public:
     virtual Point3D<float> getVelocity();
 
     virtual void ComputeFinalPosition(const float &timestep);
+    virtual void ApplyCorrection(const float &timestep);
 
     virtual void Collide(const float &timestep);
     void FlushHighlighting();

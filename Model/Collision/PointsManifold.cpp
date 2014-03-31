@@ -38,6 +38,7 @@ PointsManifold::~PointsManifold()
 {
 }
 
+
 void PointsManifold::ComputeAngularMomentum()
 {
     _vCM.set(0, 0, 0);
@@ -70,12 +71,12 @@ void PointsManifold::ComputeAngularMomentum()
 
     _omega = Matrix3x3D<float>::Mult(_I.getInverse(), _L);
 
-    _vCM.Print("vCM: ");
+//    _vCM.Print("vCM: ");
     _xCM.Print("xCM: ");
-    _L.Print("L: ");
-    _I.Print("I: ");
+//    _L.Print("L: ");
+//    _I.Print("I: ");
 //    t.Print("t: ");
-    _omega.Print("omega: ");
+//    _omega.Print("omega: ");
     cout.flush();
 }
 
@@ -84,9 +85,9 @@ void PointsManifold::RecalculatePoinsState(const float &timestep)
     int pLen  = _particles.size();
 //    float angle = timestep * _omega.getLength();
 
-    Point3D<float> gradOmega = _omega * 180 / PI;
-    gradOmega.Print("gradOmega: ");
-    float * rotMatr = MathRotation::RotationMatrix(gradOmega._x, gradOmega._y, gradOmega._z);
+    Point3D<float> rotationVolume = _omega * 180 / PI * timestep;
+    rotationVolume.Print("gradOmega: ");
+    float * rotMatr = MathRotation::RotationMatrix(rotationVolume._x, rotationVolume._y, rotationVolume._z);
 
     for (int i = 0; i < pLen; i++)
     {
@@ -95,7 +96,9 @@ void PointsManifold::RecalculatePoinsState(const float &timestep)
         Point3D<float> xR = p->_prevState._position - _xCM -xF;
 
         Point3D<float> diff = MathRotation::RotatePoint(xF, rotMatr);
-        diff.Print("diff: ");
+        p->_dV = diff;
+//        p->_state._position += diff;
+//        diff.Print("diff: ");
 //        p->_state._position.Print("position: ");
 //        p->_state._position = _xCM + _vCM * timestep + xR * cos(angle) + Point3D<float>::CrossProduct(_omega.getUnit() * sin(angle), xR);
 //        p->_averageVelocity = (p->_state._position - p->_prevState._position) / timestep;

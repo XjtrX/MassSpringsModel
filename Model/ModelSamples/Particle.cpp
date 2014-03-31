@@ -98,6 +98,13 @@ void Particle::ComputeFinalPosition(const float &timestep)
     }
 }
 
+void Particle::ApplyCorrection(const float &timestep)
+{
+    _state._position += _dV * timestep;
+    this->setVelocity(this->getVelocity() + _dV, timestep);
+    _dV.set(0, 0, 0);
+}
+
 int Particle::isStatic()
 {
     return _static;

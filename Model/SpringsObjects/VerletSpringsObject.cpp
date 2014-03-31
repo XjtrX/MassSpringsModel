@@ -85,6 +85,11 @@ void VerletSpringsObject::ComputeFinalPosition(const float &timestep)
     SpringsObject::ComputeFinalPosition(timestep);
 }
 
+void VerletSpringsObject::ApplyCorrection(const float &timestep)
+{
+    SpringsObject::ApplyCorrection(timestep);
+}
+
 void VerletSpringsObject::ResolveCollisions(const float &timestep)
 {
     SpringsObject::ResolveCollisions(timestep);

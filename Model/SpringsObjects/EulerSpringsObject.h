@@ -22,6 +22,7 @@ public:
     virtual void Inertia(const float &timestep);
     virtual void setVelocity(const Point3D<float> &newVelocity, const float &timestep);
     virtual void ComputeFinalPosition(const float &timestep);
+    virtual void ApplyCorrection(const float &timestep);
 
     virtual void Iteration(float timeInterval);
 };

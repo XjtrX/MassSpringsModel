@@ -1,7 +1,7 @@
 #ifndef VerletParticle_H
 #define VerletParticle_H
 
-#include "Model/ModelSamples/Unresolved/Particle.h"
+#include "Model/ModelSamples/Particle.h"
 #include "Model/Interfaces/VerletObject.h"
 
 class VerletParticle: public Particle, public VerletObject
@@ -25,6 +25,7 @@ public:
     virtual Point3D<float> getVelocity();
 
     virtual void ComputeFinalPosition(const float &timestep);
+    virtual void ApplyCorrection(const float &timestep);
 
     Point3D<float>& PrevPosition();
 };

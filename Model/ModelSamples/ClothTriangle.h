@@ -3,7 +3,7 @@
 
 
 #include "Model/Interfaces/DrawableObject.h"
-#include "Model/ModelSamples/Unresolved/Particle.h"
+#include "Model/ModelSamples/Particle.h"
 
 #include <math.h>
 using namespace std;

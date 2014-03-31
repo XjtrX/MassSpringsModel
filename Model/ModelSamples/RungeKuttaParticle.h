@@ -1,7 +1,7 @@
 #ifndef RUNGEKUTTAPARTICLE_H
 #define RUNGEKUTTAPARTICLE_H
 
-#include "Unresolved/Particle.h"
+#include "Model/ModelSamples/Particle.h"
 #include "3DMath/ParticleState.h"
 #include "Model/Interfaces/RungeKuttaObject.h"
 
@@ -63,6 +63,7 @@ public:
     virtual void setVelocity(const Point3D<float> &newVelocity, const float &timestep);
     virtual Point3D<float> getVelocity();
     virtual void ComputeFinalPosition(const float &timestep);
+    virtual void ApplyCorrection(const float &timestep);
 
     virtual ParticleState RKTransformation(const ParticleState particleState, float dt);
     virtual void ComputeK1(float timestep);

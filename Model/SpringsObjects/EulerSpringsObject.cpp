@@ -73,6 +73,11 @@ void EulerSpringsObject::ComputeFinalPosition(const float &timestep)
     SpringsObject::ComputeFinalPosition(timestep);
 }
 
+void EulerSpringsObject::ApplyCorrection(const float &timestep)
+{
+    SpringsObject::ApplyCorrection(timestep);
+}
+
 void EulerSpringsObject::Iteration(float timeInterval)
 {
     this->ApplyAcceleration(0, -9.8, 0);

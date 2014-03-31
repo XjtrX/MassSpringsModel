@@ -47,6 +47,7 @@ public:
     virtual Point3D<float> getVelocity();
 
     virtual void ComputeFinalPosition(const float &timestep);
+    virtual void ApplyCorrection(const float &timestep);
 };
 
 #endif // PARTICLE_H

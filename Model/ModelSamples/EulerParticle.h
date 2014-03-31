@@ -1,7 +1,7 @@
 #ifndef EULERPARTICLE_H
 #define EULERPARTICLE_H
 
-#include "Model/ModelSamples/Unresolved/Particle.h"
+#include "Model/ModelSamples/Particle.h"
 #include "Model/Interfaces/EulerObject.h"
 
 class EulerParticle: public Particle, public EulerObject
@@ -19,6 +19,7 @@ public:
     virtual void Inertia(const float &timestep);
     virtual void setVelocity(const Point3D<float> &newVelocity, const float &timestep);
     virtual void ComputeFinalPosition(const float &timestep);
+    virtual void ApplyCorrection(const float &timestep);
 };
 
 #endif // EULERPARTICLE_H

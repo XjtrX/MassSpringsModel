@@ -165,6 +165,11 @@ void RungeKuttaSpringsObject::ComputeFinalPosition(const float &timestep)
     SpringsObject::ComputeFinalPosition(timestep);
 }
 
+void RungeKuttaSpringsObject::ApplyCorrection(const float &timestep)
+{
+    SpringsObject::ApplyCorrection(timestep);
+}
+
 inline void RungeKuttaSpringsObject::Collide(const float &timestep)
 {
     SpringsObject::Collide(timestep);

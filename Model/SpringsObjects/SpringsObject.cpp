@@ -199,6 +199,14 @@ void SpringsObject::ComputeFinalPosition(const float &timestep)
     }
 }
 
+void SpringsObject::ApplyCorrection(const float &timestep)
+{
+    for (int i = 0; i < _particlesCount; i++)
+    {
+        _particles[i]->ApplyCorrection(timestep);
+    }
+}
+
 inline float distance(Point3D<float>* p1, Point3D<float>* p2)
 {
     Point3D<float> dist = *p1;
@@ -263,7 +271,7 @@ int SpringsObject::TestTriangles(ClothTriangle* a, ClothTriangle* b)
         return -1;
     }
 
-//    Point3D<float>& b0P = b->_p[0]->_prevState._position;
+//    Point3ComputeD<float>& b0P = b->_p[0]->_prevState._position;
 //    Point3D<float>& b1P = b->_p[1]->_prevState._position;
 //    Point3D<float>& b2P = b->_p[2]->_prevState._position;
 
@@ -478,12 +486,13 @@ void SpringsObject::ResolveSelfCollision(const float &timestep)
     if (_impactZones.size())
     {
         cout << "zones: " << _impactZones.size() << " ";
-//          this->CombineZones();
+          this->CombineZones();
         cout << _impactZones.size() << endl;
     }
 
     this->ComputeFinalPosition(timestep);
     this->ResolveImpactZones(timestep);
+    this->ApplyCorrection(timestep);
     this->EraseImpactZones();
     //6. compute the final position
     //7.
@@ -569,7 +578,7 @@ void SpringsObject::MergeTriangles(ClothTriangle *a, ClothTriangle *b)
     {
         return;
     }
-    //if (-1 == a->_zoneNum && -1 == b->_zoneNum)
+    if (-1 == a->_zoneNum && -1 == b->_zoneNum)
     {
         int zoneNum = _impactZones.size();
         a->_zoneNum = zoneNum;
@@ -593,7 +602,7 @@ void SpringsObject::MergeTriangles(ClothTriangle *a, ClothTriangle *b)
         _impactZones[zoneNum].push_back(a);
         return;
     }
-    MergeZones(a->_zoneNum, b->_zoneNum);
+//    MergeZones(a->_zoneNum, b->_zoneNum);
 }
 
 void SpringsObject::MergeZones(int a, int b)

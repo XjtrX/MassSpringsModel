@@ -86,3 +86,8 @@ void VerletParticle::ComputeFinalPosition(const float &timestep)
 {
     Particle::ComputeFinalPosition(timestep);
 }
+
+void VerletParticle::ApplyCorrection(const float &timestep)
+{
+    Particle::ApplyCorrection(timestep);
+}

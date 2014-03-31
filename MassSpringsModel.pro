@@ -17,10 +17,10 @@ SOURCES += \
     exact-ccd/expansion.cpp \
     exact-ccd/interval.cpp \
     exact-ccd/rootparitycollisiontest.cpp \
-    Model/ModelSamples/Unresolved/Particle.cpp \
     Model/Collision/PointsManifold.cpp \
     Model/ModelSamples/EulerParticle.cpp \
-    Model/SpringsObjects/EulerSpringsObject.cpp
+    Model/SpringsObjects/EulerSpringsObject.cpp \
+    Model/ModelSamples/Particle.cpp
 
 HEADERS += \
     Model/ModelSamples/Spring.h \
@@ -40,7 +40,6 @@ HEADERS += \
     Model/ModelSamples/RungeKuttaParticle.h \
     Model/SpringsObjects/Scene/Scene.h \
     Model/SpringsObjects/VerletSpringsObject.h \
-    Model/ModelSamples/Unresolved/Particle.h \
     3DMath/ParticleState.h \
     3DMath/ParticlePosition.h \
     Model/SpringsObjects/RungeKuttaSpringsObject.h \
@@ -59,7 +58,8 @@ HEADERS += \
     Model/Collision/PointsManifold.h \
     Model/ModelSamples/EulerParticle.h \
     Model/Interfaces/EulerObject.h \
-    Model/SpringsObjects/EulerSpringsObject.h
+    Model/SpringsObjects/EulerSpringsObject.h \
+    Model/ModelSamples/Particle.h
 
 FORMS += \
     scenewindow.ui

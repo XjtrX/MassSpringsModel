@@ -20,6 +20,7 @@ public:
     Point3D<float> _averageVelocity;
     Point3D<float> _approximateVelocity;
     Point3D<float> _appliedForce;
+    Point3D<float> _dV;
     float _massVolume;
     int _static;
     float _borderRadius;

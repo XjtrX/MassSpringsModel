@@ -1,4 +1,4 @@
-#include "Model/ModelSamples/Unresolved/Particle.h"
+#include "Model/ModelSamples/Particle.h"
 
 Particle::Particle(const Particle &particle)
 {
@@ -7,6 +7,7 @@ Particle::Particle(const Particle &particle)
     this->_averageVelocity = particle._averageVelocity;
     this->_approximateVelocity = particle._approximateVelocity;
     this->_appliedForce = particle._appliedForce;
+    this->_dV = particle._dV;
     this->_massVolume = particle._massVolume;
     this->_borderRadius = particle._borderRadius;
     this->_static = particle._static;

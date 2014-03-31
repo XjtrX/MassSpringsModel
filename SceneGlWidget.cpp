@@ -21,7 +21,7 @@ using namespace std;
 SceneGLWidget::SceneGLWidget(QWidget *parent)
     : QGLWidget(parent)
 {
-    _timeInterval = 1.0 / 25;
+    _timeInterval = 1.0 / 50;
     _repaintDelay = 0.04;
     _timeToFrame = 0;
     _perspectiveAngle = 45;

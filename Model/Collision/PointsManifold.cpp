@@ -53,12 +53,15 @@ void PointsManifold::ComputeAngularMomentum()
 
     _L.set(0, 0, 0);
     _I.setZeros();
+    Matrix3x3D<float> t;
+    t.setZeros();
     for (int i = 0; i < pLen; i++)
     {
         Particle* p = _particles[i];
         _L += Point3D<float>::CrossProduct((p->_prevState._position - _xCM), (p->_approximateVelocity - _vCM)) * p->_massVolume;
 
         _I += (Matrix3x3D<float>::getDelta() * (p->_prevState._position - _xCM).getSquaredLength() - Matrix3x3D<float>::KroneckerProduct(p->_prevState._position - _xCM)) * p->_massVolume;
+        t += Matrix3x3D<float>::InertiaTensor(p->_prevState._position - _xCM, p->_massVolume);
     }
 
     _omega = Matrix3x3D<float>::Mult(_I.getInverse(), _L);
@@ -67,6 +70,7 @@ void PointsManifold::ComputeAngularMomentum()
     _xCM.Print("xCM: ");
     _L.Print("L: ");
     _I.Print("I: ");
+    t.Print("t: ");
     _omega.Print("omega: ");
     cout.flush();
 }
@@ -81,9 +85,9 @@ void PointsManifold::RecalculatePoinsState(const float &timestep)
         Point3D<float> xF = p->_prevState._position - _xCM;
         Point3D<float> xR = p->_prevState._position - _xCM -xF;
 
-        p->_state._position.Print("position: ");
-        p->_state._position = _xCM + _vCM * timestep + xR * cos(angle) + Point3D<float>::CrossProduct(_omega.getUnit() * sin(angle), xR);
-        p->_averageVelocity = (p->_state._position - p->_prevState._position) / timestep;
-        p->_state._position.Print("        : ");
+//        p->_state._position.Print("position: ");
+//        p->_state._position = _xCM + _vCM * timestep + xR * cos(angle) + Point3D<float>::CrossProduct(_omega.getUnit() * sin(angle), xR);
+//        p->_averageVelocity = (p->_state._position - p->_prevState._position) / timestep;
+//        p->_state._position.Print("        : ");
     }
 }

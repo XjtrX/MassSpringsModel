@@ -313,9 +313,9 @@ public:
         A y = p._y;
         A z = p._z;
 
-        res._x = m._a11 * x + m._a21 * y + m._a31 * z;
-        res._y = m._a12 * x + m._a22 * y + m._a32 * z;
-        res._z = m._a13 * x + m._a23 * y + m._a33 * z;
+        res._x = m._a11 * x + m._a12 * y + m._a13 * z;
+        res._y = m._a21 * x + m._a22 * y + m._a23 * z;
+        res._z = m._a31 * x + m._a32 * y + m._a33 * z;
 
         return res;
     }
@@ -356,6 +356,31 @@ public:
         return res;
     }
 
+    static Matrix3x3D InertiaTensor(const Point3D<A>& p, const float mass)
+    {
+        Matrix3x3D res;
+
+        A x = p._x;
+        A y = p._y;
+        A z = p._z;
+
+        res._a11 = (y * y + z * z) * mass;
+        res._a12 = -1 * y * x * mass;
+        res._a13 = -1 * z * x * mass;
+
+//        res._a21 = -1 * x * y * mass;
+        res._a21 = res._a12;
+        res._a22 = (x * x + z * z) * mass;
+        res._a23 = -1 * z * y * mass;
+
+//        res._a31 = -1 * x * z * mass;
+        res._a31 = res._a13;
+//        res._a32 = -1 * y * z * mass;
+        res._a32 = res._a23;
+        res._a33 = (x * x + y * y) * mass;
+
+        return res;
+    }
 };
 
 #endif // MATRIX3X3D_H

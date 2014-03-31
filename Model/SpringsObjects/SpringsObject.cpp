@@ -421,7 +421,7 @@ void SpringsObject::Collide(const float &)
             int testRes = MyTestTriangles(a, b);
             if (1 == testRes)
             {
-//                MergeTriangles(a, b);
+                MergeTriangles(a, b);
             }
             if (1 == testRes)
             {
@@ -474,17 +474,17 @@ void SpringsObject::ResolveSelfCollision(const float &timestep)
     this->Collide(timestep);
     this->ResolveCollisions(timestep);
     //5. check linear trajectories for collusion
-    this->MergingToZones();
+//    this->MergingToZones();
     if (_impactZones.size())
     {
         cout << "zones: " << _impactZones.size() << " ";
-        this->CombineZones();
+//          this->CombineZones();
         cout << _impactZones.size() << endl;
     }
 
+    this->ComputeFinalPosition(timestep);
     this->ResolveImpactZones(timestep);
     this->EraseImpactZones();
-    this->ComputeFinalPosition(timestep);
     //6. compute the final position
     //7.
 }
@@ -569,7 +569,7 @@ void SpringsObject::MergeTriangles(ClothTriangle *a, ClothTriangle *b)
     {
         return;
     }
-    if (-1 == a->_zoneNum && -1 == b->_zoneNum)
+    //if (-1 == a->_zoneNum && -1 == b->_zoneNum)
     {
         int zoneNum = _impactZones.size();
         a->_zoneNum = zoneNum;

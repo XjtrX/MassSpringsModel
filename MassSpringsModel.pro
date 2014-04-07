@@ -20,7 +20,8 @@ SOURCES += \
     Model/Collision/PointsManifold.cpp \
     Model/ModelSamples/EulerParticle.cpp \
     Model/SpringsObjects/EulerSpringsObject.cpp \
-    Model/ModelSamples/Particle.cpp
+    Model/ModelSamples/Particle.cpp \
+    Model/SpringsObjects/Zones.cpp
 
 HEADERS += \
     Model/ModelSamples/Spring.h \

@@ -33,10 +33,10 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     float heigth = 30;
     float massVolume = 1;
     float stiffness = 1;
-    float thickness = 1;
+    float thickness = 2;
     int withBendSpring = 0;
 
-    SpringsObject* rC = new RungeKuttaSpringsObject(cols, rows
+    SpringsObject* rC = new VerletSpringsObject(cols, rows
                                                 , width, heigth
                                                 , massVolume, stiffness, thickness
                                   , Point3D<float>(90, 0, 0)

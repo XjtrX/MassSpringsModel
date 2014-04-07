@@ -31,7 +31,7 @@ void VerletParticle::Inertia(const float &timestep)
     //_appliedForce.set(0, 0, 0);
     */
 //    /*
-    float coeff = 0.02;
+    float coeff = 0.002;
     _state._position += _state._position;
     _state._position *= (1 - coeff / 2);
     _prevState._position *= (1 - coeff);

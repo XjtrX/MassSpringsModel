@@ -83,7 +83,7 @@ void PointsManifold::ComputeAngularMomentum()
 void PointsManifold::RecalculatePoinsState(const float &timestep)
 {
     int pLen  = _particles.size();
-//    float angle = timestep * _omega.getLength();
+    float angle = timestep * _omega.getLength();
 
     Point3D<float> rotationVolume = _omega * 180 / PI * timestep;
     rotationVolume.Print("gradOmega: ");
@@ -95,14 +95,22 @@ void PointsManifold::RecalculatePoinsState(const float &timestep)
         Point3D<float> xF = p->_prevState._position - _xCM;
         Point3D<float> xR = p->_prevState._position - _xCM -xF;
 
-        Point3D<float> diff = MathRotation::RotatePoint(xF, rotMatr);
-        p->_dV = diff;
+//        Point3D<float> diff = MathRotation::RotatePoint(xF, rotMatr);
+//        p->_dV = diff;
+
+
 //        p->_state._position += diff;
 //        diff.Print("diff: ");
 //        p->_state._position.Print("position: ");
 //        p->_state._position = _xCM + _vCM * timestep + xR * cos(angle) + Point3D<float>::CrossProduct(_omega.getUnit() * sin(angle), xR);
 //        p->_averageVelocity = (p->_state._position - p->_prevState._position) / timestep;
 //        p->_state._position.Print("        : ");
+
+        Point3D<float> diff = _xCM + _vCM * timestep + xF + xR * cos(angle) + Point3D<float>::CrossProduct(_omega.getUnit() * sin(angle), xR) - p->_state._position;
+//        xR.Print("xR: ");
+//        xF.Print("xF: ");
+//        diff.Print("diff: ");
+        p->_dV = diff;
     }
     delete[] rotMatr;
 }

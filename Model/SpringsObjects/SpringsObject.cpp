@@ -602,7 +602,7 @@ void SpringsObject::MergeTriangles(ClothTriangle *a, ClothTriangle *b)
         _impactZones[zoneNum].push_back(a);
         return;
     }
-//    MergeZones(a->_zoneNum, b->_zoneNum);
+    MergeZones(a->_zoneNum, b->_zoneNum);
 }
 
 void SpringsObject::MergeZones(int a, int b)

@@ -36,7 +36,8 @@ int Spring::Recalculate()
     float diff = _nLentght - distLen;
 
 
-    float kDamp = 0.0001;
+//    float kDamp = 0.0001;
+    float kDamp = 0.0000;
     Point3D<float> diffVel = _particleA->_state._velocity;
     diffVel -= _particleB->_state._velocity;
 

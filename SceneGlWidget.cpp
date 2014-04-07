@@ -27,16 +27,16 @@ SceneGLWidget::SceneGLWidget(QWidget *parent)
     _perspectiveAngle = 45;
     connect(&_timer, SIGNAL(timeout()), this, SLOT(UpdateScene()));
 
-    int rows = 15;
-    int cols = 15;
+    int rows = 11;
+    int cols = 11;
     float width = 30;
     float heigth = 30;
     float massVolume = 1;
-    float stiffness = 2;
+    float stiffness = 1;
     float thickness = 1;
     int withBendSpring = 0;
 
-    SpringsObject* rC = new VerletSpringsObject(cols, rows
+    SpringsObject* rC = new RungeKuttaSpringsObject(cols, rows
                                                 , width, heigth
                                                 , massVolume, stiffness, thickness
                                   , Point3D<float>(90, 0, 0)
